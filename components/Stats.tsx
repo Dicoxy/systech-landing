@@ -29,53 +29,62 @@ function CountUp({ target, duration = 2 }: { target: number; duration?: number }
 export default function Stats() {
   return (
     <section 
-      className="py-8 border-y border-white/10"
+      className="py-10 md:py-12 border-y border-white/10"
       style={{ backgroundColor: '#12121a' }}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-4xl mx-auto px-6">
         <motion.div
-          className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 text-center"
+          className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span 
-              className="text-3xl md:text-4xl font-bold"
+              className="text-4xl md:text-5xl font-bold"
               style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
             >
-              <CountUp target={50} />+
+              <CountUp target={100} />+
             </span>
-            <span style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}>
-              машин
+            <span 
+              className="text-lg md:text-xl"
+              style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+            >
+              роботов
             </span>
           </div>
 
-          <span className="hidden md:block" style={{ color: '#64748b' }}>•</span>
+          <span className="hidden md:block text-2xl" style={{ color: '#64748b' }}>•</span>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span 
-              className="text-3xl md:text-4xl font-bold"
+              className="text-4xl md:text-5xl font-bold"
               style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
             >
-              <CountUp target={5} />
+              <CountUp target={7} />
             </span>
-            <span style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}>
+            <span 
+              className="text-lg md:text-xl"
+              style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+            >
               городов
             </span>
           </div>
 
-          <span className="hidden md:block" style={{ color: '#64748b' }}>•</span>
+          <span className="hidden md:block text-2xl" style={{ color: '#64748b' }}>•</span>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span 
-              className="text-3xl md:text-4xl font-bold"
+              className="text-4xl md:text-5xl font-bold"
               style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
             >
               ∞
             </span>
-            <span style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}>
+            <span 
+              className="text-lg md:text-xl"
+              style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+            >
               контроль
             </span>
           </div>

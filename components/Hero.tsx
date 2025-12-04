@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import ParticleGrid from '@/components/effects/ParticleGrid'
+import ParticleGrid from './effects/ParticleGrid'
 import { ChevronDown } from 'lucide-react'
 
 export default function Hero() {
@@ -51,21 +51,21 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <motion.h1
-          className="text-4xl md:text-6xl lg:text-8xl font-bold text-white mb-4 tracking-tight"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 tracking-tight"
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 3.5 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           СИСТЕМНЫЕ ТЕХНОЛОГИИ
         </motion.h1>
 
         <motion.p
-          className="text-xl md:text-2xl lg:text-3xl tracking-widest mb-12"
+          className="text-xl md:text-2xl lg:text-3xl tracking-widest mb-16"
           style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 3.7 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
         >
           Роботы. Данные. Контроль.
         </motion.p>
@@ -74,11 +74,11 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-4 justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 3.9 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
         >
           <button
             onClick={scrollToAbout}
-            className="px-8 py-4 font-semibold rounded-lg transition-all duration-300 hover:scale-105"
+            className="px-10 py-4 text-sm md:text-base font-semibold rounded-lg transition-all duration-300 hover:scale-105"
             style={{ 
               background: 'linear-gradient(to right, #00ff88, #3b82f6)',
               color: '#0a0a0f',
@@ -89,7 +89,7 @@ export default function Hero() {
           </button>
           <button
             onClick={scrollToContact}
-            className="px-8 py-4 font-semibold rounded-lg transition-all duration-300"
+            className="px-10 py-4 text-sm md:text-base font-semibold rounded-lg transition-all duration-300 hover:bg-accent-primary/10"
             style={{ 
               border: '1px solid #00ff88',
               color: '#00ff88',
@@ -108,8 +108,8 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ 
-          opacity: { delay: 4.2, duration: 0.5 },
-          y: { delay: 4.2, duration: 2, repeat: Infinity }
+          opacity: { delay: 1, duration: 0.5 },
+          y: { delay: 1, duration: 2, repeat: Infinity }
         }}
       >
         <ChevronDown className="w-8 h-8" style={{ color: '#64748b' }} />

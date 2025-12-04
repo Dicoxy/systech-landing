@@ -12,13 +12,13 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 300),
-      setTimeout(() => setStage(2), 500),
-      setTimeout(() => setStage(3), 1000),
-      setTimeout(() => setStage(4), 1500),
-      setTimeout(() => setStage(5), 2000),
-      setTimeout(() => setStage(6), 2800),
-      setTimeout(() => onComplete(), 3300),
+      setTimeout(() => setStage(1), 200),   // АВТОМАТИЗАЦИЯ
+      setTimeout(() => setStage(2), 600),   // УПРАВЛЕНИЕ
+      setTimeout(() => setStage(3), 1000),  // +
+      setTimeout(() => setStage(4), 1300),  // РОБОТЫ
+      setTimeout(() => setStage(5), 1800),  // RGB split + мерцание
+      setTimeout(() => setStage(6), 2500),  // Fade out начало
+      setTimeout(() => onComplete(), 3000), // Завершение
     ]
     
     return () => timers.forEach(clearTimeout)
@@ -39,84 +39,98 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             }} />
           </div>
 
-          {/* Glitch flash */}
-          {stage === 1 && (
-            <motion.div
-              className="absolute inset-0 bg-white"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 0] }}
-              transition={{ duration: 0.1 }}
-            />
-          )}
-
-          {/* Main text */}
+          {/* Main text container */}
           <div className="relative text-center">
+            {/* АВТОМАТИЗАЦИЯ */}
+            {stage >= 1 && (
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <h1 
+                  className={`text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-wider ${stage === 1 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
+                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                  data-text="АВТОМАТИЗАЦИЯ"
+                >
+                  АВТОМАТИЗАЦИЯ
+                </h1>
+              </motion.div>
+            )}
+
+            {/* УПРАВЛЕНИЕ */}
             {stage >= 2 && (
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
+                className="mt-1"
+                initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.1 }}
+                transition={{ duration: 0.15 }}
               >
                 <h1 
-                  className={`text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-wider ${stage === 2 ? 'glitch' : ''} ${stage === 4 ? 'rgb-split flicker' : ''}`}
+                  className={`text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-wider ${stage === 2 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
                   style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  data-text="СИСТЕМНЫЕ"
+                  data-text="УПРАВЛЕНИЕ"
                 >
-                  СИСТЕМНЫЕ
+                  УПРАВЛЕНИЕ
                 </h1>
               </motion.div>
             )}
 
+            {/* + */}
             {stage >= 3 && (
               <motion.div
-                className="mt-2"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.1 }}
+                className="my-4"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
               >
-                <h1 
-                  className={`text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-wider ${stage === 3 ? 'glitch' : ''} ${stage === 4 ? 'rgb-split flicker' : ''}`}
-                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  data-text="ТЕХНОЛОГИИ"
+                <span 
+                  className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider"
+                  style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
                 >
-                  ТЕХНОЛОГИИ
-                </h1>
+                  +
+                </span>
               </motion.div>
             )}
 
-            {stage >= 5 && (
-              <motion.p
-                className="mt-8 text-xl md:text-2xl tracking-widest"
-                style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+            {/* РОБОТЫ */}
+            {stage >= 4 && (
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.15 }}
               >
-                Роботы. Данные. Контроль.
-              </motion.p>
+                <h1 
+                  className={`text-4xl md:text-6xl lg:text-7xl font-bold tracking-wider ${stage === 4 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
+                  style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
+                  data-text="РОБОТЫ"
+                >
+                  РОБОТЫ
+                </h1>
+              </motion.div>
             )}
           </div>
 
           {/* Skip button */}
           <motion.button
             onClick={onComplete}
-            className="absolute bottom-8 right-8 text-sm transition-colors"
+            className="absolute bottom-8 right-8 text-sm transition-colors hover:text-white/70"
             style={{ color: 'rgba(255,255,255,0.3)', fontFamily: "'Inter', sans-serif" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Skip →
+            Пропустить →
           </motion.button>
 
           {/* Accent line */}
-          {stage >= 4 && (
+          {stage >= 5 && (
             <motion.div
               className="absolute bottom-0 left-0 h-1"
               style={{ backgroundColor: '#00ff88' }}
               initial={{ width: 0 }}
               animate={{ width: '100%' }}
-              transition={{ duration: 1.3, ease: 'easeOut' }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
             />
           )}
         </motion.div>
