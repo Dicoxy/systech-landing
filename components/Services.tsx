@@ -25,19 +25,19 @@ export default function Services() {
   return (
     <section 
       id="services" 
-      className="relative py-32 overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       style={{ backgroundColor: '#0a0a0f' }}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 py-32 w-full">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           <h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             Услуги
@@ -88,24 +88,24 @@ export default function Services() {
                 />
 
                 <div 
-                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-colors duration-500"
+                  className="w-16 h-16 rounded-xl flex items-center justify-center mb-8 transition-colors duration-500"
                   style={{ backgroundColor: 'rgba(0, 255, 136, 0.1)' }}
                 >
                   <service.icon 
-                    className="w-7 h-7 transition-colors duration-500" 
+                    className="w-8 h-8 transition-colors duration-500" 
                     style={{ color: '#00ff88' }} 
                   />
                 </div>
 
                 <h3 
-                  className="text-xl md:text-2xl font-bold text-white mb-4"
+                  className="text-2xl md:text-2xl font-bold text-white mb-4"
                   style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                 >
                   {service.title}
                 </h3>
 
                 <p 
-                  className="text-base leading-relaxed"
+                  className="text-base md:text-lg leading-relaxed"
                   style={{ color: '#64748b', fontFamily: "'Inter', sans-serif" }}
                 >
                   {service.description}

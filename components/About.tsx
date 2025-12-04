@@ -6,7 +6,7 @@ export default function About() {
   return (
     <section 
       id="about" 
-      className="relative py-32 overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       style={{ backgroundColor: '#0a0a0f' }}
     >
       {/* Gradient orb */}
@@ -18,7 +18,7 @@ export default function About() {
         }} 
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 py-32 text-center">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -26,15 +26,15 @@ export default function About() {
           transition={{ duration: 0.8 }}
         >
           <h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             О нас
           </h2>
           
-          <div className="space-y-6">
+          <div className="space-y-8">
             <p 
-              className="text-lg md:text-xl lg:text-2xl leading-relaxed"
+              className="text-xl md:text-2xl lg:text-3xl leading-relaxed"
               style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
             >
               <span style={{ color: '#00ff88' }}>Петербург.</span> Команда инженеров, которые верят, 
@@ -42,7 +42,7 @@ export default function About() {
             </p>
             
             <p 
-              className="text-lg md:text-xl leading-relaxed"
+              className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto"
               style={{ color: '#64748b', fontFamily: "'Inter', sans-serif" }}
             >
               Мы создаём программные решения для управления флотами роботов, 
@@ -51,7 +51,7 @@ export default function About() {
             </p>
 
             <p 
-              className="text-lg md:text-xl leading-relaxed"
+              className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto"
               style={{ color: '#64748b', fontFamily: "'Inter', sans-serif" }}
             >
               Наш флагман — система <span style={{ color: '#00ff88' }}>MARS</span>. 

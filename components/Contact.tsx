@@ -13,26 +13,25 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: интеграция с n8n или email
     window.location.href = `mailto:info@systech-team.ru?subject=Заявка от ${formData.name}&body=${formData.message}`
   }
 
   return (
     <section 
       id="contact" 
-      className="relative py-32 overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden"
       style={{ backgroundColor: '#12121a' }}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 py-32 w-full">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           <h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             Готовы говорить?
@@ -45,7 +44,7 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-20 max-w-6xl mx-auto">
           {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -131,17 +130,17 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-center"
           >
-            <div className="space-y-8">
-              <div className="flex items-start gap-5">
+            <div className="space-y-10">
+              <div className="flex items-start gap-6">
                 <div 
-                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                  className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: 'rgba(0, 255, 136, 0.1)' }}
                 >
-                  <Mail className="w-6 h-6" style={{ color: '#00ff88' }} />
+                  <Mail className="w-7 h-7" style={{ color: '#00ff88' }} />
                 </div>
                 <div>
                   <h4 
-                    className="text-lg font-semibold text-white mb-1"
+                    className="text-xl font-semibold text-white mb-2"
                     style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                   >
                     Email
@@ -156,16 +155,16 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-5">
+              <div className="flex items-start gap-6">
                 <div 
-                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                  className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: 'rgba(0, 255, 136, 0.1)' }}
                 >
-                  <Phone className="w-6 h-6" style={{ color: '#00ff88' }} />
+                  <Phone className="w-7 h-7" style={{ color: '#00ff88' }} />
                 </div>
                 <div>
                   <h4 
-                    className="text-lg font-semibold text-white mb-1"
+                    className="text-xl font-semibold text-white mb-2"
                     style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                   >
                     Телефон
@@ -180,16 +179,16 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-5">
+              <div className="flex items-start gap-6">
                 <div 
-                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                  className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: 'rgba(0, 255, 136, 0.1)' }}
                 >
-                  <MapPin className="w-6 h-6" style={{ color: '#00ff88' }} />
+                  <MapPin className="w-7 h-7" style={{ color: '#00ff88' }} />
                 </div>
                 <div>
                   <h4 
-                    className="text-lg font-semibold text-white mb-1"
+                    className="text-xl font-semibold text-white mb-2"
                     style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                   >
                     Адрес
