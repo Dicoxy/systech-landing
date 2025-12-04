@@ -51,8 +51,8 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <motion.h1
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-4 tracking-tight"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight"
+          style={{ fontFamily: "'Space Grotesk', sans-serif", marginBottom: '16px' }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -61,8 +61,8 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
-          className="text-xl md:text-2xl lg:text-3xl tracking-widest mb-32"
-          style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+          className="text-xl md:text-2xl lg:text-3xl tracking-widest"
+          style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif", marginBottom: '120px' }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
