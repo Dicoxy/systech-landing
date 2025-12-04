@@ -32,64 +32,62 @@ export default function Stats() {
       className="py-10 md:py-12 border-y border-white/10"
       style={{ backgroundColor: '#12121a' }}
     >
-      <div className="max-w-4xl mx-auto px-6">
-        <motion.div
-          className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="flex items-center gap-3">
-            <span 
-              className="text-4xl md:text-5xl font-bold"
-              style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              <CountUp target={100} />+
-            </span>
-            <span 
-              className="text-lg md:text-xl"
-              style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
-            >
-              роботов
-            </span>
-          </div>
+      <motion.div
+        className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="flex items-center gap-3">
+          <span 
+            className="text-4xl md:text-5xl font-bold"
+            style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
+          >
+            <CountUp target={100} />+
+          </span>
+          <span 
+            className="text-lg md:text-xl"
+            style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+          >
+            роботов
+          </span>
+        </div>
 
-          <span className="hidden md:block text-2xl" style={{ color: '#64748b' }}>•</span>
+        <span className="hidden md:block text-2xl" style={{ color: '#64748b' }}>•</span>
 
-          <div className="flex items-center gap-3">
-            <span 
-              className="text-4xl md:text-5xl font-bold"
-              style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              <CountUp target={7} />
-            </span>
-            <span 
-              className="text-lg md:text-xl"
-              style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
-            >
-              городов
-            </span>
-          </div>
+        <div className="flex items-center gap-3">
+          <span 
+            className="text-4xl md:text-5xl font-bold"
+            style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
+          >
+            <CountUp target={7} />
+          </span>
+          <span 
+            className="text-lg md:text-xl"
+            style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+          >
+            городов
+          </span>
+        </div>
 
-          <span className="hidden md:block text-2xl" style={{ color: '#64748b' }}>•</span>
+        <span className="hidden md:block text-2xl" style={{ color: '#64748b' }}>•</span>
 
-          <div className="flex items-center gap-3">
-            <span 
-              className="text-4xl md:text-5xl font-bold"
-              style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              ∞
-            </span>
-            <span 
-              className="text-lg md:text-xl"
-              style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
-            >
-              контроль
-            </span>
-          </div>
-        </motion.div>
-      </div>
+        <div className="flex items-center gap-3">
+          <span 
+            className="text-4xl md:text-5xl font-bold"
+            style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
+          >
+            ∞
+          </span>
+          <span 
+            className="text-lg md:text-xl"
+            style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+          >
+            контроль
+          </span>
+        </div>
+      </motion.div>
     </section>
   )
 }

@@ -12,13 +12,13 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
   useEffect(() => {
     const timers = [
-      setTimeout(() => setStage(1), 200),   // АВТОМАТИЗАЦИЯ
-      setTimeout(() => setStage(2), 600),   // УПРАВЛЕНИЕ
-      setTimeout(() => setStage(3), 1000),  // +
-      setTimeout(() => setStage(4), 1300),  // РОБОТЫ
-      setTimeout(() => setStage(5), 1800),  // RGB split + мерцание
-      setTimeout(() => setStage(6), 2500),  // Fade out начало
-      setTimeout(() => onComplete(), 3000), // Завершение
+      setTimeout(() => setStage(1), 300),   // АВТОМАТИЗАЦИЯ
+      setTimeout(() => setStage(2), 900),   // УПРАВЛЕНИЕ
+      setTimeout(() => setStage(3), 1500),  // +
+      setTimeout(() => setStage(4), 1900),  // РОБОТЫ
+      setTimeout(() => setStage(5), 2500),  // RGB split + мерцание
+      setTimeout(() => setStage(6), 3300),  // Fade out начало
+      setTimeout(() => onComplete(), 3800), // Завершение
     ]
     
     return () => timers.forEach(clearTimeout)
@@ -41,7 +41,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
           {/* Main text container */}
           <div className="relative text-center">
-            {/* АВТОМАТИЗАЦИЯ */}
+            {/* АВТОМАТИЗАЦИЯ - средний размер */}
             {stage >= 1 && (
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -49,7 +49,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 transition={{ duration: 0.15 }}
               >
                 <h1 
-                  className={`text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-wider ${stage === 1 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
+                  className={`text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-wider ${stage === 1 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
                   style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                   data-text="АВТОМАТИЗАЦИЯ"
                 >
@@ -58,7 +58,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               </motion.div>
             )}
 
-            {/* УПРАВЛЕНИЕ */}
+            {/* УПРАВЛЕНИЕ - меньше */}
             {stage >= 2 && (
               <motion.div
                 className="mt-1"
@@ -79,13 +79,13 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             {/* + */}
             {stage >= 3 && (
               <motion.div
-                className="my-4"
+                className="my-3"
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
               >
                 <span 
-                  className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider"
+                  className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-wider"
                   style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
                 >
                   +
@@ -93,7 +93,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               </motion.div>
             )}
 
-            {/* РОБОТЫ */}
+            {/* РОБОТЫ - самый большой */}
             {stage >= 4 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -101,7 +101,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 transition={{ duration: 0.15 }}
               >
                 <h1 
-                  className={`text-4xl md:text-6xl lg:text-7xl font-bold tracking-wider ${stage === 4 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
+                  className={`text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider ${stage === 4 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
                   style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
                   data-text="РОБОТЫ"
                 >
@@ -130,7 +130,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               style={{ backgroundColor: '#00ff88' }}
               initial={{ width: 0 }}
               animate={{ width: '100%' }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
             />
           )}
         </motion.div>
