@@ -61,7 +61,7 @@ export default function Hero() {
         </motion.h1>
 
         <motion.p
-          className="text-xl md:text-2xl lg:text-3xl tracking-widest mb-16"
+          className="text-xl md:text-2xl lg:text-3xl tracking-widest mb-24"
           style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
