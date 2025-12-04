@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 SYSTECH Landing
 
-## Getting Started
+Лендинг компании "Системные Технологии" в стиле **Love, Death & Robots**.
 
-First, run the development server:
+![Status](https://img.shields.io/badge/status-in%20development-yellow)
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
+![Tailwind](https://img.shields.io/badge/Tailwind-v4-38bdf8)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Demo
+
+**Dev:** http://89.125.2.35:3002  
+**Prod:** https://systech-team.ru (скоро)
+
+---
+
+## ✨ Особенности
+
+### Анимации
+- **Magnetic buttons** — кнопки притягиваются к курсору
+- **Spotlight** — свет следует за мышью
+- **Scramble text** — буквы декодируются как в Matrix
+- **3D Tilt** — карточки наклоняются к курсору
+- **Live data** — цифры меняются в реальном времени
+- **Glitch effect** — RGB split на иконках
+- **Glow inputs** — подсветка полей при фокусе
+
+### Заставка
+Интро в стиле Love, Death & Robots:
+```
+АВТОМАТИЗАЦИЯ
+УПРАВЛЕНИЕ
+    +
+ РОБОТЫ
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Технологии
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js 16** (App Router, Turbopack)
+- **React 19**
+- **Tailwind CSS v4**
+- **Framer Motion**
+- **TypeScript**
+- **Lucide Icons**
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Структура
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+├── components/
+│   ├── IntroAnimation.tsx
+│   ├── Header.tsx
+│   ├── Hero.tsx
+│   ├── Stats.tsx
+│   ├── About.tsx
+│   ├── Mars.tsx
+│   ├── Services.tsx
+│   ├── Contact.tsx
+│   ├── Footer.tsx
+│   └── effects/
+│       └── ParticleGrid.tsx
+└── knowledge-base/
+    ├── CLAUDE.md
+    ├── architecture.md
+    ├── design.md
+    ├── content.md
+    ├── intro-animation.md
+    └── tasks.md
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🚀 Запуск
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+# Установка
+npm install
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Разработка
+npm run dev
+
+# Production build
+npm run build
+npm run start
+```
+
+---
+
+## 📋 Прогресс
+
+- [x] День 1: Подготовка, Knowledge Base
+- [x] День 2: Каркас, Заставка, Hero, Stats
+- [x] День 3: About, MARS, Services, Contact, Анимации
+- [ ] День 4: Контент, новые анимации
+- [ ] День 5: SEO, Деплой на продакшн
+- [ ] День 6: Маскоты
+
+---
+
+## 👥 Команда
+
+Разработано методом **Vibe Coding** — человек + AI (Claude).
+
+---
+
+© 2025 ООО «Системные Технологии»
