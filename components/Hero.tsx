@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import ParticleGrid from './effects/ParticleGrid'
 import { ChevronDown } from 'lucide-react'
@@ -47,34 +47,21 @@ function MagneticButton({
       onClick={onClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ x: xSpring, y: ySpring }}
+      style={{ 
+        x: xSpring, 
+        y: ySpring,
+        background: isPrimary ? 'linear-gradient(to right, #00ff88, #3b82f6)' : 'transparent',
+        border: isPrimary ? 'none' : '1px solid #00ff88',
+        color: isPrimary ? '#0a0a0f' : '#00ff88',
+        fontFamily: "'Space Grotesk', sans-serif"
+      }}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       className={`px-10 py-4 text-base font-semibold rounded-lg transition-colors duration-300 ${
-        isPrimary ? '' : 'hover:bg-white/5'
+        !isPrimary ? 'hover:bg-white/5' : ''
       }`}
     >
-      <span 
-        className="relative z-10"
-        style={{ 
-          color: isPrimary ? '#0a0a0f' : '#00ff88',
-          fontFamily: "'Space Grotesk', sans-serif"
-        }}
-      >
-        {children}
-      </span>
-      {isPrimary && (
-        <motion.div 
-          className="absolute inset-0 rounded-lg -z-0"
-          style={{ background: 'linear-gradient(to right, #00ff88, #3b82f6)' }}
-        />
-      )}
-      {!isPrimary && (
-        <div 
-          className="absolute inset-0 rounded-lg"
-          style={{ border: '1px solid #00ff88' }}
-        />
-      )}
+      {children}
     </motion.button>
   )
 }
