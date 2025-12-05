@@ -4,11 +4,9 @@ import { useState } from 'react'
 import IntroAnimation from '@/components/IntroAnimation'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
-import Stats from '@/components/Stats'
-import About from '@/components/About'
+import AboutBento from '@/components/AboutBento'
 import Mars from '@/components/Mars'
 import Services from '@/components/Services'
-import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
 export default function Home() {
@@ -24,11 +22,9 @@ export default function Home() {
       
       <main>
         <Hero />
-        <Stats />
-        <About />
+        <AboutBento />
         <Mars />
         <Services />
-        <Contact />
       </main>
       
       <Footer />

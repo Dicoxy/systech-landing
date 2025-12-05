@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
@@ -11,7 +11,7 @@ const navItems = [
   { name: 'Контакты', href: '#contact' },
 ]
 
-export default function Header() {
+function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -33,34 +33,73 @@ export default function Header() {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled 
-          ? 'backdrop-blur-md border-b border-white/10' 
-          : 'bg-transparent'
-      }`}
-      style={{ 
-        backgroundColor: isScrolled ? 'rgba(10, 10, 15, 0.9)' : 'transparent' 
+      className="fixed left-0 right-0 z-40 flex justify-center"
+      style={{
+        top: '20px',
+        padding: '0 24px',
       }}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, delay: 3.3 }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, delay: 4.3 }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      {/* Pill-shaped container - 2/3 width on desktop */}
+      <div 
+        style={{ 
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingLeft: '24px',
+          paddingRight: '24px',
+          paddingTop: '12px',
+          paddingBottom: '12px',
+          borderRadius: '9999px',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          backgroundColor: 'rgba(18, 18, 26, 0.85)',
+          // 2/3 ширины экрана для desktop, 100% для mobile
+          width: '100%',
+          maxWidth: '900px', // ~2/3 от 1400px контейнера
+          boxShadow: isScrolled 
+            ? '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.05) inset' 
+            : '0 4px 24px rgba(0, 0, 0, 0.2)',
+          transition: 'box-shadow 0.3s ease',
+        }}
+      >
         <a 
           href="#" 
-          className="text-2xl font-bold text-white transition-colors"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          style={{ 
+            fontSize: '18px',
+            fontWeight: 700,
+            color: 'white',
+            fontFamily: "'Space Grotesk', sans-serif",
+            textDecoration: 'none',
+            transition: 'color 0.2s ease',
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#00ff88'}
+          onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
         >
           SYSTECH
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="hidden md:flex">
           {navItems.map((item) => (
             <button
               key={item.name}
               onClick={() => scrollToSection(item.href)}
-              className="text-sm tracking-wide transition-colors"
-              style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+              style={{ 
+                fontSize: '14px',
+                letterSpacing: '0.01em',
+                color: '#94a3b8',
+                fontFamily: "'Inter', sans-serif",
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px 0',
+                transition: 'color 0.2s ease',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = 'white'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#94a3b8'}
             >
               {item.name}
             </button>
@@ -68,27 +107,51 @@ export default function Header() {
         </nav>
 
         <button
-          className="md:hidden text-white"
+          className="md:hidden"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          style={{ color: 'white', background: 'none', border: 'none', cursor: 'pointer' }}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
+      {/* Mobile menu */}
       {isMobileMenuOpen && (
         <motion.div
-          className="md:hidden border-t border-white/10"
-          style={{ backgroundColor: '#12121a' }}
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
+          style={{
+            position: 'absolute',
+            top: '100%',
+            marginTop: '8px',
+            left: '24px',
+            right: '24px',
+            borderRadius: '16px',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            backgroundColor: 'rgba(18, 18, 26, 0.95)',
+            backdropFilter: 'blur(20px)',
+            overflow: 'hidden',
+          }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
         >
-          <nav className="flex flex-col p-6 gap-4">
+          <nav style={{ display: 'flex', flexDirection: 'column', padding: '12px', gap: '4px' }}>
             {navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="text-lg text-left transition-colors"
-                style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
+                style={{ 
+                  fontSize: '14px',
+                  textAlign: 'left',
+                  padding: '12px 16px',
+                  borderRadius: '8px',
+                  color: '#94a3b8',
+                  fontFamily: "'Inter', sans-serif",
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s ease',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
               >
                 {item.name}
               </button>
@@ -99,3 +162,5 @@ export default function Header() {
     </motion.header>
   )
 }
+
+export default memo(Header)

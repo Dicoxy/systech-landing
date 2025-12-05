@@ -82,22 +82,23 @@ export default function About() {
         }} 
       />
 
-      <div ref={containerRef} className="relative z-10 max-w-4xl mx-auto px-6 py-32">
+      {/* Centered narrow container */}
+      <div ref={containerRef} className="relative z-10 w-full max-w-3xl mx-auto px-6 py-32">
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5 }}
         >
           <h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-12 text-center"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
             {isInView && <ScrambleText text="О нас" delay={0} />}
           </h2>
           
-          <div className="space-y-8">
+          <div className="space-y-8 text-center">
             <p 
-              className="text-xl md:text-2xl lg:text-3xl leading-relaxed"
+              className="text-xl md:text-2xl leading-relaxed"
               style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
             >
               <span style={{ color: '#00ff88' }}>

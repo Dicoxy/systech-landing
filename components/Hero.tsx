@@ -1,12 +1,13 @@
 'use client'
 
 import { motion, useMotionValue, useSpring } from 'framer-motion'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, memo } from 'react'
 import ParticleGrid from './effects/ParticleGrid'
+import DecorativeCode from './effects/DecorativeCode'
 import { ChevronDown } from 'lucide-react'
 
 // Magnetic Button Component
-function MagneticButton({ 
+const MagneticButton = memo(function MagneticButton({ 
   children, 
   onClick, 
   variant = 'primary' 
@@ -41,6 +42,61 @@ function MagneticButton({
 
   const isPrimary = variant === 'primary'
 
+  if (!isPrimary) {
+    return (
+      <motion.button
+        ref={ref}
+        onClick={onClick}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ 
+          x: xSpring, 
+          y: ySpring,
+          position: 'relative',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+        }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <div 
+          style={{
+            position: 'relative',
+            borderRadius: '10px',
+            padding: '2px',
+            background: 'linear-gradient(90deg, #00ff88, #3b82f6, #00ff88, #3b82f6)',
+            backgroundSize: '300% 100%',
+            animation: 'borderGradient 3s linear infinite',
+          }}
+        >
+          <div 
+            style={{
+              backgroundColor: '#0a0a0f',
+              borderRadius: '8px',
+              paddingLeft: '32px',
+              paddingRight: '32px',
+              paddingTop: '16px',
+              paddingBottom: '16px',
+            }}
+          >
+            <span 
+              style={{ 
+                color: '#00ff88',
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: '14px',
+                fontWeight: 500,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {children}
+            </span>
+          </div>
+        </div>
+      </motion.button>
+    )
+  }
+
   return (
     <motion.button
       ref={ref}
@@ -50,27 +106,38 @@ function MagneticButton({
       style={{ 
         x: xSpring, 
         y: ySpring,
-        background: isPrimary ? 'linear-gradient(to right, #00ff88, #3b82f6)' : 'transparent',
-        border: isPrimary ? 'none' : '1px solid #00ff88',
-        color: isPrimary ? '#0a0a0f' : '#00ff88',
-        fontFamily: "'Space Grotesk', sans-serif"
+        background: 'linear-gradient(to right, #00ff88, #3b82f6)',
+        border: 'none',
+        borderRadius: '10px',
+        paddingLeft: '32px',
+        paddingRight: '32px',
+        paddingTop: '16px',
+        paddingBottom: '16px',
+        cursor: 'pointer',
+        boxShadow: '0 4px 20px rgba(0, 255, 136, 0.2)',
       }}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className={`px-10 py-4 text-base font-semibold rounded-lg transition-colors duration-300 ${
-        !isPrimary ? 'hover:bg-white/5' : ''
-      }`}
+      whileHover={{ scale: 1.02, boxShadow: '0 8px 30px rgba(0, 255, 136, 0.3)' }}
+      whileTap={{ scale: 0.98 }}
     >
-      {children}
+      <span 
+        style={{ 
+          color: '#0a0a0f',
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontSize: '14px',
+          fontWeight: 500,
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {children}
+      </span>
     </motion.button>
   )
-}
+})
 
-export default function Hero() {
+function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   
-  // Spotlight effect
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return
@@ -96,116 +163,164 @@ export default function Hero() {
   return (
     <section 
       ref={containerRef}
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      style={{
+        position: 'relative',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        scrollSnapAlign: 'start',
+        scrollSnapStop: 'always',
+      }}
     >
       {/* Background gradient */}
       <div 
-        className="absolute inset-0" 
         style={{ 
+          position: 'absolute',
+          inset: 0,
           background: 'linear-gradient(to bottom, #0a0a0f, #12121a, #0a0a0f)' 
         }} 
       />
       
-      {/* Spotlight effect - follows cursor */}
+      {/* Spotlight effect */}
       <div 
-        className="absolute pointer-events-none transition-opacity duration-300"
         style={{ 
+          position: 'absolute',
           left: mousePosition.x - 300,
           top: mousePosition.y - 300,
           width: 600,
           height: 600,
-          background: 'radial-gradient(circle, rgba(0,255,136,0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(0,255,136,0.02) 0%, transparent 70%)',
           borderRadius: '50%',
+          pointerEvents: 'none',
+          transition: 'opacity 0.3s',
         }} 
       />
       
       {/* Gradient orbs */}
       <div 
-        className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full"
         style={{ 
-          backgroundColor: 'rgba(0, 255, 136, 0.1)',
+          position: 'absolute',
+          top: '25%',
+          left: '25%',
+          width: '384px',
+          height: '384px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(0, 255, 136, 0.08)',
           filter: 'blur(150px)'
         }} 
       />
       <div 
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full"
         style={{ 
-          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          position: 'absolute',
+          bottom: '25%',
+          right: '25%',
+          width: '384px',
+          height: '384px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(59, 130, 246, 0.08)',
           filter: 'blur(150px)'
         }} 
       />
       
       {/* Particle grid */}
       <ParticleGrid />
+      
+      {/* Decorative code */}
+      <DecorativeCode side="left" />
+      <DecorativeCode side="right" />
 
-      {/* Content - Grid layout for mascot space */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-5 gap-8 items-center">
-        
-        {/* Text content - 3 columns */}
-        <div className="lg:col-span-3 text-center lg:text-left">
-          <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight"
-            style={{ fontFamily: "'Space Grotesk', sans-serif", marginBottom: '16px' }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            СИСТЕМНЫЕ ТЕХНОЛОГИИ
-          </motion.h1>
-
-          <motion.p
-            className="text-xl md:text-2xl lg:text-3xl tracking-widest"
-            style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif", marginBottom: '60px' }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            Роботы. Данные. Контроль.
-          </motion.p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <MagneticButton onClick={scrollToAbout} variant="primary">
-              Узнать больше
-            </MagneticButton>
-            <MagneticButton onClick={scrollToContact} variant="secondary">
-              Связаться
-            </MagneticButton>
-          </motion.div>
-        </div>
-
-        {/* Mascot space - 2 columns */}
-        <motion.div 
-          className="lg:col-span-2 hidden lg:flex items-center justify-center"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+      {/* Content */}
+      <div 
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          width: '100%',
+          maxWidth: '900px',
+          margin: '0 auto',
+          padding: '0 24px',
+          textAlign: 'center',
+        }}
+      >
+        <motion.h1
+          style={{ 
+            fontSize: 'clamp(40px, 8vw, 80px)',
+            fontWeight: 700,
+            color: 'white',
+            fontFamily: "'Space Grotesk', sans-serif",
+            marginBottom: '0',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.1,
+          }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {/* Placeholder for mascot - "Наблюдатель" */}
-          <div 
-            className="w-80 h-80 rounded-full flex items-center justify-center"
-            style={{ 
-              border: '2px dashed rgba(0,255,136,0.3)',
-              backgroundColor: 'rgba(0,255,136,0.02)'
-            }}
-          >
-            <span 
-              className="text-sm"
-              style={{ color: 'rgba(0,255,136,0.4)', fontFamily: "'Inter', sans-serif" }}
-            >
-              Маскот: Наблюдатель
-            </span>
-          </div>
+          СИСТЕМНЫЕ
+        </motion.h1>
+        
+        <motion.h1
+          style={{ 
+            fontSize: 'clamp(40px, 8vw, 80px)',
+            fontWeight: 700,
+            color: 'white',
+            fontFamily: "'Space Grotesk', sans-serif",
+            marginBottom: '24px',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.1,
+          }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          ТЕХНОЛОГИИ
+        </motion.h1>
+
+        <motion.p
+          style={{ 
+            fontSize: 'clamp(18px, 3vw, 28px)',
+            color: '#94a3b8',
+            fontFamily: "'Inter', sans-serif",
+            marginBottom: '48px',
+            letterSpacing: '0.2em',
+          }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          Роботы. Данные. Контроль.
+        </motion.p>
+
+        <motion.div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '16px',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <MagneticButton onClick={scrollToAbout} variant="primary">
+            Узнать больше
+          </MagneticButton>
+          <MagneticButton onClick={scrollToContact} variant="secondary">
+            Связаться
+          </MagneticButton>
         </motion.div>
       </div>
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        style={{
+          position: 'absolute',
+          bottom: '32px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ 
@@ -213,8 +328,17 @@ export default function Hero() {
           y: { delay: 1, duration: 2, repeat: Infinity }
         }}
       >
-        <ChevronDown className="w-8 h-8" style={{ color: '#64748b' }} />
+        <ChevronDown style={{ width: '32px', height: '32px', color: '#64748b' }} />
       </motion.div>
+      
+      <style jsx global>{`
+        @keyframes borderGradient {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 300% 50%; }
+        }
+      `}</style>
     </section>
   )
 }
+
+export default memo(Hero)

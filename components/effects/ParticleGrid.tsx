@@ -5,6 +5,8 @@ import { useEffect, useRef } from 'react'
 interface Particle {
   x: number
   y: number
+  baseX: number
+  baseY: number
   vx: number
   vy: number
 }
@@ -21,8 +23,10 @@ export default function ParticleGrid() {
 
     let animationId: number
     let particles: Particle[] = []
-    let mouseX = 0
-    let mouseY = 0
+    let mouseX = -1000
+    let mouseY = -1000
+    const attractionRadius = 200
+    const connectionDistance = 150
 
     const resize = () => {
       canvas.width = window.innerWidth
@@ -32,14 +36,18 @@ export default function ParticleGrid() {
 
     const initParticles = () => {
       particles = []
-      const particleCount = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000))
+      const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 12000))
       
       for (let i = 0; i < particleCount; i++) {
+        const x = Math.random() * canvas.width
+        const y = Math.random() * canvas.height
         particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
+          x,
+          y,
+          baseX: x,
+          baseY: y,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
         })
       }
     }
@@ -48,43 +56,72 @@ export default function ParticleGrid() {
       mouseX = e.clientX
       mouseY = e.clientY
     }
+    
+    const handleMouseLeave = () => {
+      mouseX = -1000
+      mouseY = -1000
+    }
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       particles.forEach((particle, i) => {
+        // Base movement
         particle.x += particle.vx
         particle.y += particle.vy
 
+        // Bounce off edges
         if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
         if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
 
+        // Attraction to cursor (instead of repulsion)
         const dx = mouseX - particle.x
         const dy = mouseY - particle.y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < 150) {
-          const force = (150 - dist) / 150
-          particle.x -= dx * force * 0.02
-          particle.y -= dy * force * 0.02
+        
+        if (dist < attractionRadius && dist > 0) {
+          const force = (attractionRadius - dist) / attractionRadius
+          // Притягиваем к курсору
+          particle.x += dx * force * 0.03
+          particle.y += dy * force * 0.03
         }
 
+        // Draw particle
+        const isNearCursor = dist < attractionRadius
+        const particleOpacity = isNearCursor ? 0.8 : 0.4
+        const particleSize = isNearCursor ? 3 : 2
+        
         ctx.beginPath()
-        ctx.arc(particle.x, particle.y, 2, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(0, 255, 136, 0.5)'
+        ctx.arc(particle.x, particle.y, particleSize, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(0, 255, 136, ${particleOpacity})`
         ctx.fill()
 
+        // Draw connections
         particles.forEach((other, j) => {
-          if (i === j) return
-          const dx = particle.x - other.x
-          const dy = particle.y - other.y
-          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (i >= j) return
           
-          if (dist < 120) {
+          const connDx = particle.x - other.x
+          const connDy = particle.y - other.y
+          const connDist = Math.sqrt(connDx * connDx + connDy * connDy)
+          
+          if (connDist < connectionDistance) {
+            // Check if both particles are near cursor
+            const otherDx = mouseX - other.x
+            const otherDy = mouseY - other.y
+            const otherDistToCursor = Math.sqrt(otherDx * otherDx + otherDy * otherDy)
+            
+            const bothNearCursor = dist < attractionRadius && otherDistToCursor < attractionRadius
+            
+            // Усиление связей около курсора
+            const baseOpacity = 0.15 * (1 - connDist / connectionDistance)
+            const opacity = bothNearCursor ? baseOpacity * 3 : baseOpacity
+            const lineWidth = bothNearCursor ? 1.5 : 1
+            
             ctx.beginPath()
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(other.x, other.y)
-            ctx.strokeStyle = `rgba(0, 255, 136, ${0.2 * (1 - dist / 120)})`
-            ctx.lineWidth = 1
+            ctx.strokeStyle = `rgba(0, 255, 136, ${Math.min(opacity, 0.6)})`
+            ctx.lineWidth = lineWidth
             ctx.stroke()
           }
         })
@@ -96,11 +133,13 @@ export default function ParticleGrid() {
     resize()
     window.addEventListener('resize', resize)
     window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseleave', handleMouseLeave)
     draw()
 
     return () => {
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseleave', handleMouseLeave)
       cancelAnimationFrame(animationId)
     }
   }, [])
@@ -109,7 +148,7 @@ export default function ParticleGrid() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 pointer-events-none"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.7 }}
     />
   )
 }

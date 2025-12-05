@@ -1,232 +1,350 @@
 'use client'
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { Bot, Brain, Cog } from 'lucide-react'
+import { Monitor, FileText, Brain } from 'lucide-react'
 
-// 3D Tilt Service Card with Glitch
-function ServiceCard({ 
-  icon: Icon, 
-  title, 
-  description, 
-  index,
-  mascotName 
-}: { 
-  icon: any
-  title: string
-  description: string
-  index: number
-  mascotName: string
-}) {
-  const ref = useRef<HTMLDivElement>(null)
+const services = [
+  {
+    icon: Monitor,
+    title: 'Системы управления и мониторинга',
+    description: 'Разработка комплексных решений для контроля и управления оборудованием, флотами роботов и производственными процессами в реальном времени.',
+  },
+  {
+    icon: FileText,
+    title: 'Автоматизация документооборота',
+    description: 'Внедрение систем электронного документооборота, автоматизация рутинных процессов, интеграция с существующими бизнес-системами.',
+  },
+  {
+    icon: Brain,
+    title: 'Интеграция ИИ в бизнес-процессы',
+    description: 'Применение искусственного интеллекта для оптимизации принятия решений, анализа данных и повышения эффективности бизнеса.',
+  },
+]
+
+function ServiceCard({ service, index, isInView }: { service: typeof services[0], index: number, isInView: boolean }) {
   const [isHovered, setIsHovered] = useState(false)
+  const Icon = service.icon
   
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  
-  const springConfig = { damping: 20, stiffness: 300 }
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [8, -8]), springConfig)
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-8, 8]), springConfig)
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return
-    const rect = ref.current.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
-    x.set((e.clientX - centerX) / rect.width)
-    y.set((e.clientY - centerY) / rect.height)
-  }
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-    setIsHovered(false)
-  }
-
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
+      initial={{ opacity: 0, x: 50 }}
+      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.6, delay: 0.8 + index * 0.3 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        position: 'relative',
+        padding: '32px',
+        borderRadius: '16px',
+        backgroundColor: isHovered ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.01)',
+        border: `1px solid ${isHovered ? 'rgba(0, 255, 136, 0.3)' : 'rgba(255,255,255,0.06)'}`,
+        cursor: 'pointer',
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        overflow: 'hidden',
+      }}
     >
-      <motion.div
-        ref={ref}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={handleMouseLeave}
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        className="h-full"
-      >
-        <div 
-          className="relative h-full p-8 rounded-2xl transition-all duration-300"
-          style={{ 
-            backgroundColor: '#12121a',
-            border: '1px solid rgba(255,255,255,0.1)',
-            transform: 'translateZ(20px)'
-          }}
-        >
-          {/* Gradient border on hover */}
-          <motion.div 
-            className="absolute inset-0 rounded-2xl pointer-events-none"
-            style={{ 
-              background: 'linear-gradient(45deg, #00ff88, #3b82f6)',
-              padding: '1px',
-              WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-              WebkitMaskComposite: 'xor',
-              maskComposite: 'exclude'
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          />
-
-          {/* Glow */}
-          <motion.div 
-            className="absolute -inset-2 rounded-2xl -z-10"
-            style={{ 
-              background: 'linear-gradient(45deg, rgba(0,255,136,0.15), rgba(59,130,246,0.15))',
-              filter: 'blur(20px)'
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          />
-
-          {/* Icon with glitch on hover */}
-          <div 
-            className="w-16 h-16 rounded-xl flex items-center justify-center mb-8 relative"
-            style={{ backgroundColor: 'rgba(0, 255, 136, 0.1)' }}
-          >
-            <motion.div
-              animate={isHovered ? {
-                x: [0, -2, 2, -2, 0],
-                filter: [
-                  'hue-rotate(0deg)',
-                  'hue-rotate(90deg)',
-                  'hue-rotate(-90deg)',
-                  'hue-rotate(45deg)',
-                  'hue-rotate(0deg)'
-                ]
-              } : {}}
-              transition={{ duration: 0.3 }}
-            >
-              <Icon className="w-8 h-8" style={{ color: '#00ff88' }} />
-            </motion.div>
-            
-            {/* Glitch shadows */}
-            {isHovered && (
-              <>
-                <Icon 
-                  className="w-8 h-8 absolute"
-                  style={{ color: '#ff0040', opacity: 0.5, transform: 'translate(-2px, 0)' }} 
-                />
-                <Icon 
-                  className="w-8 h-8 absolute"
-                  style={{ color: '#00ffff', opacity: 0.5, transform: 'translate(2px, 0)' }} 
-                />
-              </>
-            )}
+      {/* Hover gradient background */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: isHovered 
+          ? 'radial-gradient(ellipse at top left, rgba(0, 255, 136, 0.08) 0%, transparent 50%)'
+          : 'none',
+        transition: 'all 0.4s ease',
+        pointerEvents: 'none',
+      }} />
+      
+      {/* Content */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        {/* Icon + Title row */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '16px' }}>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            borderRadius: '12px',
+            backgroundColor: isHovered ? 'rgba(0, 255, 136, 0.1)' : 'rgba(255,255,255,0.05)',
+            border: `1px solid ${isHovered ? 'rgba(0, 255, 136, 0.3)' : 'rgba(255,255,255,0.08)'}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.4s ease',
+            flexShrink: 0,
+          }}>
+            <Icon 
+              size={24} 
+              color={isHovered ? '#00ff88' : '#64748b'}
+              strokeWidth={1.5}
+              style={{ transition: 'color 0.4s ease' }}
+            />
           </div>
-
-          <h3 
-            className="text-2xl font-bold text-white mb-4"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
-            {title}
+          <h3 style={{
+            fontSize: '18px',
+            fontWeight: 600,
+            color: isHovered ? '#ffffff' : '#e2e8f0',
+            fontFamily: "'Space Grotesk', sans-serif",
+            margin: 0,
+            lineHeight: 1.4,
+            transition: 'color 0.4s ease',
+          }}>
+            {service.title}
           </h3>
-
-          <p 
-            className="text-base md:text-lg leading-relaxed mb-8"
-            style={{ color: '#64748b', fontFamily: "'Inter', sans-serif" }}
-          >
-            {description}
-          </p>
-
-          {/* Mascot placeholder */}
-          <div 
-            className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto"
-            style={{ 
-              border: '2px dashed rgba(0,255,136,0.2)',
-              backgroundColor: 'rgba(0,255,136,0.02)'
-            }}
-          >
-            <span 
-              className="text-[10px] text-center"
-              style={{ color: 'rgba(0,255,136,0.3)', fontFamily: "'Inter', sans-serif" }}
-            >
-              {mascotName}
-            </span>
-          </div>
         </div>
-      </motion.div>
+        
+        {/* Description */}
+        <p style={{
+          fontSize: '14px',
+          color: '#64748b',
+          fontFamily: "'Inter', sans-serif",
+          margin: 0,
+          lineHeight: 1.7,
+          paddingLeft: '64px',
+        }}>
+          {service.description}
+        </p>
+        
+        {/* Plus icon */}
+        <div style={{
+          position: 'absolute',
+          bottom: '0',
+          right: '0',
+          width: '32px',
+          height: '32px',
+          borderRadius: '8px',
+          backgroundColor: isHovered ? 'rgba(0, 255, 136, 0.1)' : 'rgba(255,255,255,0.03)',
+          border: `1px solid ${isHovered ? 'rgba(0, 255, 136, 0.2)' : 'rgba(255,255,255,0.06)'}`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'all 0.4s ease',
+        }}>
+          <span style={{ 
+            color: isHovered ? '#00ff88' : '#475569', 
+            fontSize: '18px',
+            transition: 'color 0.4s ease',
+          }}>+</span>
+        </div>
+      </div>
     </motion.div>
   )
 }
 
-const services = [
-  {
-    icon: Bot,
-    title: 'Управление роботами',
-    description: 'Мониторинг, телеметрия и контроль флотов автономных роботов любого масштаба. От одного робота до сотни.',
-    mascotName: 'Дрон'
-  },
-  {
-    icon: Brain,
-    title: 'Интеграция AI',
-    description: 'Внедрение искусственного интеллекта в существующие бизнес-процессы. Автоматизация принятия решений.',
-    mascotName: 'Мозг'
-  },
-  {
-    icon: Cog,
-    title: 'Автоматизация',
-    description: 'Разработка систем автоматизации под ключ. От анализа процессов до внедрения и поддержки.',
-    mascotName: 'Шестерня'
-  },
-]
-
 export default function Services() {
-  return (
-    <section 
-      id="services" 
-      className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ backgroundColor: '#0a0a0f' }}
-    >
-      <div className="max-w-7xl mx-auto px-6 py-32 w-full">
-        <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
-            Услуги
-          </h2>
-          <p 
-            className="text-lg md:text-xl max-w-2xl mx-auto"
-            style={{ color: '#64748b', fontFamily: "'Inter', sans-serif" }}
-          >
-            Три направления, одна цель — сделать ваш бизнес эффективнее
-          </p>
-        </motion.div>
+  const sectionRef = useRef(null)
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
 
-        <div className="grid md:grid-cols-3 gap-8" style={{ perspective: '1000px' }}>
-          {services.map((service, index) => (
-            <ServiceCard 
-              key={index}
-              icon={service.icon}
-              title={service.title}
-              description={service.description}
-              index={index}
-              mascotName={service.mascotName}
-            />
-          ))}
+  return (
+    <>
+      {/* Separator line */}
+      <div 
+        style={{
+          width: '100%',
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(0, 255, 136, 0.4) 50%, transparent 100%)',
+        }}
+      />
+      
+      <section 
+        ref={sectionRef}
+        id="services" 
+        style={{ 
+          minHeight: '100vh',
+          backgroundColor: '#0a0a0f',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: '120px 40px',
+        }}
+      >
+        {/* Background gradient */}
+        <div 
+          style={{ 
+            position: 'absolute',
+            top: '20%',
+            left: '5%',
+            width: '600px',
+            height: '600px',
+            borderRadius: '50%',
+            background: 'radial-gradient(ellipse, rgba(0, 255, 136, 0.05) 0%, transparent 60%)',
+            pointerEvents: 'none',
+          }}
+        />
+
+        <div style={{ 
+          position: 'relative', 
+          zIndex: 10, 
+          maxWidth: '1100px', 
+          margin: '0 auto',
+        }}>
+          
+          {/* Layout: Title on left, Cards on right with connecting lines */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '300px 1fr',
+            gap: '60px',
+            alignItems: 'start',
+          }}>
+            
+            {/* Left side: Title + Lines origin */}
+            <div style={{ position: 'relative', paddingTop: '20px' }}>
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6 }}
+                style={{
+                  display: 'inline-block',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  letterSpacing: '0.2em',
+                  color: '#00ff88',
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  marginBottom: '16px',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Направления
+              </motion.span>
+              
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                style={{
+                  fontSize: 'clamp(32px, 4vw, 44px)',
+                  fontWeight: 700,
+                  color: '#ffffff',
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  margin: '0 0 24px 0',
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.1,
+                }}
+              >
+                Услуги
+              </motion.h2>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                style={{
+                  fontSize: '15px',
+                  color: '#64748b',
+                  fontFamily: "'Inter', sans-serif",
+                  margin: 0,
+                  lineHeight: 1.7,
+                }}
+              >
+                Комплексные IT-решения для современного бизнеса
+              </motion.p>
+
+              {/* Lines connecting to cards */}
+              <svg 
+                style={{ 
+                  position: 'absolute',
+                  top: '160px',
+                  left: '100%',
+                  width: '100px',
+                  height: '450px',
+                  overflow: 'visible',
+                }}
+              >
+                {/* Line 1 - straight to first card icon */}
+                <motion.path
+                  d="M 0,0 L 80,0 Q 100,0 100,20 L 100,56"
+                  fill="none"
+                  stroke="#00ff88"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                />
+                <motion.circle
+                  cx="100"
+                  cy="56"
+                  r="4"
+                  fill="#00ff88"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 0.9 }}
+                />
+                
+                {/* Line 2 - curves down to second card icon */}
+                <motion.path
+                  d="M 0,0 L 50,0 Q 70,0 70,20 L 70,175 Q 70,195 90,195 L 100,195"
+                  fill="none"
+                  stroke="#3b82f6"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                />
+                <motion.circle
+                  cx="100"
+                  cy="195"
+                  r="4"
+                  fill="#3b82f6"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 1.3 }}
+                />
+                
+                {/* Line 3 - curves further down to third card icon */}
+                <motion.path
+                  d="M 0,0 L 20,0 Q 40,0 40,20 L 40,315 Q 40,335 60,335 L 100,335"
+                  fill="none"
+                  stroke="#f59e0b"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                  transition={{ duration: 1.0, delay: 0.8 }}
+                />
+                <motion.circle
+                  cx="100"
+                  cy="335"
+                  r="4"
+                  fill="#f59e0b"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 1.7 }}
+                />
+                
+                {/* Origin point */}
+                <motion.circle
+                  cx="0"
+                  cy="0"
+                  r="6"
+                  fill="#0a0a0f"
+                  stroke="#00ff88"
+                  strokeWidth="2"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                />
+              </svg>
+            </div>
+
+            {/* Right side: Cards */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {services.map((service, index) => (
+                <ServiceCard 
+                  key={index} 
+                  service={service} 
+                  index={index}
+                  isInView={isInView}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }

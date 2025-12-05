@@ -11,14 +11,15 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [stage, setStage] = useState(0)
 
   useEffect(() => {
+    // Увеличенные паузы: 800ms между словами
     const timers = [
       setTimeout(() => setStage(1), 300),   // АВТОМАТИЗАЦИЯ
-      setTimeout(() => setStage(2), 900),   // УПРАВЛЕНИЕ
-      setTimeout(() => setStage(3), 1500),  // +
-      setTimeout(() => setStage(4), 1900),  // РОБОТЫ
-      setTimeout(() => setStage(5), 2500),  // RGB split + мерцание
-      setTimeout(() => setStage(6), 3300),  // Fade out начало
-      setTimeout(() => onComplete(), 3800), // Завершение
+      setTimeout(() => setStage(2), 1100),  // УПРАВЛЕНИЕ (+800ms)
+      setTimeout(() => setStage(3), 1900),  // + (+800ms)
+      setTimeout(() => setStage(4), 2500),  // РОБОТЫ (+600ms)
+      setTimeout(() => setStage(5), 3300),  // RGB split + мерцание
+      setTimeout(() => setStage(6), 4300),  // Fade out начало
+      setTimeout(() => onComplete(), 4800), // Завершение
     ]
     
     return () => timers.forEach(clearTimeout)

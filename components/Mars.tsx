@@ -1,282 +1,319 @@
 'use client'
 
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { useRef, useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { Activity, Battery, MapPin, Wifi } from 'lucide-react'
-
-// 3D Tilt Card Component
-function TiltCard({ children, className = '' }: { children: React.ReactNode, className?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  
-  const springConfig = { damping: 20, stiffness: 300 }
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [10, -10]), springConfig)
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-10, 10]), springConfig)
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return
-    const rect = ref.current.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
-    x.set((e.clientX - centerX) / rect.width)
-    y.set((e.clientY - centerY) / rect.height)
-  }
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// Animated Counter - simulates live data
-function LiveCounter({ base, variance }: { base: number, variance: number }) {
-  const [value, setValue] = useState(base)
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setValue(base + Math.floor(Math.random() * variance) - variance/2)
-    }, 2000)
-    return () => clearInterval(interval)
-  }, [base, variance])
-  
-  return <motion.span key={value} initial={{ opacity: 0.5 }} animate={{ opacity: 1 }}>{value}</motion.span>
-}
 
 export default function Mars() {
   const features = [
-    { icon: Activity, text: 'Телеметрия в реальном времени' },
-    { icon: Battery, text: 'Мониторинг батареи и расходников' },
-    { icon: MapPin, text: 'Отслеживание локации' },
-    { icon: Wifi, text: 'Статус онлайн/офлайн' },
+    { icon: Activity, label: 'Телеметрия в реальном времени' },
+    { icon: Battery, label: 'Мониторинг батареи и расходников' },
+    { icon: MapPin, label: 'Отслеживание локации' },
+    { icon: Wifi, label: 'Статус онлайн/офлайн' },
   ]
 
   return (
-    <section 
-      id="mars" 
-      className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ backgroundColor: '#12121a' }}
-    >
-      <div className="max-w-7xl mx-auto px-6 py-32 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+    <>
+      {/* Separator line */}
+      <div 
+        style={{
+          width: '100%',
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(0, 255, 136, 0.4) 50%, transparent 100%)',
+        }}
+      />
+      
+      <section 
+        id="mars" 
+        style={{ 
+          minHeight: '100vh',
+          backgroundColor: '#0a0a0f',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: '80px 40px',
+        }}
+      >
+        {/* Background gradient */}
+        <div 
+          style={{ 
+            position: 'absolute',
+            top: '30%',
+            right: '10%',
+            width: '800px',
+            height: '600px',
+            borderRadius: '50%',
+            background: 'radial-gradient(ellipse, rgba(0, 255, 136, 0.08) 0%, transparent 60%)',
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Two column layout */}
+        <div style={{ 
+          position: 'relative', 
+          zIndex: 10, 
+          maxWidth: '1300px', 
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '60px',
+          alignItems: 'center',
+        }}>
           
-          {/* Left: Text */}
+          {/* Left column - Text */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
-            <span 
-              className="text-sm font-semibold tracking-widest mb-4 block"
-              style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
+            <motion.span
+              style={{
+                display: 'inline-block',
+                fontSize: '13px',
+                fontWeight: 600,
+                letterSpacing: '0.2em',
+                color: '#00ff88',
+                fontFamily: "'Space Grotesk', sans-serif",
+                marginBottom: '16px',
+                textTransform: 'uppercase',
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
             >
-              ФЛАГМАНСКИЙ ПРОДУКТ
-            </span>
+              Флагманский продукт
+            </motion.span>
             
-            <h2 
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            <motion.h2
+              style={{
+                fontSize: 'clamp(36px, 5vw, 56px)',
+                fontWeight: 700,
+                color: '#ffffff',
+                fontFamily: "'Space Grotesk', sans-serif",
+                margin: '0 0 20px 0',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
             >
               MARS
-            </h2>
+            </motion.h2>
             
-            <p 
-              className="text-xl md:text-2xl mb-10"
-              style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
-            >
-              Система мониторинга и управления флотами автономных роботов
-            </p>
-
-            <div className="space-y-5">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  className="flex items-center gap-4"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div 
-                    className="w-12 h-12 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: 'rgba(0, 255, 136, 0.1)' }}
-                  >
-                    <feature.icon className="w-6 h-6" style={{ color: '#00ff88' }} />
-                  </div>
-                  <span 
-                    className="text-lg md:text-xl"
-                    style={{ color: '#94a3b8', fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {feature.text}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Mascot placeholder */}
-            <motion.div 
-              className="mt-12 hidden lg:block"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+            <motion.p
+              style={{
+                fontSize: '18px',
+                color: '#94a3b8',
+                fontFamily: "'Inter', sans-serif",
+                margin: '0 0 32px 0',
+                lineHeight: 1.7,
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
             >
-              <div 
-                className="w-40 h-40 rounded-2xl flex items-center justify-center"
-                style={{ 
-                  border: '2px dashed rgba(0,255,136,0.3)',
-                  backgroundColor: 'rgba(0,255,136,0.02)'
-                }}
-              >
-                <span 
-                  className="text-xs text-center px-2"
-                  style={{ color: 'rgba(0,255,136,0.4)', fontFamily: "'Inter', sans-serif" }}
-                >
-                  Маскот: Оператор
-                </span>
-              </div>
+              Система мониторинга и управления флотами автономных роботов. Телеметрия, отслеживание расходников и полный контроль в реальном времени.
+            </motion.p>
+
+            {/* Features list */}
+            <motion.div
+              style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              {features.map((feature, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{
+                    width: '36px',
+                    height: '36px',
+                    borderRadius: '10px',
+                    backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                    <feature.icon size={18} color="#00ff88" strokeWidth={2} />
+                  </div>
+                  <span style={{ fontSize: '15px', color: '#e2e8f0', fontFamily: "'Inter', sans-serif" }}>
+                    {feature.label}
+                  </span>
+                </div>
+              ))}
             </motion.div>
           </motion.div>
 
-          {/* Right: 3D Tilt Dashboard */}
+          {/* Right column - Dashboard cards */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="perspective-1000"
           >
-            <TiltCard>
-              <div
-                className="relative rounded-2xl overflow-hidden"
-                style={{ 
-                  backgroundColor: '#1a1a24',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  transform: 'translateZ(50px)'
-                }}
-              >
-                {/* Mock dashboard */}
-                <div className="p-8">
-                  <div className="flex items-center gap-2 mb-8">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#ff5f57' }} />
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#febc2e' }} />
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#28c840' }} />
-                    <span className="ml-4 text-xs" style={{ color: '#64748b' }}>mars.systech-team.ru</span>
+            {/* Main dashboard card */}
+            <motion.div
+              style={{
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 40px 80px -20px rgba(0, 0, 0, 0.6), 0 0 40px -10px rgba(0, 255, 136, 0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+              }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              {/* Browser bar */}
+              <div style={{
+                backgroundColor: '#1a1a24',
+                padding: '12px 16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                borderBottom: '1px solid rgba(255,255,255,0.06)',
+              }}>
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#ff5f57' }} />
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#febc2e' }} />
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#28c840' }} />
+                <div style={{ marginLeft: '12px', padding: '4px 12px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '4px', fontSize: '11px', color: '#64748b' }}>
+                  mars.systech-team.ru
+                </div>
+                <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#00ff88', animation: 'pulse 2s infinite' }} />
+                  <span style={{ fontSize: '10px', color: '#00ff88' }}>Live</span>
+                </div>
+              </div>
+              
+              {/* Dashboard content */}
+              <div style={{ backgroundColor: '#0f1419', padding: '20px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+                  <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'linear-gradient(135deg, #00ff88, #00cc6a)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <span style={{ color: '#000', fontWeight: 700, fontSize: '12px' }}>M</span>
                   </div>
-                  
-                  {/* Dashboard content with live data */}
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-4">
-                      <div 
-                        className="h-8 rounded"
-                        style={{ backgroundColor: 'rgba(0, 255, 136, 0.1)', width: '60%' }}
-                      />
-                      <div 
-                        className="w-3 h-3 rounded-full animate-pulse"
-                        style={{ backgroundColor: '#00ff88' }}
-                      />
-                      <span className="text-xs" style={{ color: '#00ff88' }}>Live</span>
-                    </div>
-                    
-                    <div className="grid grid-cols-3 gap-4">
-                      <div 
-                        className="h-28 rounded-lg p-4"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
-                      >
-                        <div className="text-xs mb-2" style={{ color: '#64748b' }}>Батарея</div>
-                        <div 
-                          className="text-3xl font-bold"
-                          style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
-                        >
-                          <LiveCounter base={94} variance={8} />%
-                        </div>
-                      </div>
-                      <div 
-                        className="h-28 rounded-lg p-4"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
-                      >
-                        <div className="text-xs mb-2" style={{ color: '#64748b' }}>Онлайн</div>
-                        <div 
-                          className="text-3xl font-bold"
-                          style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
-                        >
-                          <LiveCounter base={98} variance={6} />
-                        </div>
-                      </div>
-                      <div 
-                        className="h-28 rounded-lg p-4"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
-                      >
-                        <div className="text-xs mb-2" style={{ color: '#64748b' }}>Пробег</div>
-                        <div 
-                          className="text-3xl font-bold"
-                          style={{ color: '#00ff88', fontFamily: "'Space Grotesk', sans-serif" }}
-                        >
-                          <LiveCounter base={127} variance={20} />
-                          <span className="text-lg">км</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div 
-                      className="h-48 rounded-lg relative overflow-hidden"
-                      style={{ backgroundColor: 'rgba(255,255,255,0.03)' }}
-                    >
-                      {/* Animated chart lines */}
-                      <svg className="w-full h-full p-6">
-                        <motion.path
-                          d="M 0 100 Q 80 70 160 85 T 320 55 T 480 70 T 640 40"
-                          stroke="#00ff88"
-                          strokeWidth="2"
-                          fill="none"
-                          opacity="0.6"
-                          initial={{ pathLength: 0 }}
-                          whileInView={{ pathLength: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 2, ease: "easeOut" }}
-                        />
-                        <motion.path
-                          d="M 0 120 Q 80 100 160 95 T 320 80 T 480 90 T 640 75"
-                          stroke="#3b82f6"
-                          strokeWidth="2"
-                          fill="none"
-                          opacity="0.6"
-                          initial={{ pathLength: 0 }}
-                          whileInView={{ pathLength: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 2, delay: 0.3, ease: "easeOut" }}
-                        />
-                      </svg>
-                    </div>
+                  <span style={{ marginLeft: '10px', color: '#fff', fontSize: '14px', fontWeight: 600 }}>MARS Dashboard</span>
+                </div>
+                
+                {/* Stats */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '16px' }}>
+                  <div style={{ padding: '14px', backgroundColor: 'rgba(0,255,136,0.05)', borderRadius: '8px', border: '1px solid rgba(0,255,136,0.1)' }}>
+                    <div style={{ color: '#00ff88', fontSize: '24px', fontWeight: 700 }}>127</div>
+                    <div style={{ color: '#64748b', fontSize: '10px' }}>Роботов онлайн</div>
+                  </div>
+                  <div style={{ padding: '14px', backgroundColor: 'rgba(59,130,246,0.05)', borderRadius: '8px', border: '1px solid rgba(59,130,246,0.1)' }}>
+                    <div style={{ color: '#3b82f6', fontSize: '24px', fontWeight: 700 }}>98%</div>
+                    <div style={{ color: '#64748b', fontSize: '10px' }}>Эффективность</div>
+                  </div>
+                  <div style={{ padding: '14px', backgroundColor: 'rgba(245,158,11,0.05)', borderRadius: '8px', border: '1px solid rgba(245,158,11,0.1)' }}>
+                    <div style={{ color: '#f59e0b', fontSize: '24px', fontWeight: 700 }}>5</div>
+                    <div style={{ color: '#64748b', fontSize: '10px' }}>Городов</div>
                   </div>
                 </div>
-
-                {/* Glow effect */}
-                <div 
-                  className="absolute -inset-1 rounded-2xl -z-10"
-                  style={{ 
-                    background: 'linear-gradient(45deg, rgba(0,255,136,0.2), rgba(59,130,246,0.2))',
-                    filter: 'blur(30px)'
-                  }}
-                />
+                
+                {/* Robot list */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+                  {['Viggo SC50', 'Viggo SC80', 'PUDU CC1', 'PUDU T300'].map((name, i) => (
+                    <div key={i} style={{ padding: '8px 10px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: i === 2 ? '#f59e0b' : '#00ff88' }} />
+                      <span style={{ color: '#94a3b8', fontSize: '11px' }}>{name}</span>
+                      <span style={{ marginLeft: 'auto', color: '#64748b', fontSize: '10px' }}>{85 + i * 3}%</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </TiltCard>
+            </motion.div>
+
+            {/* Two smaller cards side by side */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              {/* Robot detail card */}
+              <motion.div
+                style={{
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.5)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#12141a',
+                  padding: '16px',
+                }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#00ff88' }} />
+                  <span style={{ color: '#fff', fontSize: '13px', fontWeight: 600 }}>Viggo SC50plus</span>
+                  <span style={{ marginLeft: 'auto', padding: '2px 6px', backgroundColor: 'rgba(0,255,136,0.1)', borderRadius: '4px', color: '#00ff88', fontSize: '9px' }}>Online</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                      <span style={{ color: '#64748b', fontSize: '11px' }}>Батарея</span>
+                      <span style={{ color: '#00ff88', fontSize: '11px', fontWeight: 600 }}>95%</span>
+                    </div>
+                    <div style={{ height: '4px', backgroundColor: 'rgba(0,255,136,0.1)', borderRadius: '2px' }}>
+                      <div style={{ width: '95%', height: '100%', backgroundColor: '#00ff88', borderRadius: '2px' }} />
+                    </div>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b', fontSize: '11px' }}>Пробег</span>
+                    <span style={{ color: '#fff', fontSize: '11px' }}>118 км</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#64748b', fontSize: '11px' }}>Убрано</span>
+                    <span style={{ color: '#fff', fontSize: '11px' }}>2,450 м²</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Chart card */}
+              <motion.div
+                style={{
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.5)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#12141a',
+                  padding: '16px',
+                }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+                  <span style={{ color: '#fff', fontSize: '13px', fontWeight: 600 }}>Эффективность</span>
+                  <span style={{ color: '#64748b', fontSize: '9px' }}>7 дней</span>
+                </div>
+                {/* Chart */}
+                <div style={{ height: '80px', position: 'relative' }}>
+                  <svg width="100%" height="100%" viewBox="0 0 200 70" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#00ff88" stopOpacity="0.3" />
+                        <stop offset="100%" stopColor="#00ff88" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M0,60 Q30,55 50,45 T100,35 T150,25 T200,15 L200,70 L0,70 Z" fill="url(#chartGrad)" />
+                    <path d="M0,60 Q30,55 50,45 T100,35 T150,25 T200,15" fill="none" stroke="#00ff88" strokeWidth="2" />
+                  </svg>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px' }}>
+                  {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d, i) => (
+                    <span key={i} style={{ color: i === 6 ? '#00ff88' : '#64748b', fontSize: '9px' }}>{d}</span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
