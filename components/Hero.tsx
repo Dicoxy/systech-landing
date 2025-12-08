@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useMotionValue, useSpring } from 'framer-motion'
-import { useRef, useEffect, useState, memo } from 'react'
+import { useRef, memo } from 'react'
 import ParticleGrid from './effects/ParticleGrid'
 import DecorativeCode from './effects/DecorativeCode'
 import { ChevronDown } from 'lucide-react'
@@ -136,21 +136,6 @@ const MagneticButton = memo(function MagneticButton({
 
 function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return
-      const rect = containerRef.current.getBoundingClientRect()
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-      })
-    }
-    
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
 
   const scrollToAbout = () => {
     document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })
@@ -175,29 +160,14 @@ function Hero() {
       }}
     >
       {/* Background gradient */}
-      <div 
-        style={{ 
+      <div
+        style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom, #0a0a0f, #12121a, #0a0a0f)' 
-        }} 
+          background: 'linear-gradient(to bottom, #0a0a0f, #12121a, #0a0a0f)'
+        }}
       />
-      
-      {/* Spotlight effect */}
-      <div 
-        style={{ 
-          position: 'absolute',
-          left: mousePosition.x - 300,
-          top: mousePosition.y - 300,
-          width: 600,
-          height: 600,
-          background: 'radial-gradient(circle, rgba(0,255,136,0.02) 0%, transparent 70%)',
-          borderRadius: '50%',
-          pointerEvents: 'none',
-          transition: 'opacity 0.3s',
-        }} 
-      />
-      
+
       {/* Gradient orbs */}
       <div 
         style={{ 
