@@ -5,6 +5,7 @@ import IntroAnimation from '@/components/IntroAnimation'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import AboutBento from '@/components/AboutBento'
+import ProductsCarousel from '@/components/ProductsCarousel'
 import Mars from '@/components/Mars'
 import Stroidnevnik from '@/components/Stroidnevnik'
 import Skif from '@/components/Skif'
@@ -25,9 +26,11 @@ export default function Home() {
       <main>
         <Hero />
         <AboutBento />
-        <Mars />
-        <Stroidnevnik />
-        <Skif />
+        <ProductsCarousel>
+          <Mars />
+          <Stroidnevnik />
+          <Skif />
+        </ProductsCarousel>
         <Services />
       </main>
       
