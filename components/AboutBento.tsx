@@ -1,7 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
 
 // Компонент счётчика с анимацией
 function CountUp({
@@ -15,16 +15,20 @@ function CountUp({
   duration?: number
   delay?: number
 }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.5 })
   const [count, setCount] = useState(0)
   const [hasStarted, setHasStarted] = useState(false)
 
   useEffect(() => {
+    if (!isInView) return
+
     const startTimeout = setTimeout(() => {
       setHasStarted(true)
     }, delay * 1000)
 
     return () => clearTimeout(startTimeout)
-  }, [delay])
+  }, [isInView, delay])
 
   useEffect(() => {
     if (!hasStarted) return
@@ -48,9 +52,9 @@ function CountUp({
   }, [hasStarted, target, duration])
 
   return (
-    <>
+    <span ref={ref}>
       {count}{suffix}
-    </>
+    </span>
   )
 }
 
