@@ -48,7 +48,7 @@ export default function Footer() {
                 fontFamily: "'Space Grotesk', sans-serif",
                 marginBottom: '16px',
               }}>
-                <span style={{ color: '#00ff88' }}>SYS</span>TECH
+                <span style={{ color: '#00ff88' }}>Сис</span>Тех
               </h3>
               <p style={{
                 fontSize: '14px',

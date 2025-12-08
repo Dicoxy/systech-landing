@@ -79,7 +79,7 @@ function Header() {
           onMouseEnter={(e) => e.currentTarget.style.color = '#00ff88'}
           onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
         >
-          SYSTECH
+          СисТех
         </a>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="hidden md:flex">
