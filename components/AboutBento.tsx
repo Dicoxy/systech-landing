@@ -1,6 +1,58 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+
+// Компонент счётчика с анимацией
+function CountUp({
+  target,
+  suffix = '',
+  duration = 1.5,
+  delay = 0
+}: {
+  target: number
+  suffix?: string
+  duration?: number
+  delay?: number
+}) {
+  const [count, setCount] = useState(0)
+  const [hasStarted, setHasStarted] = useState(false)
+
+  useEffect(() => {
+    const startTimeout = setTimeout(() => {
+      setHasStarted(true)
+    }, delay * 1000)
+
+    return () => clearTimeout(startTimeout)
+  }, [delay])
+
+  useEffect(() => {
+    if (!hasStarted) return
+
+    const totalSteps = 50 // количество шагов анимации
+    const increment = target / totalSteps
+    const stepDuration = (duration * 1000) / totalSteps
+    let currentStep = 0
+
+    const timer = setInterval(() => {
+      currentStep++
+      if (currentStep <= totalSteps) {
+        setCount(Math.floor(increment * currentStep))
+      } else {
+        setCount(target)
+        clearInterval(timer)
+      }
+    }, stepDuration)
+
+    return () => clearInterval(timer)
+  }, [hasStarted, target, duration])
+
+  return (
+    <>
+      {count}{suffix}
+    </>
+  )
+}
 
 export default function AboutBento() {
   return (
@@ -202,8 +254,8 @@ export default function AboutBento() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true, amount: 0.5 }}
               >
-                <div 
-                  style={{ 
+                <div
+                  style={{
                     fontSize: '48px',
                     fontWeight: 700,
                     color: '#00ff88',
@@ -211,7 +263,7 @@ export default function AboutBento() {
                     marginBottom: '8px',
                   }}
                 >
-                  100+
+                  <CountUp target={100} suffix="+" duration={1.5} delay={0.4} />
                 </div>
                 <div 
                   style={{ 
@@ -240,8 +292,8 @@ export default function AboutBento() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true, amount: 0.5 }}
               >
-                <div 
-                  style={{ 
+                <div
+                  style={{
                     fontSize: '48px',
                     fontWeight: 700,
                     color: '#00ff88',
@@ -249,7 +301,7 @@ export default function AboutBento() {
                     marginBottom: '8px',
                   }}
                 >
-                  5
+                  <CountUp target={5} duration={1.0} delay={2.0} />
                 </div>
                 <div 
                   style={{ 
