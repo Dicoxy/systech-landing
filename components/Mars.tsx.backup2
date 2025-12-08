@@ -1,0 +1,344 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { Activity, Battery, MapPin, Wifi } from 'lucide-react'
+
+export default function Mars() {
+  const features = [
+    { icon: Activity, label: 'Телеметрия в реальном времени' },
+    { icon: Battery, label: 'Мониторинг батареи и расходников' },
+    { icon: MapPin, label: 'Отслеживание локации' },
+    { icon: Wifi, label: 'Статус онлайн/офлайн' },
+  ]
+
+  return (
+    <>
+      {/* Separator line */}
+      <div 
+        style={{
+          width: '100%',
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(0, 255, 136, 0.4) 50%, transparent 100%)',
+        }}
+      />
+      
+      <section 
+        id="mars" 
+        style={{ 
+          minHeight: '100vh',
+          backgroundColor: '#0a0a0f',
+          position: 'relative',
+          overflow: 'hidden',
+          padding: '100px 20px 80px',
+        }}
+      >
+        {/* Background gradient */}
+        <div 
+          style={{ 
+            position: 'absolute',
+            top: '20%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '1600px',
+            height: '900px',
+            borderRadius: '50%',
+            background: 'radial-gradient(ellipse, rgba(0, 255, 136, 0.06) 0%, transparent 60%)',
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Content */}
+        <div style={{ position: 'relative', zIndex: 10, maxWidth: '1400px', margin: '0 auto' }}>
+          
+          {/* Header - left aligned like Linear */}
+          <motion.div
+            style={{ marginBottom: '60px', maxWidth: '600px' }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <motion.span
+              style={{
+                display: 'inline-block',
+                fontSize: '13px',
+                fontWeight: 600,
+                letterSpacing: '0.2em',
+                color: '#00ff88',
+                fontFamily: "'Space Grotesk', sans-serif",
+                marginBottom: '16px',
+                textTransform: 'uppercase',
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              Флагманский продукт
+            </motion.span>
+            
+            <motion.h2
+              style={{
+                fontSize: 'clamp(40px, 6vw, 64px)',
+                fontWeight: 700,
+                color: '#ffffff',
+                fontFamily: "'Space Grotesk', sans-serif",
+                margin: '0 0 20px 0',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.1,
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              MARS — система управления флотами роботов
+            </motion.h2>
+            
+            <motion.p
+              style={{
+                fontSize: '18px',
+                color: '#94a3b8',
+                fontFamily: "'Inter', sans-serif",
+                margin: '0 0 32px 0',
+                lineHeight: 1.6,
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              Мониторинг телеметрии, отслеживание расходников и управление автономными роботами в реальном времени.
+            </motion.p>
+
+            {/* Features as inline list */}
+            <motion.div
+              style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              {features.map((feature, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <feature.icon size={18} color="#00ff88" strokeWidth={2} />
+                  <span style={{ fontSize: '14px', color: '#64748b', fontFamily: "'Inter', sans-serif" }}>
+                    {feature.label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Screenshots - Linear style floating panels */}
+          <motion.div
+            style={{
+              position: 'relative',
+              height: '600px',
+              perspective: '2000px',
+            }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            {/* Main dashboard - center */}
+            <motion.div
+              style={{
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                transform: 'translateX(-50%) translateY(-50%) rotateX(10deg) rotateY(-5deg)',
+                width: '700px',
+                transformStyle: 'preserve-3d',
+                zIndex: 3,
+              }}
+              initial={{ opacity: 0, y: 100, rotateX: 20 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 10 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <div
+                style={{
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  boxShadow: '0 60px 120px -30px rgba(0, 0, 0, 0.8), 0 0 60px -10px rgba(0, 255, 136, 0.15)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                }}
+              >
+                {/* Browser bar */}
+                <div style={{
+                  backgroundColor: '#1a1a24',
+                  padding: '12px 16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  borderBottom: '1px solid rgba(255,255,255,0.06)',
+                }}>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#ff5f57' }} />
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#febc2e' }} />
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#28c840' }} />
+                  <div style={{ marginLeft: '12px', padding: '4px 12px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '4px', fontSize: '11px', color: '#64748b' }}>
+                    mars.systech-team.ru/dashboard
+                  </div>
+                  <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#00ff88' }} />
+                    <span style={{ fontSize: '10px', color: '#00ff88' }}>Live</span>
+                  </div>
+                </div>
+                {/* Dashboard content */}
+                <div style={{ 
+                  backgroundColor: '#0f1419', 
+                  padding: '24px',
+                  aspectRatio: '16/10',
+                }}>
+                  {/* Header */}
+                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'linear-gradient(135deg, #00ff88, #00cc6a)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <span style={{ color: '#000', fontWeight: 700, fontSize: '14px' }}>M</span>
+                    </div>
+                    <span style={{ marginLeft: '12px', color: '#fff', fontSize: '16px', fontWeight: 600 }}>MARS Dashboard</span>
+                  </div>
+                  {/* Stats */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginBottom: '20px' }}>
+                    <div style={{ padding: '16px', backgroundColor: 'rgba(0,255,136,0.05)', borderRadius: '8px', border: '1px solid rgba(0,255,136,0.1)' }}>
+                      <div style={{ color: '#00ff88', fontSize: '28px', fontWeight: 700 }}>127</div>
+                      <div style={{ color: '#64748b', fontSize: '11px' }}>Роботов онлайн</div>
+                    </div>
+                    <div style={{ padding: '16px', backgroundColor: 'rgba(59,130,246,0.05)', borderRadius: '8px', border: '1px solid rgba(59,130,246,0.1)' }}>
+                      <div style={{ color: '#3b82f6', fontSize: '28px', fontWeight: 700 }}>98%</div>
+                      <div style={{ color: '#64748b', fontSize: '11px' }}>Эффективность</div>
+                    </div>
+                    <div style={{ padding: '16px', backgroundColor: 'rgba(245,158,11,0.05)', borderRadius: '8px', border: '1px solid rgba(245,158,11,0.1)' }}>
+                      <div style={{ color: '#f59e0b', fontSize: '28px', fontWeight: 700 }}>5</div>
+                      <div style={{ color: '#64748b', fontSize: '11px' }}>Городов</div>
+                    </div>
+                  </div>
+                  {/* Robot list */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+                    {['Viggo SC50', 'Viggo SC80', 'PUDU CC1', 'PUDU T300'].map((name, i) => (
+                      <div key={i} style={{ padding: '10px 12px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: i === 2 ? '#f59e0b' : '#00ff88' }} />
+                        <span style={{ color: '#94a3b8', fontSize: '12px' }}>{name}</span>
+                        <span style={{ marginLeft: 'auto', color: '#64748b', fontSize: '10px' }}>{85 + i * 3}%</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Left panel - Robot details */}
+            <motion.div
+              style={{
+                position: 'absolute',
+                left: '0',
+                top: '30%',
+                transform: 'rotateY(15deg) rotateX(5deg)',
+                width: '320px',
+                transformStyle: 'preserve-3d',
+                zIndex: 2,
+              }}
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <div
+                style={{
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  boxShadow: '0 40px 80px -20px rgba(0, 0, 0, 0.7)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#12141a',
+                }}
+              >
+                <div style={{ padding: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#00ff88' }} />
+                    <span style={{ color: '#fff', fontSize: '14px', fontWeight: 600 }}>Viggo SC50plus</span>
+                    <span style={{ marginLeft: 'auto', padding: '2px 8px', backgroundColor: 'rgba(0,255,136,0.1)', borderRadius: '4px', color: '#00ff88', fontSize: '10px' }}>Online</span>
+                  </div>
+                  <div style={{ display: 'grid', gap: '8px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: '#64748b', fontSize: '12px' }}>Батарея</span>
+                      <span style={{ color: '#00ff88', fontSize: '12px', fontWeight: 600 }}>95%</span>
+                    </div>
+                    <div style={{ height: '4px', backgroundColor: 'rgba(0,255,136,0.1)', borderRadius: '2px' }}>
+                      <div style={{ width: '95%', height: '100%', backgroundColor: '#00ff88', borderRadius: '2px' }} />
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
+                      <span style={{ color: '#64748b', fontSize: '12px' }}>Пробег</span>
+                      <span style={{ color: '#fff', fontSize: '12px' }}>118 км</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: '#64748b', fontSize: '12px' }}>Убрано</span>
+                      <span style={{ color: '#fff', fontSize: '12px' }}>2,450 м²</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right panel - Graph/Chart */}
+            <motion.div
+              style={{
+                position: 'absolute',
+                right: '0',
+                top: '20%',
+                transform: 'rotateY(-15deg) rotateX(5deg)',
+                width: '380px',
+                transformStyle: 'preserve-3d',
+                zIndex: 2,
+              }}
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div
+                style={{
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  boxShadow: '0 40px 80px -20px rgba(0, 0, 0, 0.7)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#12141a',
+                }}
+              >
+                <div style={{ padding: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                    <span style={{ color: '#fff', fontSize: '14px', fontWeight: 600 }}>Эффективность флота</span>
+                    <span style={{ color: '#64748b', fontSize: '11px' }}>Последние 7 дней</span>
+                  </div>
+                  {/* Fake chart */}
+                  <div style={{ height: '120px', position: 'relative' }}>
+                    <svg width="100%" height="100%" viewBox="0 0 340 100" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#00ff88" stopOpacity="0.3" />
+                          <stop offset="100%" stopColor="#00ff88" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M0,80 Q50,70 85,60 T170,50 T255,35 T340,25 L340,100 L0,100 Z" fill="url(#chartGradient)" />
+                      <path d="M0,80 Q50,70 85,60 T170,50 T255,35 T340,25" fill="none" stroke="#00ff88" strokeWidth="2" />
+                    </svg>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px' }}>
+                    <span style={{ color: '#64748b', fontSize: '10px' }}>Пн</span>
+                    <span style={{ color: '#64748b', fontSize: '10px' }}>Вт</span>
+                    <span style={{ color: '#64748b', fontSize: '10px' }}>Ср</span>
+                    <span style={{ color: '#64748b', fontSize: '10px' }}>Чт</span>
+                    <span style={{ color: '#64748b', fontSize: '10px' }}>Пт</span>
+                    <span style={{ color: '#64748b', fontSize: '10px' }}>Сб</span>
+                    <span style={{ color: '#00ff88', fontSize: '10px', fontWeight: 600 }}>Вс</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+          </motion.div>
+        </div>
+      </section>
+    </>
+  )
+}
