@@ -1,373 +1,199 @@
-'use client'
+'use client';
 
-import { motion, useInView } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion';
+import GlassCard from './ui/GlassCard';
+import Ticker from './ui/Ticker';
 
-// Компонент счётчика с анимацией
-function CountUp({
-  target,
-  suffix = '',
-  duration = 1.5,
-  delay = 0
-}: {
-  target: number
-  suffix?: string
-  duration?: number
-  delay?: number
-}) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.5 })
-  const [count, setCount] = useState(0)
-  const [hasStarted, setHasStarted] = useState(false)
-
-  useEffect(() => {
-    if (!isInView) return
-
-    const startTimeout = setTimeout(() => {
-      setHasStarted(true)
-    }, delay * 1000)
-
-    return () => clearTimeout(startTimeout)
-  }, [isInView, delay])
-
-  useEffect(() => {
-    if (!hasStarted) return
-
-    const totalSteps = 50 // количество шагов анимации
-    const increment = target / totalSteps
-    const stepDuration = (duration * 1000) / totalSteps
-    let currentStep = 0
-
-    const timer = setInterval(() => {
-      currentStep++
-      if (currentStep <= totalSteps) {
-        setCount(Math.floor(increment * currentStep))
-      } else {
-        setCount(target)
-        clearInterval(timer)
-      }
-    }, stepDuration)
-
-    return () => clearInterval(timer)
-  }, [hasStarted, target, duration])
-
-  return (
-    <span ref={ref}>
-      {count}{suffix}
-    </span>
-  )
-}
-
+/**
+ * Секция О нас в стиле Bento Grid
+ * iOS 18 Glassmorphism с модульной сеткой
+ */
 export default function AboutBento() {
   return (
-    <>
-      {/* Separator line */}
-      <div 
+    <section
+      id="about"
+      className="relative min-h-screen overflow-hidden px-6 py-20 md:px-10 md:py-20"
+      style={{
+        scrollSnapAlign: 'start',
+      }}
+    >
+      {/* Фоновое свечение */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         style={{
-          width: '100%',
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent 0%, rgba(0, 255, 136, 0.4) 50%, transparent 100%)',
+          width: '800px',
+          height: '800px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(0, 255, 136, 0.04) 0%, transparent 70%)',
         }}
       />
-      
-      <section 
-        id="about" 
-        style={{ 
-          minHeight: '100vh',
-          backgroundColor: '#0a0a0f',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          overflow: 'hidden',
-          padding: '80px 0',
-        }}
-      >
-        {/* Background glow */}
-        <motion.div 
-          style={{ 
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            x: '-50%',
-            y: '-50%',
-            width: '800px',
-            height: '800px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(0, 255, 136, 0.04) 0%, transparent 70%)',
-            pointerEvents: 'none',
-          }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2 }}
-          viewport={{ once: true, amount: 0.3 }}
-        />
 
-        {/* Centered container */}
-        <div 
-          style={{ 
-            position: 'relative',
-            zIndex: 10,
-            width: '100%',
-            maxWidth: '1000px',
-            margin: '0 auto',
-            padding: '0 40px',
-          }}
-        >
-          {/* Bento Grid */}
-          <div 
-            style={{ 
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '24px',
-            }}
-          >
-            
-            {/* Left: Text Block */}
-            <motion.div 
-              style={{ 
-                backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                borderRadius: '24px',
-                padding: '48px',
-              }}
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-              viewport={{ once: true, amount: 0.3 }}
+      <div className="relative z-10 mx-auto max-w-4xl">
+        {/* Bento Grid */}
+        <div className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+          {/* Основная карточка — О компании */}
+          <GlassCard className="md:col-span-2 lg:row-span-2">
+            {/* Локация */}
+            <motion.div
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00ff88]/20 bg-[#00ff88]/10 px-4 py-2"
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
             >
-              {/* Location tag */}
               <motion.div
-                style={{ 
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '8px 16px',
-                  borderRadius: '9999px',
-                  backgroundColor: 'rgba(0, 255, 136, 0.1)',
-                  border: '1px solid rgba(0, 255, 136, 0.2)',
-                  marginBottom: '32px',
+                className="h-2 w-2 rounded-full bg-[#00ff88]"
+                animate={{
+                  boxShadow: [
+                    '0 0 0 0 rgba(0, 255, 136, 0.4)',
+                    '0 0 0 8px rgba(0, 255, 136, 0)',
+                  ],
                 }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <motion.div 
-                  style={{ 
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    backgroundColor: '#00ff88',
-                  }}
-                  animate={{ 
-                    boxShadow: [
-                      '0 0 0 0 rgba(0, 255, 136, 0.4)', 
-                      '0 0 0 8px rgba(0, 255, 136, 0)',
-                    ]
-                  }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-                <span 
-                  style={{ 
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    color: '#00ff88',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                  }}
-                >
-                  Санкт-Петербург
-                </span>
-              </motion.div>
-
-              {/* Description */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <motion.p
-                  style={{ 
-                    fontSize: '24px',
-                    fontWeight: 500,
-                    color: '#ffffff',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    lineHeight: 1.5,
-                    margin: 0,
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  viewport={{ once: true }}
-                >
-                  Создаём управление флотами роботов
-                </motion.p>
-                <motion.p
-                  style={{ 
-                    fontSize: '24px',
-                    fontWeight: 500,
-                    color: '#94a3b8',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    lineHeight: 1.5,
-                    margin: 0,
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                  viewport={{ once: true }}
-                >
-                  Автоматизируем бизнес-процессы
-                </motion.p>
-                <motion.p
-                  style={{ 
-                    fontSize: '20px',
-                    color: '#64748b',
-                    fontFamily: "'Inter', sans-serif",
-                    lineHeight: 1.6,
-                    margin: 0,
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.7 }}
-                  viewport={{ once: true }}
-                >
-                  Внедряем Искусственный Интеллект в системы управления
-                </motion.p>
-              </div>
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+              <span className="font-grotesk text-sm font-medium text-[#00ff88]">
+                Санкт-Петербург
+              </span>
             </motion.div>
 
-            {/* Right: Stats Grid */}
-            <div 
-              style={{ 
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gridTemplateRows: '1fr 1fr',
-                gap: '24px',
+            {/* Описание компании */}
+            <motion.h2
+              className="font-grotesk mb-4 text-xl font-semibold leading-relaxed text-white md:text-2xl"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              ООО «Системные Технологии» — российская инновационная компания из
+              Санкт-Петербурга.
+            </motion.h2>
+            <motion.p
+              className="text-base leading-relaxed text-[#94a3b8] md:text-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              Создаём программные продукты для автоматизации систем и бизнес-процессов.
+            </motion.p>
+          </GlassCard>
+
+          {/* Статистика — 100+ роботов */}
+          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
+            <motion.div
+              className="font-grotesk mb-2 text-5xl font-bold text-[#00ff88]"
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: 'spring', delay: 0.1 }}
+            >
+              100+
+            </motion.div>
+            <div className="text-sm text-[#64748b]">роботов</div>
+          </GlassCard>
+
+          {/* Статистика — 5 городов */}
+          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
+            <motion.div
+              className="font-grotesk mb-2 text-5xl font-bold text-[#00ff88]"
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: 'spring', delay: 0.2 }}
+            >
+              5
+            </motion.div>
+            <div className="text-sm text-[#64748b]">городов</div>
+          </GlassCard>
+
+          {/* Продукты — Акцент */}
+          <GlassCard
+            className="flex min-h-[140px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center md:col-span-2 lg:col-span-1"
+            enableTilt={true}
+          >
+            <motion.div
+              className="font-grotesk mb-3 text-4xl font-bold text-[#00ff88]"
+              style={{
+                textShadow: '0 0 30px rgba(0, 255, 136, 0.3)',
+              }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: 'spring', delay: 0.3 }}
+            >
+              ПРОДУКТЫ
+            </motion.div>
+            <div className="text-sm text-[#64748b]">Не консалтинг. Не аутсорс.</div>
+          </GlassCard>
+
+          {/* Статистика — 20+ лет */}
+          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
+            <motion.div
+              className="font-grotesk mb-2 text-5xl font-bold text-[#00ff88]"
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: 'spring', delay: 0.4 }}
+            >
+              20+
+            </motion.div>
+            <div className="text-sm text-[#64748b]">лет управления</div>
+          </GlassCard>
+
+          {/* Команда — Университеты */}
+          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
+            <div className="mb-3 text-sm text-[#94a3b8]">Разработчики из</div>
+            <motion.div
+              className="font-grotesk text-base font-semibold leading-relaxed text-[#00ff88] md:text-lg"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
+              СПбГУ • ИТМО • ЛЭТИ
+            </motion.div>
+          </GlassCard>
+
+          {/* Бесконечный контроль */}
+          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center md:col-span-2 lg:col-span-1">
+            <motion.div
+              className="font-grotesk mb-2 text-6xl font-bold text-[#00ff88]"
+              animate={{
+                scale: [1, 1.05, 1],
+                textShadow: [
+                  '0 0 20px rgba(0, 255, 136, 0.3)',
+                  '0 0 40px rgba(0, 255, 136, 0.5)',
+                  '0 0 20px rgba(0, 255, 136, 0.3)',
+                ],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeInOut',
               }}
             >
-              
-              {/* Stat 1: Robots */}
-              <motion.div
-                style={{ 
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderRadius: '24px',
-                  padding: '32px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true, amount: 0.5 }}
-              >
-                <div
-                  style={{
-                    fontSize: '48px',
-                    fontWeight: 700,
-                    color: '#00ff88',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    marginBottom: '8px',
-                  }}
-                >
-                  <CountUp target={100} suffix="+" duration={1.5} delay={0.4} />
-                </div>
-                <div 
-                  style={{ 
-                    fontSize: '14px',
-                    color: '#64748b',
-                    fontFamily: "'Inter', sans-serif",
-                  }}
-                >
-                  роботов
-                </div>
-              </motion.div>
-
-              {/* Stat 2: Cities */}
-              <motion.div
-                style={{ 
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderRadius: '24px',
-                  padding: '32px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true, amount: 0.5 }}
-              >
-                <div
-                  style={{
-                    fontSize: '48px',
-                    fontWeight: 700,
-                    color: '#00ff88',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    marginBottom: '8px',
-                  }}
-                >
-                  <CountUp target={5} duration={1.0} delay={2.0} />
-                </div>
-                <div 
-                  style={{ 
-                    fontSize: '14px',
-                    color: '#64748b',
-                    fontFamily: "'Inter', sans-serif",
-                  }}
-                >
-                  городов
-                </div>
-              </motion.div>
-
-              {/* Stat 3: Control */}
-              <motion.div
-                style={{ 
-                  gridColumn: 'span 2',
-                  backgroundColor: 'rgba(0, 255, 136, 0.05)',
-                  border: '1px solid rgba(0, 255, 136, 0.15)',
-                  borderRadius: '24px',
-                  padding: '32px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                }}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                viewport={{ once: true, amount: 0.5 }}
-              >
-                <motion.div 
-                  style={{ 
-                    fontSize: '56px',
-                    fontWeight: 700,
-                    color: '#00ff88',
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    marginBottom: '8px',
-                  }}
-                  animate={{ 
-                    scale: [1, 1.05, 1],
-                  }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  ∞
-                </motion.div>
-                <div 
-                  style={{ 
-                    fontSize: '14px',
-                    color: '#94a3b8',
-                    fontFamily: "'Inter', sans-serif",
-                  }}
-                >
-                  контроль
-                </div>
-              </motion.div>
-
-            </div>
-
-          </div>
+              ∞
+            </motion.div>
+            <div className="text-sm text-[#94a3b8]">контроль</div>
+          </GlassCard>
         </div>
-      </section>
-    </>
-  )
+
+        {/* Бегущая строка */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+        >
+          <Ticker
+            text="Создаём управление **флотами роботов** • Автоматизируем **бизнес-процессы** • Внедряем **Искусственный Интеллект** в системы управления"
+            duration={20}
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
 }
