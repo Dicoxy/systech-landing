@@ -28,7 +28,7 @@ export default function AboutBento() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-4xl">
+      <div className="relative z-10 mx-auto max-w-7xl">
         {/* Bento Grid */}
         <div className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
           {/* Основная карточка — О компании */}
@@ -190,7 +190,7 @@ export default function AboutBento() {
         >
           <Ticker
             text="Создаём управление **флотами роботов** • Автоматизируем **бизнес-процессы** • Внедряем **Искусственный Интеллект** в системы управления"
-            duration={20}
+            duration={5}
           />
         </motion.div>
       </div>
