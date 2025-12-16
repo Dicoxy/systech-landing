@@ -31,8 +31,7 @@ export default function GlassCard({
       whileHover={
         enableTilt
           ? {
-              y: -4,
-              scale: 1.06,
+              y: -2,
               boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15), 0 0 30px rgba(0, 255, 136, 0.5), inset 0 0 30px rgba(0, 255, 136, 0.15)',
               borderColor: 'rgba(0, 255, 136, 0.4)',
             }

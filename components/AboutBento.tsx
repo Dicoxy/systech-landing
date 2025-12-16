@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import GlassCard from './ui/GlassCard';
-import Ticker from './ui/Ticker';
 
 /**
  * Секция О нас в стиле Bento Grid
@@ -10,13 +9,23 @@ import Ticker from './ui/Ticker';
  */
 export default function AboutBento() {
   return (
-    <section
-      id="about"
-      className="relative min-h-screen overflow-hidden px-6 py-20 md:px-10 md:py-20"
-      style={{
-        scrollSnapAlign: 'start',
-      }}
-    >
+    <>
+      {/* Separator line */}
+      <div
+        style={{
+          width: '100%',
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(0, 255, 136, 0.4) 50%, transparent 100%)',
+        }}
+      />
+
+      <section
+        id="about"
+        className="relative min-h-screen overflow-hidden px-6 py-20 md:px-10 md:py-20"
+        style={{
+          scrollSnapAlign: 'start',
+        }}
+      >
       {/* Фоновое свечение */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -158,7 +167,7 @@ export default function AboutBento() {
           </GlassCard>
 
           {/* Бесконечный контроль */}
-          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center md:col-span-2 lg:col-span-1">
+          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center">
             <motion.div
               className="font-grotesk mb-2 text-6xl font-bold text-[#00ff88]"
               animate={{
@@ -179,21 +188,27 @@ export default function AboutBento() {
             </motion.div>
             <div className="text-sm text-[#94a3b8]">контроль</div>
           </GlassCard>
-        </div>
 
-        {/* Бегущая строка */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-        >
-          <Ticker
-            text="Создаём управление **флотами роботов** • Автоматизируем **бизнес-процессы** • Внедряем **Искусственный Интеллект** в системы управления"
-            duration={5}
-          />
-        </motion.div>
+          {/* Наши направления */}
+          <GlassCard className="flex min-h-[140px] flex-col justify-center md:col-span-2">
+            <ul className="space-y-3 text-base text-[#94a3b8] md:text-lg">
+              <li className="flex items-start">
+                <span className="mr-3 text-[#00ff88]">•</span>
+                <span>Создаём управление флотами роботов</span>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-3 text-[#00ff88]">•</span>
+                <span>Автоматизируем бизнес-процессы</span>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-3 text-[#00ff88]">•</span>
+                <span>Внедряем Искусственный Интеллект в системы управления</span>
+              </li>
+            </ul>
+          </GlassCard>
+        </div>
       </div>
     </section>
+    </>
   );
 }
