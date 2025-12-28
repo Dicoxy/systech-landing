@@ -13,7 +13,7 @@ const containerVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.3,
     },
   },
 };
@@ -22,7 +22,7 @@ const containerVariants = {
 const cardVariants = {
   hidden: {
     opacity: 0,
-    y: 40,
+    y: 70,
     scale: 0.95,
   },
   visible: {
@@ -30,7 +30,7 @@ const cardVariants = {
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.9,
       ease: 'easeOut',
     },
   },
