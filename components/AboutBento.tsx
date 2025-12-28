@@ -7,6 +7,54 @@ import GlassCard from './ui/GlassCard';
  * Секция О нас в стиле Bento Grid
  * iOS 18 Glassmorphism с модульной сеткой
  */
+
+// Варианты анимации для grid контейнера
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+// Варианты анимации для каждой карточки
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+    scale: 0.95,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+    },
+  },
+};
+
+// Варианты для glow-вспышки обводки
+const glowVariants = {
+  initial: {
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+  },
+  glow: {
+    boxShadow: [
+      '0 8px 32px rgba(0, 0, 0, 0.1)',
+      '0 0 30px rgba(0, 255, 136, 0.6), 0 0 60px rgba(0, 255, 136, 0.3), inset 0 0 20px rgba(0, 255, 136, 0.2)',
+      '0 8px 32px rgba(0, 0, 0, 0.1)',
+    ],
+    transition: {
+      duration: 0.4,
+      times: [0, 0.5, 1],
+      delay: 0.5,
+    },
+  },
+};
+
 export default function AboutBento() {
   return (
     <>
@@ -39,9 +87,25 @@ export default function AboutBento() {
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Bento Grid */}
-        <div className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
+        <motion.div
+          className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-5 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {/* Основная карточка — О компании */}
-          <GlassCard className="md:col-span-2 lg:row-span-2">
+          <motion.div
+            variants={cardVariants}
+            className="md:col-span-2 lg:row-span-2"
+          >
+            <motion.div
+              variants={glowVariants}
+              initial="initial"
+              whileInView="glow"
+              viewport={{ once: true }}
+            >
+              <GlassCard className="h-full">
             {/* Локация */}
             <motion.div
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00ff88]/20 bg-[#00ff88]/10 px-4 py-2"
@@ -88,10 +152,19 @@ export default function AboutBento() {
             >
               Создаём программные продукты для автоматизации систем и бизнес-процессов.
             </motion.p>
-          </GlassCard>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
 
           {/* Статистика — 100+ роботов */}
-          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
+          <motion.div variants={cardVariants}>
+            <motion.div
+              variants={glowVariants}
+              initial="initial"
+              whileInView="glow"
+              viewport={{ once: true }}
+            >
+              <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
             <motion.div
               className="font-grotesk mb-2 text-5xl font-bold text-[#00ff88]"
               initial={{ opacity: 0, scale: 0.5 }}
@@ -102,10 +175,19 @@ export default function AboutBento() {
               100+
             </motion.div>
             <div className="text-sm text-[#64748b]">роботов</div>
-          </GlassCard>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
 
           {/* Статистика — 5 городов */}
-          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
+          <motion.div variants={cardVariants}>
+            <motion.div
+              variants={glowVariants}
+              initial="initial"
+              whileInView="glow"
+              viewport={{ once: true }}
+            >
+              <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
             <motion.div
               className="font-grotesk mb-2 text-5xl font-bold text-[#00ff88]"
               initial={{ opacity: 0, scale: 0.5 }}
@@ -116,13 +198,25 @@ export default function AboutBento() {
               5
             </motion.div>
             <div className="text-sm text-[#64748b]">городов</div>
-          </GlassCard>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
 
           {/* Продукты — Акцент */}
-          <GlassCard
-            className="flex min-h-[140px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center md:col-span-2 lg:col-span-1"
-            enableTilt={true}
+          <motion.div
+            variants={cardVariants}
+            className="md:col-span-2 lg:col-span-1"
           >
+            <motion.div
+              variants={glowVariants}
+              initial="initial"
+              whileInView="glow"
+              viewport={{ once: true }}
+            >
+              <GlassCard
+                className="flex min-h-[140px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center"
+                enableTilt={true}
+              >
             <motion.div
               className="font-grotesk mb-3 text-4xl font-bold text-[#00ff88]"
               style={{
@@ -136,10 +230,19 @@ export default function AboutBento() {
               ПРОДУКТЫ
             </motion.div>
             <div className="text-sm text-[#64748b]">Не консалтинг. Не аутсорс.</div>
-          </GlassCard>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
 
           {/* Статистика — 20+ лет */}
-          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
+          <motion.div variants={cardVariants}>
+            <motion.div
+              variants={glowVariants}
+              initial="initial"
+              whileInView="glow"
+              viewport={{ once: true }}
+            >
+              <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
             <motion.div
               className="font-grotesk mb-2 text-5xl font-bold text-[#00ff88]"
               initial={{ opacity: 0, scale: 0.5 }}
@@ -150,10 +253,19 @@ export default function AboutBento() {
               20+
             </motion.div>
             <div className="text-sm text-[#64748b]">лет управления</div>
-          </GlassCard>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
 
           {/* Команда — Университеты */}
-          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
+          <motion.div variants={cardVariants}>
+            <motion.div
+              variants={glowVariants}
+              initial="initial"
+              whileInView="glow"
+              viewport={{ once: true }}
+            >
+              <GlassCard className="flex min-h-[140px] flex-col items-center justify-center text-center">
             <div className="mb-3 text-sm text-[#94a3b8]">Разработчики из</div>
             <motion.div
               className="font-grotesk text-base font-semibold leading-relaxed text-[#00ff88] md:text-lg"
@@ -164,10 +276,19 @@ export default function AboutBento() {
             >
               СПбГУ • ИТМО • ЛЭТИ
             </motion.div>
-          </GlassCard>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
 
           {/* Бесконечный контроль */}
-          <GlassCard className="flex min-h-[140px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center">
+          <motion.div variants={cardVariants}>
+            <motion.div
+              variants={glowVariants}
+              initial="initial"
+              whileInView="glow"
+              viewport={{ once: true }}
+            >
+              <GlassCard className="flex min-h-[140px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center">
             <motion.div
               className="font-grotesk mb-2 text-6xl font-bold text-[#00ff88]"
               animate={{
@@ -187,10 +308,22 @@ export default function AboutBento() {
               ∞
             </motion.div>
             <div className="text-sm text-[#94a3b8]">контроль</div>
-          </GlassCard>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
 
           {/* Наши направления */}
-          <GlassCard className="flex min-h-[140px] flex-col justify-center md:col-span-2">
+          <motion.div
+            variants={cardVariants}
+            className="md:col-span-2"
+          >
+            <motion.div
+              variants={glowVariants}
+              initial="initial"
+              whileInView="glow"
+              viewport={{ once: true }}
+            >
+              <GlassCard className="flex min-h-[140px] flex-col justify-center">
             <ul className="space-y-3 text-base text-[#94a3b8] md:text-lg">
               <li className="flex items-start">
                 <span className="mr-3 text-[#00ff88]">•</span>
@@ -205,8 +338,10 @@ export default function AboutBento() {
                 <span>Внедряем Искусственный Интеллект в системы управления</span>
               </li>
             </ul>
-          </GlassCard>
-        </div>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
     </>
