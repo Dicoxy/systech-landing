@@ -21,7 +21,7 @@ export default function AboutBento() {
 
       <section
         id="about"
-        className="relative min-h-screen overflow-hidden px-6 pt-32 pb-20 md:px-10 md:pt-40 md:pb-20"
+        className="relative min-h-screen overflow-hidden px-6 pt-32 pb-32 md:px-10 md:pt-40 md:pb-40"
         style={{
           scrollSnapAlign: 'start',
         }}
