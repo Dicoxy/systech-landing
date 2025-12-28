@@ -206,6 +206,10 @@ export default function AboutBento() {
           <motion.div
             variants={cardVariants}
             className="md:col-span-2 lg:col-span-1"
+            onClick={() => {
+              document.querySelector('#products')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            style={{ cursor: 'pointer' }}
           >
             <motion.div
               variants={glowVariants}
@@ -218,7 +222,7 @@ export default function AboutBento() {
                 enableTilt={true}
               >
             <motion.div
-              className="font-grotesk mb-3 text-4xl font-bold text-[#00ff88]"
+              className="font-grotesk mb-3 flex items-center gap-2 text-4xl font-bold text-[#00ff88]"
               style={{
                 textShadow: '0 0 30px rgba(0, 255, 136, 0.3)',
               }}
@@ -227,7 +231,14 @@ export default function AboutBento() {
               viewport={{ once: true }}
               transition={{ type: 'spring', delay: 0.3 }}
             >
-              ПРОДУКТЫ
+              <span>ПРОДУКТЫ</span>
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                style={{ fontSize: '0.8em' }}
+              >
+                →
+              </motion.span>
             </motion.div>
             <div className="text-sm text-[#64748b]">Не консалтинг. Не аутсорс.</div>
               </GlassCard>
