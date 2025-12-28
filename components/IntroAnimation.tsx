@@ -47,7 +47,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.15 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 <h1 
                   className={`text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-wider ${stage === 1 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
@@ -65,7 +65,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 className="mt-1"
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.15 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 <h1 
                   className={`text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-wider ${stage === 2 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
@@ -83,7 +83,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 className="my-3"
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 <span 
                   className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-wider"
@@ -99,7 +99,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.15 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 <h1 
                   className={`text-5xl md:text-7xl lg:text-8xl font-bold tracking-wider ${stage === 4 ? 'glitch' : ''} ${stage === 5 ? 'rgb-split flicker' : ''}`}
