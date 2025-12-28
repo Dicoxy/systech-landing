@@ -226,7 +226,7 @@ function Hero() {
           }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0 }}
         >
           СИСТЕМНЫЕ
         </motion.h1>
@@ -244,22 +244,22 @@ function Hero() {
           }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
         >
           ТЕХНОЛОГИИ
         </motion.h1>
 
         <motion.p
-          style={{ 
+          style={{
             fontSize: 'clamp(18px, 3vw, 28px)',
             color: '#94a3b8',
             fontFamily: "'Inter', sans-serif",
             marginBottom: '48px',
             letterSpacing: '0.2em',
           }}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.45 }}
         >
           Роботы. Данные. Контроль.
         </motion.p>
@@ -272,9 +272,9 @@ function Hero() {
             justifyContent: 'center',
             flexWrap: 'wrap',
           }}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 0.7 }}
         >
           <MagneticButton onClick={scrollToAbout} variant="primary">
             Узнать больше
