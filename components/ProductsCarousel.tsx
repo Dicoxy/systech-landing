@@ -163,7 +163,7 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
       {/* Dot indicators */}
       <div
         style={{
-          position: 'fixed',
+          position: 'absolute',
           bottom: '40px',
           left: '50%',
           transform: 'translateX(-50%)',
