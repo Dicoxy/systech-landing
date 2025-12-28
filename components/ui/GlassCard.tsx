@@ -18,7 +18,7 @@ interface GlassCardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
  */
 export default function GlassCard({
   children,
-  enableTilt = true,
+  enableTilt = false,
   className = '',
   ...props
 }: GlassCardProps) {
