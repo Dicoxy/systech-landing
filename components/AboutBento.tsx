@@ -258,7 +258,12 @@ export default function AboutBento() {
             variants={cardVariants}
             className="md:col-span-2 lg:col-span-1"
             onClick={() => {
-              document.querySelector('#products')?.scrollIntoView({ behavior: 'smooth' })
+              const marsSection = document.getElementById('mars');
+              if (marsSection) {
+                marsSection.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                console.warn('Mars section not found');
+              }
             }}
             style={{ cursor: 'pointer' }}
           >
