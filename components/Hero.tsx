@@ -214,7 +214,7 @@ function Hero() {
         }}
       >
         <motion.h1
-          style={{ 
+          style={{
             fontSize: 'clamp(40px, 8vw, 80px)',
             fontWeight: 700,
             color: 'white',
@@ -222,6 +222,7 @@ function Hero() {
             marginBottom: '0',
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
+            textShadow: '0 0 15px rgba(0, 255, 136, 0.15)',
           }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -229,9 +230,9 @@ function Hero() {
         >
           СИСТЕМНЫЕ
         </motion.h1>
-        
+
         <motion.h1
-          style={{ 
+          style={{
             fontSize: 'clamp(40px, 8vw, 80px)',
             fontWeight: 700,
             color: 'white',
@@ -239,6 +240,7 @@ function Hero() {
             marginBottom: '24px',
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
+            textShadow: '0 0 15px rgba(0, 255, 136, 0.15)',
           }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
