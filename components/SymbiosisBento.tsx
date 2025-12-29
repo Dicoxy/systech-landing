@@ -84,6 +84,138 @@ export default function SymbiosisBento() {
           }}
         />
 
+        {/* Нейросетевая сетка */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          <svg
+            className="h-full w-full"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1000 1000"
+            preserveAspectRatio="xMidYMid slice"
+          >
+            {/* Горизонтальные линии */}
+            {Array.from({ length: 20 }).map((_, i) => (
+              <line
+                key={`h-${i}`}
+                x1="0"
+                y1={i * 50}
+                x2="1000"
+                y2={i * 50}
+                stroke="rgba(0, 255, 136, 0.1)"
+                strokeWidth="0.5"
+              />
+            ))}
+            {/* Вертикальные линии */}
+            {Array.from({ length: 20 }).map((_, i) => (
+              <line
+                key={`v-${i}`}
+                x1={i * 50}
+                y1="0"
+                x2={i * 50}
+                y2="1000"
+                stroke="rgba(0, 255, 136, 0.1)"
+                strokeWidth="0.5"
+              />
+            ))}
+            {/* Узлы (точки) - только 10 анимированных для производительности */}
+            {Array.from({ length: 10 }).map((_, i) => {
+              const x = (i % 5) * 200 + 100;
+              const y = Math.floor(i / 5) * 400 + 100;
+              return (
+                <motion.circle
+                  key={`node-${i}`}
+                  cx={x}
+                  cy={y}
+                  r="1.5"
+                  fill="rgba(59, 130, 246, 0.1)"
+                  initial={{ opacity: 0.2 }}
+                  animate={{
+                    opacity: [0.2, 0.6, 0.2],
+                  }}
+                  transition={{
+                    duration: 2 + Math.random() * 2,
+                    repeat: Infinity,
+                    delay: Math.random() * 2,
+                    ease: "easeInOut",
+                  }}
+                />
+              );
+            })}
+          </svg>
+        </div>
+
+        {/* Градиентные орбы */}
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          {/* Зелёный орб */}
+          <motion.div
+            className="absolute"
+            style={{
+              width: '400px',
+              height: '400px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, #00ff88 0%, transparent 70%)',
+              filter: 'blur(100px)',
+              opacity: 0.12,
+              left: '10%',
+              top: '30%',
+            }}
+            animate={{
+              y: [0, -40, 0],
+              x: [0, 20, 0],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          {/* Синий орб */}
+          <motion.div
+            className="absolute"
+            style={{
+              width: '350px',
+              height: '350px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)',
+              filter: 'blur(120px)',
+              opacity: 0.1,
+              right: '15%',
+              bottom: '25%',
+            }}
+            animate={{
+              y: [0, 30, 0],
+              x: [0, -25, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          {/* Ещё один зелёный орб */}
+          <motion.div
+            className="absolute"
+            style={{
+              width: '300px',
+              height: '300px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, #00ff88 0%, transparent 70%)',
+              filter: 'blur(130px)',
+              opacity: 0.08,
+              left: '50%',
+              top: '60%',
+            }}
+            animate={{
+              y: [0, -20, 10, 0],
+              x: [0, 15, -10, 0],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </div>
+
         <div className="relative z-10 mx-auto max-w-7xl">
           {/* Заголовок секции (выравнивание ВЛЕВО) */}
           <div className="mb-16 text-left">
@@ -190,6 +322,66 @@ export default function SymbiosisBento() {
                       🤖
                     </motion.div>
 
+                    {/* Частицы вокруг кругов */}
+                    {/* Частицы вокруг 👤 */}
+                    {Array.from({ length: 4 }).map((_, i) => {
+                      const radius = 60; // расстояние от центра
+                      const size = 2 + Math.random() * 2; // 2-4px
+                      const initialAngle = (i / 4) * Math.PI * 2;
+                      return (
+                        <motion.div
+                          key={`human-particle-${i}`}
+                          className="absolute rounded-full bg-[#3b82f6]"
+                          style={{
+                            left: '15%',
+                            top: '50%',
+                            width: `${size}px`,
+                            height: `${size}px`,
+                            opacity: 0.6 + Math.random() * 0.4,
+                            transformOrigin: `${radius}px ${radius}px`,
+                            transform: `translate(-50%, -50%) rotate(${initialAngle * (180 / Math.PI)}deg) translateX(${radius}px)`,
+                          }}
+                          animate={{
+                            rotate: 360 + initialAngle * (180 / Math.PI),
+                          }}
+                          transition={{
+                            duration: 20 + Math.random() * 10,
+                            repeat: Infinity,
+                            ease: 'linear',
+                          }}
+                        />
+                      );
+                    })}
+                    {/* Частицы вокруг 🤖 */}
+                    {Array.from({ length: 4 }).map((_, i) => {
+                      const radius = 60;
+                      const size = 2 + Math.random() * 2;
+                      const initialAngle = (i / 4) * Math.PI * 2;
+                      return (
+                        <motion.div
+                          key={`ai-particle-${i}`}
+                          className="absolute rounded-full bg-[#00ff88]"
+                          style={{
+                            right: '15%',
+                            top: '50%',
+                            width: `${size}px`,
+                            height: `${size}px`,
+                            opacity: 0.6 + Math.random() * 0.4,
+                            transformOrigin: `${radius}px ${radius}px`,
+                            transform: `translate(50%, -50%) rotate(${initialAngle * (180 / Math.PI)}deg) translateX(${radius}px)`,
+                          }}
+                          animate={{
+                            rotate: 360 + initialAngle * (180 / Math.PI),
+                          }}
+                          transition={{
+                            duration: 25 + Math.random() * 5,
+                            repeat: Infinity,
+                            ease: 'linear',
+                          }}
+                        />
+                      );
+                    })}
+
                     {/* Анимированная линия связи с частицами */}
                     <div className="absolute left-1/2 top-1/2 h-1 w-[60%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full">
                       {/* Основная линия */}
@@ -216,26 +408,60 @@ export default function SymbiosisBento() {
                           ease: 'linear',
                         }}
                       />
-                      {/* Частицы */}
-                      {particles.map((i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute h-1 w-1 rounded-full bg-[#00ff88]"
-                          style={{
-                            top: ['10%', '30%', '50%', '70%', '90%', '50%'][i],
-                          }}
-                          animate={{
-                            left: ['0%', '100%'],
-                            opacity: [0, 1, 1, 0],
-                          }}
-                          transition={{
-                            duration: 3,
-                            delay: i * 0.5,
-                            repeat: Infinity,
-                            ease: 'linear',
-                          }}
-                        />
-                      ))}
+                      {/* Частицы слева направо */}
+                      {Array.from({ length: 4 }).map((_, i) => {
+                        const size = 1 + Math.random() * 2; // 1-3px
+                        const speed = 2 + Math.random() * 3; // 2-5s
+                        const vertical = ['10%', '40%', '70%', '90%'][i];
+                        return (
+                          <motion.div
+                            key={`ltr-${i}`}
+                            className="absolute rounded-full bg-[#00ff88]"
+                            style={{
+                              top: vertical,
+                              width: `${size}px`,
+                              height: `${size}px`,
+                            }}
+                            animate={{
+                              left: ['0%', '100%'],
+                              opacity: [0, 1, 1, 0],
+                            }}
+                            transition={{
+                              duration: speed,
+                              delay: i * 0.3,
+                              repeat: Infinity,
+                              ease: 'linear',
+                            }}
+                          />
+                        );
+                      })}
+                      {/* Частицы справа налево */}
+                      {Array.from({ length: 4 }).map((_, i) => {
+                        const size = 1 + Math.random() * 2;
+                        const speed = 2.5 + Math.random() * 3;
+                        const vertical = ['5%', '45%', '85%', '25%'][i];
+                        return (
+                          <motion.div
+                            key={`rtl-${i}`}
+                            className="absolute rounded-full bg-[#3b82f6]"
+                            style={{
+                              top: vertical,
+                              width: `${size}px`,
+                              height: `${size}px`,
+                            }}
+                            animate={{
+                              left: ['100%', '0%'],
+                              opacity: [0, 1, 1, 0],
+                            }}
+                            transition={{
+                              duration: speed,
+                              delay: i * 0.4,
+                              repeat: Infinity,
+                              ease: 'linear',
+                            }}
+                          />
+                        );
+                      })}
                     </div>
 
                     {/* Лейбл "СИМБИОЗ" по центру */}
@@ -247,12 +473,12 @@ export default function SymbiosisBento() {
 
                     {/* Подписи */}
                     <div className="absolute -bottom-8 left-[15%] -translate-x-1/2 text-center">
-                      <div className="font-grotesk text-sm font-semibold text-white">Человек</div>
-                      <div className="text-xs text-[#64748b]">Принимает решения</div>
+                      <div className="font-grotesk text-base font-semibold text-white drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">Человек</div>
+                      <div className="text-sm text-[#94a3b8] drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]">Принимает решения</div>
                     </div>
                     <div className="absolute -bottom-8 right-[15%] translate-x-1/2 text-center">
-                      <div className="font-grotesk text-sm font-semibold text-white">AI</div>
-                      <div className="text-xs text-[#64748b]">Обрабатывает данные</div>
+                      <div className="font-grotesk text-base font-semibold text-white drop-shadow-[0_0_8px_rgba(0,255,136,0.5)]">AI</div>
+                      <div className="text-sm text-[#94a3b8] drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]">Обрабатывает данные</div>
                     </div>
                   </div>
                 </GlassCard>
