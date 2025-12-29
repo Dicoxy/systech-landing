@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { Activity, Battery, MapPin, Wifi } from 'lucide-react'
+import { Activity, Battery, MapPin, Wifi, BatteryCharging } from 'lucide-react'
 
 // Хук для анимации накручивания цифр
 function useCountUp(end: number, duration: number = 1500) {
@@ -400,13 +400,16 @@ export default function Mars() {
                       />
                     </div>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ color: '#64748b', fontSize: '11px' }}>⚠️ Ошибки</span>
-                    <span style={{ color: '#fff', fontSize: '11px', fontWeight: 600 }}>0</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                    <span style={{ color: '#64748b', fontSize: '12px' }}>⚠️ Ошибки</span>
+                    <span style={{ color: '#fff', fontSize: '12px', fontWeight: 600 }}>0</span>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ color: '#64748b', fontSize: '11px' }}>🔌 Статус</span>
-                    <span style={{ color: '#00ff88', fontSize: '11px', fontWeight: 600 }}>На зарядке</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#64748b', fontSize: '12px' }}>
+                      <BatteryCharging size={12} color="#64748b" />
+                      Статус
+                    </span>
+                    <span style={{ color: '#00ff88', fontSize: '12px', fontWeight: 600 }}>На зарядке</span>
                   </div>
                 </div>
               </motion.div>
@@ -452,10 +455,15 @@ export default function Mars() {
                     />
                   </svg>
                 </div>
-                <div style={{ textAlign: 'center', marginTop: '8px', marginBottom: '4px' }}>
-                  <span style={{ color: '#64748b', fontSize: '10px' }}>
-                    Пробег: 118 км | Убрано: 2,450 м²
-                  </span>
+                <div style={{ marginTop: '8px', marginBottom: '4px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ color: '#64748b', fontSize: '12px' }}>🛣️ Пробег</span>
+                    <span style={{ color: '#fff', fontSize: '12px', fontWeight: 600 }}>118 км</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ color: '#64748b', fontSize: '12px' }}>📐 Убрано</span>
+                    <span style={{ color: '#fff', fontSize: '12px', fontWeight: 600 }}>2,450 м²</span>
+                  </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px' }}>
                   {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d, i) => (
