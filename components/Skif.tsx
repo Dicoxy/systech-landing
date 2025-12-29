@@ -113,55 +113,47 @@ export default function Skif() {
   ]
 
   // Typewriter эффект для поля ввода
-  const queries = [
+  const phrases = [
     'Создай договор поставки для ООО Альфа...',
     'Сделай КП на 50 роботов Pudu...',
     'Собери данные по роботу CC1 за неделю...',
     'Найди контакты поставщика Viggo...'
   ]
 
-  const [currentQueryIndex, setCurrentQueryIndex] = useState(0)
-  const [currentText, setCurrentText] = useState('')
-  const [isTyping, setIsTyping] = useState(true) // true = печатаем, false = стираем
-  const [isPaused, setIsPaused] = useState(false) // пауза между циклами
+  const [displayText, setDisplayText] = useState('')
+  const [isTyping, setIsTyping] = useState(true)
+  const [phraseIndex, setPhraseIndex] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
 
   useEffect(() => {
-    if (isPaused) {
-      const pauseTimer = setTimeout(() => {
-        setIsPaused(false)
-        setIsTyping(false) // после паузы начинаем стирание
-      }, 2000 + Math.random() * 1000) // пауза 2-3 секунды
-      return () => clearTimeout(pauseTimer)
-    }
-
-    const currentQuery = queries[currentQueryIndex]
-    let timer: NodeJS.Timeout
+    const currentPhrase = phrases[phraseIndex]
 
     if (isTyping) {
-      // Печатаем по букве
-      if (currentText.length < currentQuery.length) {
-        timer = setTimeout(() => {
-          setCurrentText(currentQuery.slice(0, currentText.length + 1))
+      if (charIndex < currentPhrase.length) {
+        const timeout = setTimeout(() => {
+          setDisplayText(currentPhrase.slice(0, charIndex + 1))
+          setCharIndex(charIndex + 1)
         }, 50 + Math.random() * 30) // 50-80ms на букву
+        return () => clearTimeout(timeout)
       } else {
-        // Закончили печатать - пауза
-        setIsPaused(true)
+        // Пауза перед стиранием
+        const timeout = setTimeout(() => setIsTyping(false), 2000 + Math.random() * 1000) // 2-3 секунды
+        return () => clearTimeout(timeout)
       }
     } else {
-      // Стираем по букве
-      if (currentText.length > 0) {
-        timer = setTimeout(() => {
-          setCurrentText(currentQuery.slice(0, currentText.length - 1))
-        }, 20) // 20ms на букву
+      if (charIndex > 0) {
+        const timeout = setTimeout(() => {
+          setDisplayText(currentPhrase.slice(0, charIndex - 1))
+          setCharIndex(charIndex - 1)
+        }, 20) // 20ms на букву - быстрее стирание
+        return () => clearTimeout(timeout)
       } else {
-        // Закончили стирание - переходим к следующему запросу
-        setCurrentQueryIndex((prevIndex) => (prevIndex + 1) % queries.length)
-        setIsTyping(true) // начинаем печатать следующий запрос
+        // Следующая фраза
+        setPhraseIndex((phraseIndex + 1) % phrases.length)
+        setIsTyping(true)
       }
     }
-
-    return () => clearTimeout(timer)
-  }, [currentText, isTyping, isPaused, currentQueryIndex, queries])
+  }, [charIndex, isTyping, phraseIndex, phrases])
 
   // Состояние для мигающего курсора
   const [cursorVisible, setCursorVisible] = useState(true)
@@ -716,7 +708,7 @@ export default function Skif() {
                     <input
                       type="text"
                       readOnly
-                      value={currentText}
+                      value={displayText}
                       style={{
                         width: '100%',
                         background: 'none',
@@ -732,7 +724,7 @@ export default function Skif() {
                       <span
                         style={{
                           position: 'absolute',
-                          left: `${currentText.length * 8.5}px`, // приблизительная ширина символа
+                          left: `${displayText.length * 8.5}px`, // приблизительная ширина символа
                           top: '50%',
                           transform: 'translateY(-50%)',
                           color: '#8b5cf6',
