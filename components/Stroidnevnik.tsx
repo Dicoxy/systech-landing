@@ -79,37 +79,6 @@ export default function Stroidnevnik() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            {/* Ecosystem badge */}
-            <motion.div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '8px 14px',
-                background: 'rgba(34, 197, 94, 0.15)',
-                border: '1px solid rgba(34, 197, 94, 0.3)',
-                borderRadius: '20px',
-                fontSize: '12px',
-                color: '#22c55e',
-                fontWeight: 500,
-                marginBottom: '24px',
-              }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div
-                style={{
-                  width: '6px',
-                  height: '6px',
-                  background: '#22c55e',
-                  borderRadius: '50%',
-                }}
-              />
-              Первый модуль платформы
-            </motion.div>
-
             <motion.span
               style={{
                 display: 'inline-block',
@@ -126,7 +95,7 @@ export default function Stroidnevnik() {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              Новый продукт
+              ПЛАТФОРМА ЭДО
             </motion.span>
 
             <motion.h2
@@ -149,6 +118,22 @@ export default function Stroidnevnik() {
 
             <motion.p
               style={{
+                fontSize: '16px',
+                color: '#64748b',
+                fontFamily: "'Inter', sans-serif",
+                margin: '0 0 8px 0',
+                fontWeight: 400,
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              viewport={{ once: true }}
+            >
+              Первый модуль платформы
+            </motion.p>
+
+            <motion.p
+              style={{
                 fontSize: '20px',
                 color: '#94a3b8',
                 fontFamily: "'Inter', sans-serif",
@@ -157,7 +142,7 @@ export default function Stroidnevnik() {
               }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
               Голосовой ввод строительной документации
