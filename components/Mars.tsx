@@ -282,7 +282,7 @@ export default function Mars() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
                   {['Viggo SC50', 'Viggo SC80', 'PUDU CC1', 'PUDU T300'].map((name, i) => (
                     <div key={i} style={{ padding: '8px 10px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <div style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: i === 2 ? '#f59e0b' : '#00ff88' }} />
+                      <div style={{ width: '5px', height: '5px', borderRadius: '50%', animation: 'robotStatusBlink 3s infinite', animationDelay: `${i * 0.5}s` }} />
                       <span style={{ color: '#94a3b8', fontSize: '11px' }}>{name}</span>
                       <span style={{ marginLeft: 'auto', color: '#64748b', fontSize: '10px' }}>{85 + i * 3}%</span>
                     </div>
@@ -375,6 +375,20 @@ export default function Mars() {
             </div>
           </motion.div>
         </div>
+
+        <style jsx global>{`
+          @keyframes robotStatusBlink {
+            0%, 33% {
+              background-color: #00ff88;
+            }
+            34%, 66% {
+              background-color: #f59e0b;
+            }
+            67%, 100% {
+              background-color: #ef4444;
+            }
+          }
+        `}</style>
       </section>
     </>
   )
