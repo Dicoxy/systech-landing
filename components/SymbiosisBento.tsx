@@ -85,7 +85,7 @@ export default function SymbiosisBento() {
                 y1={i * 40}
                 x2="1000"
                 y2={i * 40}
-                stroke="rgba(0, 255, 136, 0.08)"
+                stroke="rgba(0, 255, 136, 0.15)"
                 strokeWidth="0.5"
               />
             ))}
@@ -97,7 +97,7 @@ export default function SymbiosisBento() {
                 y1="0"
                 x2={i * 40}
                 y2="1000"
-                stroke="rgba(0, 255, 136, 0.08)"
+                stroke="rgba(0, 255, 136, 0.15)"
                 strokeWidth="0.5"
               />
             ))}

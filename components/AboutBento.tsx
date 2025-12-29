@@ -136,6 +136,39 @@ export default function AboutBento() {
         }}
       />
 
+      {/* Фоновая tech-сетка */}
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <svg
+          className="h-full w-full"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1000 1000"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          {Array.from({ length: 25 }).map((_, i) => (
+            <line
+              key={`h-about-${i}`}
+              x1="0"
+              y1={i * 40}
+              x2="1000"
+              y2={i * 40}
+              stroke="rgba(0, 255, 136, 0.15)"
+              strokeWidth="0.5"
+            />
+          ))}
+          {Array.from({ length: 25 }).map((_, i) => (
+            <line
+              key={`v-about-${i}`}
+              x1={i * 40}
+              y1="0"
+              x2={i * 40}
+              y2="1000"
+              stroke="rgba(0, 255, 136, 0.15)"
+              strokeWidth="0.5"
+            />
+          ))}
+        </svg>
+      </div>
+
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Bento Grid */}
         <motion.div

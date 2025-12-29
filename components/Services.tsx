@@ -252,7 +252,7 @@ export default function Services() {
               >
                 {/* Line 1 - straight to first card icon */}
                 <motion.path
-                  d="M 0,0 L 80,0 Q 100,0 100,20 L 100,56"
+                  d="M 0,0 L 80,0 Q 100,0 100,-20 L 100,-56"
                   fill="none"
                   stroke="#00ff88"
                   strokeWidth="2"
@@ -264,7 +264,7 @@ export default function Services() {
                 />
                 <motion.circle
                   cx="100"
-                  cy="56"
+                  cy="-56"
                   r="4"
                   fill="#00ff88"
                   initial={{ scale: 0, opacity: 0 }}
