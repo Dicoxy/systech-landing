@@ -101,7 +101,7 @@ export default function Mars() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              MARS
+              МАРС
             </motion.h2>
             
             <motion.p
@@ -161,6 +161,16 @@ export default function Mars() {
             >
               <div
                 style={{
+                  fontSize: '14px',
+                  color: '#94a3b8',
+                  marginBottom: '8px',
+                  lineHeight: 1.5,
+                }}
+              >
+                Управление мультивендорными флотами автономных роботов
+              </div>
+              <div
+                style={{
                   fontSize: '13px',
                   color: '#64748b',
                   marginBottom: '16px',
@@ -179,8 +189,8 @@ export default function Mars() {
                       alignItems: 'center',
                       gap: '6px',
                       padding: '8px 14px',
-                      background: '#12121a',
-                      border: '1px solid rgba(0,255,136,0.06)',
+                      background: i === 0 ? 'rgba(0,255,136,0.15)' : '#12121a',
+                      border: i === 0 ? '1px solid rgba(0,255,136,0.3)' : '1px solid rgba(0,255,136,0.06)',
                       borderRadius: '8px',
                       fontSize: '13px',
                       color: '#00ff88',
