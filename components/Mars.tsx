@@ -385,13 +385,28 @@ export default function Mars() {
                       />
                     </div>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ color: '#64748b', fontSize: '11px' }}>Пробег</span>
-                    <span style={{ color: '#fff', fontSize: '11px' }}>118 км</span>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                      <span style={{ color: '#64748b', fontSize: '11px' }}>Вода</span>
+                      <span style={{ color: '#3b82f6', fontSize: '11px', fontWeight: 600 }}>78%</span>
+                    </div>
+                    <div style={{ height: '4px', backgroundColor: 'rgba(59,130,246,0.1)', borderRadius: '2px' }}>
+                      <motion.div
+                        initial={{ width: '0%' }}
+                        whileInView={{ width: '78%' }}
+                        transition={{ duration: 1.2, ease: 'easeOut' }}
+                        viewport={{ once: true }}
+                        style={{ height: '100%', backgroundColor: '#3b82f6', borderRadius: '2px' }}
+                      />
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ color: '#64748b', fontSize: '11px' }}>Убрано</span>
-                    <span style={{ color: '#fff', fontSize: '11px' }}>2,450 м²</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ color: '#64748b', fontSize: '11px' }}>⚠️ Ошибки</span>
+                    <span style={{ color: '#fff', fontSize: '11px', fontWeight: 600 }}>0</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ color: '#64748b', fontSize: '11px' }}>🔌 Статус</span>
+                    <span style={{ color: '#00ff88', fontSize: '11px', fontWeight: 600 }}>На зарядке</span>
                   </div>
                 </div>
               </motion.div>
