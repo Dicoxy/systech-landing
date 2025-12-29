@@ -148,7 +148,7 @@ export default function AboutBento() {
           {/* Основная карточка — О компании */}
           <motion.div
             variants={cardVariants}
-            className="md:col-span-2 lg:row-span-2"
+            className="md:col-span-2 lg:row-span-2 flex flex-col min-h-[300px] lg:min-h-[320px]"
           >
             <motion.div
               variants={glowVariants}
@@ -156,7 +156,7 @@ export default function AboutBento() {
               whileInView="glow"
               viewport={{ once: true }}
             >
-              <GlassCard className="h-full">
+              <GlassCard className="h-full flex-1">
             {/* Локация */}
             <motion.div
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00ff88]/20 bg-[#00ff88]/10 px-4 py-2"
