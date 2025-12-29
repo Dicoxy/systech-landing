@@ -348,14 +348,15 @@ export default function AboutBento() {
           </motion.div>
 
           {/* Бесконечный контроль */}
-          <motion.div variants={cardVariants}>
+          <motion.div variants={cardVariants} className="h-full">
             <motion.div
               variants={glowVariants}
               initial="initial"
               whileInView="glow"
               viewport={{ once: true }}
+              className="h-full"
             >
-              <GlassCard className="flex min-h-[140px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center">
+              <GlassCard className="flex min-h-[160px] flex-col items-center justify-center border-[#00ff88]/15 bg-[#00ff88]/[0.03] text-center h-full">
             <motion.div
               className="font-grotesk mb-2 text-6xl font-bold text-[#00ff88]"
               animate={{
@@ -382,15 +383,16 @@ export default function AboutBento() {
           {/* Наши направления */}
           <motion.div
             variants={cardVariants}
-            className="md:col-span-2"
+            className="md:col-span-2 h-full"
           >
             <motion.div
               variants={glowVariants}
               initial="initial"
               whileInView="glow"
               viewport={{ once: true }}
+              className="h-full"
             >
-              <GlassCard className="flex min-h-[140px] flex-col justify-center">
+              <GlassCard className="flex min-h-[160px] flex-col justify-center h-full">
             <ul className="space-y-3 text-sm text-[#94a3b8] md:text-base">
               <li className="flex items-start">
                 <span className="mr-3 text-[#00ff88]">•</span>
