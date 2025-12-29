@@ -112,6 +112,66 @@ export default function Skif() {
     { name: 'Gemini Pro', active: false },
   ]
 
+  // Typewriter эффект для поля ввода
+  const queries = [
+    'Создай договор поставки для ООО Альфа...',
+    'Сделай КП на 50 роботов Pudu...',
+    'Собери данные по роботу CC1 за неделю...',
+    'Найди контакты поставщика Viggo...'
+  ]
+
+  const [currentQueryIndex, setCurrentQueryIndex] = useState(0)
+  const [currentText, setCurrentText] = useState('')
+  const [isTyping, setIsTyping] = useState(true) // true = печатаем, false = стираем
+  const [isPaused, setIsPaused] = useState(false) // пауза между циклами
+
+  useEffect(() => {
+    if (isPaused) {
+      const pauseTimer = setTimeout(() => {
+        setIsPaused(false)
+        setIsTyping(false) // после паузы начинаем стирание
+      }, 2000 + Math.random() * 1000) // пауза 2-3 секунды
+      return () => clearTimeout(pauseTimer)
+    }
+
+    const currentQuery = queries[currentQueryIndex]
+    let timer: NodeJS.Timeout
+
+    if (isTyping) {
+      // Печатаем по букве
+      if (currentText.length < currentQuery.length) {
+        timer = setTimeout(() => {
+          setCurrentText(currentQuery.slice(0, currentText.length + 1))
+        }, 50 + Math.random() * 30) // 50-80ms на букву
+      } else {
+        // Закончили печатать - пауза
+        setIsPaused(true)
+      }
+    } else {
+      // Стираем по букве
+      if (currentText.length > 0) {
+        timer = setTimeout(() => {
+          setCurrentText(currentQuery.slice(0, currentText.length - 1))
+        }, 20) // 20ms на букву
+      } else {
+        // Закончили стирание - переходим к следующему запросу
+        setCurrentQueryIndex((prevIndex) => (prevIndex + 1) % queries.length)
+        setIsTyping(true) // начинаем печатать следующий запрос
+      }
+    }
+
+    return () => clearTimeout(timer)
+  }, [currentText, isTyping, isPaused, currentQueryIndex, queries])
+
+  // Состояние для мигающего курсора
+  const [cursorVisible, setCursorVisible] = useState(true)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCursorVisible(v => !v)
+    }, 500) // мигание каждые 500ms
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <>
       {/* Separator line */}
@@ -652,18 +712,39 @@ export default function Skif() {
                     borderRadius: '12px',
                   }}
                 >
-                  <input
-                    type="text"
-                    placeholder="Введите запрос..."
-                    style={{
-                      flex: 1,
-                      background: 'none',
-                      border: 'none',
-                      fontSize: '14px',
-                      color: '#ffffff',
-                      outline: 'none',
-                    }}
-                  />
+                  <div style={{ flex: 1, position: 'relative' }}>
+                    <input
+                      type="text"
+                      readOnly
+                      value={currentText}
+                      style={{
+                        width: '100%',
+                        background: 'none',
+                        border: 'none',
+                        fontSize: '14px',
+                        color: '#ffffff',
+                        outline: 'none',
+                        caretColor: 'transparent', // скрываем системный курсор
+                      }}
+                    />
+                    {/* Мигающий курсор */}
+                    {cursorVisible && (
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: `${currentText.length * 8.5}px`, // приблизительная ширина символа
+                          top: '50%',
+                          transform: 'translateY(-50%)',
+                          color: '#8b5cf6',
+                          fontSize: '14px',
+                          fontWeight: 'bold',
+                          animation: 'cursorBlink 1s infinite',
+                        }}
+                      >
+                        |
+                      </span>
+                    )}
+                  </div>
                   <button
                     style={{
                       width: '32px',
@@ -742,6 +823,14 @@ export default function Skif() {
             }
             50% {
               opacity: 0.5;
+            }
+          }
+          @keyframes cursorBlink {
+            0%, 100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0;
             }
           }
         `}</style>
