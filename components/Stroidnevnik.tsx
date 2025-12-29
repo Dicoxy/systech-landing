@@ -134,7 +134,7 @@ export default function Stroidnevnik() {
 
             <motion.p
               style={{
-                fontSize: '20px',
+                fontSize: '18px',
                 color: '#94a3b8',
                 fontFamily: "'Inter', sans-serif",
                 margin: '0 0 24px 0',
@@ -150,7 +150,7 @@ export default function Stroidnevnik() {
 
             <motion.p
               style={{
-                fontSize: '17px',
+                fontSize: '16px',
                 color: '#94a3b8',
                 fontFamily: "'Inter', sans-serif",
                 margin: '0 0 32px 0',
