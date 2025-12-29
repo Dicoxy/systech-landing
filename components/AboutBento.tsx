@@ -391,7 +391,7 @@ export default function AboutBento() {
               viewport={{ once: true }}
             >
               <GlassCard className="flex min-h-[140px] flex-col justify-center">
-            <ul className="space-y-3 text-base text-[#94a3b8] md:text-lg">
+            <ul className="space-y-3 text-sm text-[#94a3b8] md:text-base">
               <li className="flex items-start">
                 <span className="mr-3 text-[#00ff88]">•</span>
                 <span>Создаём управление флотами роботов</span>
