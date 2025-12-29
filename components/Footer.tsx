@@ -72,6 +72,39 @@ export default function Footer() {
           background: 'linear-gradient(to top, #080810, #0a0a0f)',
         }}
       >
+        {/* Tech Grid */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 0, overflow: "hidden", pointerEvents: "none" }}>
+          <svg
+            style={{ width: "100%", height: "100%" }}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1000 1000"
+            preserveAspectRatio="xMidYMid slice"
+          >
+            {Array.from({ length: 25 }).map((_, i) => (
+              <line
+                key={`h-footer-${i}`}
+                x1="0"
+                y1={i * 40}
+                x2="1000"
+                y2={i * 40}
+                stroke="rgba(0, 255, 136, 0.08)"
+                strokeWidth="0.5"
+              />
+            ))}
+            {Array.from({ length: 25 }).map((_, i) => (
+              <line
+                key={`v-footer-${i}`}
+                x1={i * 40}
+                y1="0"
+                x2={i * 40}
+                y2="1000"
+                stroke="rgba(0, 255, 136, 0.08)"
+                strokeWidth="0.5"
+              />
+            ))}
+          </svg>
+        </div>
+
         {/* Snow */}
         <div
           ref={snowRef}
