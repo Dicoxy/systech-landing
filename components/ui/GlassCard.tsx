@@ -24,7 +24,7 @@ export default function GlassCard({
 }: GlassCardProps) {
   return (
     <motion.div
-      className={`rounded-3xl border border-white/[0.3] bg-white/[0.05] p-6 backdrop-blur-2xl ${className}`}
+      className={`rounded-3xl border border-white/[0.1] bg-white/[0.03] p-6 backdrop-blur-2xl ${className}`}
       style={{
         boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
       }}

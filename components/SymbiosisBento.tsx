@@ -84,6 +84,49 @@ export default function SymbiosisBento() {
           }}
         />
 
+        {/* Фоновая tech-сетка */}
+        <div className="pointer-events-none absolute inset-0 z-[-1] overflow-hidden">
+          <svg
+            className="h-full w-full"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1000 1000"
+            preserveAspectRatio="xMidYMid slice"
+          >
+            <defs>
+              <linearGradient id="fade" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="rgba(0, 0, 0, 0.5)" stopOpacity="0" />
+                <stop offset="50%" stopColor="rgba(0, 0, 0, 0.2)" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="rgba(0, 0, 0, 0.5)" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            {/* Горизонтальные линии */}
+            {Array.from({ length: 25 }).map((_, i) => (
+              <line
+                key={`h-bg-${i}`}
+                x1="0"
+                y1={i * 40}
+                x2="1000"
+                y2={i * 40}
+                stroke="rgba(255, 255, 255, 0.03)"
+                strokeWidth="0.5"
+              />
+            ))}
+            {/* Вертикальные линии */}
+            {Array.from({ length: 25 }).map((_, i) => (
+              <line
+                key={`v-bg-${i}`}
+                x1={i * 40}
+                y1="0"
+                x2={i * 40}
+                y2="1000"
+                stroke="rgba(255, 255, 255, 0.03)"
+                strokeWidth="0.5"
+              />
+            ))}
+            <rect width="100%" height="100%" fill="url(#fade)" opacity="0.3" />
+          </svg>
+        </div>
+
         {/* Нейросетевая сетка */}
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           <svg
@@ -288,11 +331,11 @@ export default function SymbiosisBento() {
                 viewport={{ once: true }}
                 className="h-full"
               >
-                <GlassCard className="h-full flex-1 flex items-center justify-center">
+                <GlassCard className="h-full flex-1 flex items-start justify-center pt-8 md:pt-12">
                   <div className="relative w-full max-w-2xl">
                     {/* Круг 👤 (синий) слева */}
                     <motion.div
-                      className="absolute left-[15%] top-1/2 -translate-y-1/2 flex h-24 w-24 md:h-32 md:w-32 items-center justify-center rounded-full border-2 text-4xl md:text-5xl"
+                      className="absolute left-[15%] top-[30%] flex h-24 w-24 md:h-32 md:w-32 items-center justify-center rounded-full border-2 text-4xl md:text-5xl"
                       style={{
                         backgroundColor: 'rgba(59, 130, 246, 0.1)',
                         borderColor: 'rgba(59, 130, 246, 0.3)',
@@ -308,7 +351,7 @@ export default function SymbiosisBento() {
 
                     {/* Круг 🤖 (зелёный) справа */}
                     <motion.div
-                      className="absolute right-[15%] top-1/2 -translate-y-1/2 flex h-24 w-24 md:h-32 md:w-32 items-center justify-center rounded-full border-2 text-4xl md:text-5xl"
+                      className="absolute right-[15%] top-[30%] flex h-24 w-24 md:h-32 md:w-32 items-center justify-center rounded-full border-2 text-4xl md:text-5xl"
                       style={{
                         backgroundColor: 'rgba(0, 255, 136, 0.1)',
                         borderColor: 'rgba(0, 255, 136, 0.3)',
@@ -334,7 +377,7 @@ export default function SymbiosisBento() {
                           className="absolute rounded-full bg-[#3b82f6]"
                           style={{
                             left: '15%',
-                            top: '50%',
+                            top: '30%',
                             width: `${size}px`,
                             height: `${size}px`,
                             opacity: 0.6 + Math.random() * 0.4,
@@ -363,7 +406,7 @@ export default function SymbiosisBento() {
                           className="absolute rounded-full bg-[#00ff88]"
                           style={{
                             right: '15%',
-                            top: '50%',
+                            top: '30%',
                             width: `${size}px`,
                             height: `${size}px`,
                             opacity: 0.6 + Math.random() * 0.4,
@@ -383,7 +426,7 @@ export default function SymbiosisBento() {
                     })}
 
                     {/* Анимированная линия связи с частицами */}
-                    <div className="absolute left-1/2 top-1/2 h-1 w-[60%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full">
+                    <div className="absolute left-1/2 top-[30%] h-1 w-[60%] -translate-x-1/2 overflow-hidden rounded-full">
                       {/* Основная линия */}
                       <div
                         className="absolute inset-0"
@@ -465,18 +508,18 @@ export default function SymbiosisBento() {
                     </div>
 
                     {/* Лейбл "СИМБИОЗ" по центру */}
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div className="absolute left-1/2 top-[30%] -translate-x-1/2 -translate-y-1/2">
                       <span className="font-grotesk text-sm font-semibold uppercase tracking-widest text-[#00ff88] bg-[#0a0a0f] px-4 py-2 rounded-full border border-[#00ff88]/20">
                         СИМБИОЗ
                       </span>
                     </div>
 
                     {/* Подписи */}
-                    <div className="absolute -bottom-8 left-[15%] -translate-x-1/2 text-center">
+                    <div className="absolute -bottom-12 left-[15%] -translate-x-1/2 text-center">
                       <div className="font-grotesk text-base font-semibold text-white drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">Человек</div>
                       <div className="text-sm text-[#94a3b8] drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]">Принимает решения</div>
                     </div>
-                    <div className="absolute -bottom-8 right-[15%] translate-x-1/2 text-center">
+                    <div className="absolute -bottom-12 right-[15%] translate-x-1/2 text-center">
                       <div className="font-grotesk text-base font-semibold text-white drop-shadow-[0_0_8px_rgba(0,255,136,0.5)]">AI</div>
                       <div className="text-sm text-[#94a3b8] drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]">Обрабатывает данные</div>
                     </div>
@@ -493,7 +536,7 @@ export default function SymbiosisBento() {
                 whileInView="glow"
                 viewport={{ once: true }}
               >
-                <GlassCard className="flex min-h-[140px] flex-col justify-center p-6 border border-[#3b82f6]/20">
+                <GlassCard className="flex min-h-[140px] flex-col justify-center p-6">
                   <div className="mb-4 text-4xl">👤</div>
                   <div className="font-grotesk mb-3 text-lg font-semibold text-white">
                     Задачи человека
@@ -524,7 +567,7 @@ export default function SymbiosisBento() {
                 whileInView="glow"
                 viewport={{ once: true }}
               >
-                <GlassCard className="flex min-h-[140px] flex-col justify-center p-6 border border-[#00ff88]/20">
+                <GlassCard className="flex min-h-[140px] flex-col justify-center p-6">
                   <div className="mb-4 text-4xl">🤖</div>
                   <div className="font-grotesk mb-3 text-lg font-semibold text-white">
                     Задачи AI
@@ -558,7 +601,7 @@ export default function SymbiosisBento() {
                 whileInView="glow"
                 viewport={{ once: true }}
               >
-                <GlassCard className="relative min-h-[140px] p-8 border border-[#00ff88]/10 bg-[#00ff88]/[0.03]">
+                <GlassCard className="relative min-h-[140px] p-8">
                   {/* Кавычка декоративная слева */}
                   <span
                     className="absolute -top-4 left-8 font-serif text-6xl text-[#00ff88]/20"
