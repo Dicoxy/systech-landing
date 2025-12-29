@@ -229,7 +229,7 @@ export default function Mars() {
                 style={{
                   fontSize: '13px',
                   color: '#64748b',
-                  marginBottom: '16px',
+                  marginBottom: '12px',
                   textTransform: 'uppercase',
                   letterSpacing: '1px',
                 }}
