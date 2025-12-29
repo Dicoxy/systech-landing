@@ -452,6 +452,11 @@ export default function Mars() {
                     />
                   </svg>
                 </div>
+                <div style={{ textAlign: 'center', marginTop: '8px', marginBottom: '4px' }}>
+                  <span style={{ color: '#64748b', fontSize: '10px' }}>
+                    Пробег: 118 км | Убрано: 2,450 м²
+                  </span>
+                </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px' }}>
                   {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d, i) => (
                     <span key={i} style={{ color: i === 6 ? '#00ff88' : '#64748b', fontSize: '9px' }}>{d}</span>
