@@ -299,7 +299,7 @@ export default function Mars() {
                   mars.systech-team.ru
                 </div>
                 <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#00ff88', animation: 'pulse 2s infinite' }} />
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#00ff88', animation: 'pulse 2s infinite', boxShadow: '0 0 8px rgba(0, 255, 136, 0.7)' }} />
                   <span style={{ fontSize: '10px', color: '#00ff88' }}>Live</span>
                 </div>
               </div>
@@ -333,7 +333,7 @@ export default function Mars() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
                   {['Viggo SC50', 'Viggo SC80', 'PUDU CC1', 'PUDU T300'].map((name, i) => (
                     <div key={i} style={{ padding: '8px 10px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <div style={{ width: '5px', height: '5px', borderRadius: '50%', animation: 'robotStatusBlink 3s infinite', animationDelay: `${i * 0.5}s` }} />
+                      <div style={{ width: '10px', height: '10px', borderRadius: '50%', animation: 'robotStatusBlink 3s infinite', animationDelay: `${i * 0.5}s` }} />
                       <span style={{ color: '#94a3b8', fontSize: '11px' }}>{name}</span>
                       <span style={{ marginLeft: 'auto', color: '#64748b', fontSize: '10px' }}>{85 + i * 3}%</span>
                     </div>
@@ -360,7 +360,7 @@ export default function Mars() {
                 viewport={{ once: true }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
-                  <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#00ff88' }} />
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#00ff88', boxShadow: '0 0 8px #00ff88, 0 0 12px rgba(0, 255, 136, 0.5)' }} />
                   <span style={{ color: '#fff', fontSize: '13px', fontWeight: 600 }}>Viggo SC50plus</span>
                   <span style={{ marginLeft: 'auto', padding: '2px 6px', backgroundColor: 'rgba(0,255,136,0.1)', borderRadius: '4px', color: '#00ff88', fontSize: '9px' }}>Online</span>
                 </div>
@@ -446,12 +446,26 @@ export default function Mars() {
           @keyframes robotStatusBlink {
             0%, 33% {
               background-color: #00ff88;
+              box-shadow: 0 0 8px #00ff88, 0 0 12px rgba(0, 255, 136, 0.5);
             }
             34%, 66% {
               background-color: #f59e0b;
+              box-shadow: 0 0 8px #f59e0b, 0 0 12px rgba(245, 158, 11, 0.5);
             }
             67%, 100% {
               background-color: #ef4444;
+              box-shadow: 0 0 8px #ef4444, 0 0 12px rgba(239, 68, 68, 0.5);
+            }
+          }
+
+          @keyframes pulse {
+            0%, 100% {
+              opacity: 1;
+              box-shadow: 0 0 8px rgba(0, 255, 136, 0.7);
+            }
+            50% {
+              opacity: 0.5;
+              box-shadow: 0 0 12px rgba(0, 255, 136, 0.9);
             }
           }
         `}</style>
