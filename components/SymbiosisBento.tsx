@@ -1,7 +1,6 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import GlassCard from './ui/GlassCard';
 
 // Варианты анимации для grid контейнера
@@ -52,9 +51,6 @@ const glowVariants = {
 };
 
 export default function SymbiosisBento() {
-  // Для анимации частиц
-  const particles = [0, 1, 2, 3, 4, 5];
-
   return (
     <>
       {/* Separator line */}
@@ -68,66 +64,12 @@ export default function SymbiosisBento() {
 
       <section
         id="symbiosis"
-        className="relative min-h-screen overflow-hidden px-6 pt-32 pb-32 md:px-10 md:pt-40 md:pb-40"
+        className="relative overflow-hidden px-6 py-24 md:px-10 md:py-32"
         style={{
           scrollSnapAlign: 'start',
         }}
       >
-        {/* Фоновое свечение */}
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{
-            width: '800px',
-            height: '800px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(0, 255, 136, 0.04) 0%, transparent 70%)',
-          }}
-        />
-
         {/* Фоновая tech-сетка */}
-        <div className="pointer-events-none absolute inset-0 z-[-1] overflow-hidden">
-          <svg
-            className="h-full w-full"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1000 1000"
-            preserveAspectRatio="xMidYMid slice"
-          >
-            <defs>
-              <linearGradient id="fade" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="rgba(0, 0, 0, 0.5)" stopOpacity="0" />
-                <stop offset="50%" stopColor="rgba(0, 0, 0, 0.2)" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="rgba(0, 0, 0, 0.5)" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            {/* Горизонтальные линии */}
-            {Array.from({ length: 25 }).map((_, i) => (
-              <line
-                key={`h-bg-${i}`}
-                x1="0"
-                y1={i * 40}
-                x2="1000"
-                y2={i * 40}
-                stroke="rgba(255, 255, 255, 0.03)"
-                strokeWidth="0.5"
-              />
-            ))}
-            {/* Вертикальные линии */}
-            {Array.from({ length: 25 }).map((_, i) => (
-              <line
-                key={`v-bg-${i}`}
-                x1={i * 40}
-                y1="0"
-                x2={i * 40}
-                y2="1000"
-                stroke="rgba(255, 255, 255, 0.03)"
-                strokeWidth="0.5"
-              />
-            ))}
-            <rect width="100%" height="100%" fill="url(#fade)" opacity="0.3" />
-          </svg>
-        </div>
-
-        {/* Нейросетевая сетка */}
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
           <svg
             className="h-full w-full"
@@ -136,44 +78,42 @@ export default function SymbiosisBento() {
             preserveAspectRatio="xMidYMid slice"
           >
             {/* Горизонтальные линии */}
-            {Array.from({ length: 20 }).map((_, i) => (
+            {Array.from({ length: 25 }).map((_, i) => (
               <line
                 key={`h-${i}`}
                 x1="0"
-                y1={i * 50}
+                y1={i * 40}
                 x2="1000"
-                y2={i * 50}
-                stroke="rgba(0, 255, 136, 0.1)"
+                y2={i * 40}
+                stroke="rgba(0, 255, 136, 0.08)"
                 strokeWidth="0.5"
               />
             ))}
             {/* Вертикальные линии */}
-            {Array.from({ length: 20 }).map((_, i) => (
+            {Array.from({ length: 25 }).map((_, i) => (
               <line
                 key={`v-${i}`}
-                x1={i * 50}
+                x1={i * 40}
                 y1="0"
-                x2={i * 50}
+                x2={i * 40}
                 y2="1000"
-                stroke="rgba(0, 255, 136, 0.1)"
+                stroke="rgba(0, 255, 136, 0.08)"
                 strokeWidth="0.5"
               />
             ))}
-            {/* Узлы (точки) - только 10 анимированных для производительности */}
-            {Array.from({ length: 10 }).map((_, i) => {
-              const x = (i % 5) * 200 + 100;
-              const y = Math.floor(i / 5) * 400 + 100;
+            {/* Пульсирующие узлы */}
+            {Array.from({ length: 12 }).map((_, i) => {
+              const x = (i % 4) * 250 + 125;
+              const y = Math.floor(i / 4) * 300 + 150;
               return (
                 <motion.circle
                   key={`node-${i}`}
                   cx={x}
                   cy={y}
-                  r="1.5"
-                  fill="rgba(59, 130, 246, 0.1)"
+                  r="2"
+                  fill="rgba(0, 255, 136, 0.3)"
                   initial={{ opacity: 0.2 }}
-                  animate={{
-                    opacity: [0.2, 0.6, 0.2],
-                  }}
+                  animate={{ opacity: [0.2, 0.6, 0.2] }}
                   transition={{
                     duration: 2 + Math.random() * 2,
                     repeat: Infinity,
@@ -187,82 +127,40 @@ export default function SymbiosisBento() {
         </div>
 
         {/* Градиентные орбы */}
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-          {/* Зелёный орб */}
-          <motion.div
-            className="absolute"
-            style={{
-              width: '400px',
-              height: '400px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, #00ff88 0%, transparent 70%)',
-              filter: 'blur(100px)',
-              opacity: 0.12,
-              left: '10%',
-              top: '30%',
-            }}
-            animate={{
-              y: [0, -40, 0],
-              x: [0, 20, 0],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          {/* Синий орб */}
-          <motion.div
-            className="absolute"
-            style={{
-              width: '350px',
-              height: '350px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)',
-              filter: 'blur(120px)',
-              opacity: 0.1,
-              right: '15%',
-              bottom: '25%',
-            }}
-            animate={{
-              y: [0, 30, 0],
-              x: [0, -25, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          {/* Ещё один зелёный орб */}
-          <motion.div
-            className="absolute"
-            style={{
-              width: '300px',
-              height: '300px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, #00ff88 0%, transparent 70%)',
-              filter: 'blur(130px)',
-              opacity: 0.08,
-              left: '50%',
-              top: '60%',
-            }}
-            animate={{
-              y: [0, -20, 10, 0],
-              x: [0, 15, -10, 0],
-            }}
-            transition={{
-              duration: 22,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-        </div>
+        <motion.div
+          className="pointer-events-none absolute"
+          style={{
+            width: '400px',
+            height: '400px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, #00ff88 0%, transparent 70%)',
+            filter: 'blur(100px)',
+            opacity: 0.1,
+            left: '10%',
+            top: '20%',
+          }}
+          animate={{ y: [0, -30, 0], x: [0, 15, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="pointer-events-none absolute"
+          style={{
+            width: '350px',
+            height: '350px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)',
+            filter: 'blur(120px)',
+            opacity: 0.08,
+            right: '10%',
+            bottom: '20%',
+          }}
+          animate={{ y: [0, 25, 0], x: [0, -20, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        />
 
         <div className="relative z-10 mx-auto max-w-7xl">
-          {/* Заголовок секции (выравнивание ВЛЕВО) */}
-          <div className="mb-16 text-left">
-            {/* Badge: НАШ ПОДХОД */}
+          {/* Заголовок секции */}
+          <div className="mb-12 text-left">
             <motion.div
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#00ff88]/20 bg-[#00ff88]/10 px-4 py-2"
               initial={{ opacity: 0, scale: 0.9 }}
@@ -277,18 +175,13 @@ export default function SymbiosisBento() {
                     '0 0 0 8px rgba(0, 255, 136, 0)',
                   ],
                 }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               />
               <span className="font-grotesk text-sm font-medium text-[#00ff88]">
                 НАШ ПОДХОД
               </span>
             </motion.div>
 
-            {/* H2: Человек + AI = Симбиоз */}
             <motion.h2
               className="font-grotesk mb-4 text-4xl font-bold text-white md:text-5xl"
               initial={{ opacity: 0, y: 20 }}
@@ -299,7 +192,6 @@ export default function SymbiosisBento() {
               Человек + AI = Симбиоз
             </motion.h2>
 
-            {/* Подзаголовок */}
             <motion.p
               className="text-lg text-[#94a3b8]"
               initial={{ opacity: 0, y: 20 }}
@@ -311,18 +203,18 @@ export default function SymbiosisBento() {
             </motion.p>
           </div>
 
-          {/* Bento Grid */}
+          {/* Bento Grid: 3 блока */}
           <motion.div
-            className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-5 lg:grid-cols-3 items-stretch"
+            className="grid grid-cols-1 gap-5 lg:grid-cols-3"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            {/* Блок 1: Визуализация симбиоза (2 колонки × 2 ряда) */}
+            {/* Блок 1: Большой блок — визуализация + цитата (2 колонки) */}
             <motion.div
               variants={cardVariants}
-              className="md:col-span-2 lg:row-span-2 flex flex-col min-h-[300px] lg:min-h-[320px] h-full"
+              className="lg:col-span-2 lg:row-span-2"
             >
               <motion.div
                 variants={glowVariants}
@@ -331,290 +223,180 @@ export default function SymbiosisBento() {
                 viewport={{ once: true }}
                 className="h-full"
               >
-                <GlassCard className="h-full flex-1 flex items-start justify-center pt-8 md:pt-12">
-                  <div className="relative w-full max-w-2xl">
-                    {/* Круг 👤 (синий) слева */}
-                    <motion.div
-                      className="absolute left-[15%] top-[30%] flex h-24 w-24 md:h-32 md:w-32 items-center justify-center rounded-full border-2 text-4xl md:text-5xl"
-                      style={{
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        borderColor: 'rgba(59, 130, 246, 0.3)',
-                        boxShadow: '0 0 40px rgba(59, 130, 246, 0.1)',
-                      }}
-                      whileHover={{
-                        scale: 1.05,
-                        borderColor: 'rgba(59, 130, 246, 0.6)',
-                      }}
-                    >
-                      👤
-                    </motion.div>
-
-                    {/* Круг 🤖 (зелёный) справа */}
-                    <motion.div
-                      className="absolute right-[15%] top-[30%] flex h-24 w-24 md:h-32 md:w-32 items-center justify-center rounded-full border-2 text-4xl md:text-5xl"
-                      style={{
-                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
-                        borderColor: 'rgba(0, 255, 136, 0.3)',
-                        boxShadow: '0 0 40px rgba(0, 255, 136, 0.1)',
-                      }}
-                      whileHover={{
-                        scale: 1.05,
-                        borderColor: 'rgba(0, 255, 136, 0.6)',
-                      }}
-                    >
-                      🤖
-                    </motion.div>
-
-                    {/* Частицы вокруг кругов */}
-                    {/* Частицы вокруг 👤 */}
-                    {Array.from({ length: 4 }).map((_, i) => {
-                      const radius = 60; // расстояние от центра
-                      const size = 2 + Math.random() * 2; // 2-4px
-                      const initialAngle = (i / 4) * Math.PI * 2;
-                      return (
+                <GlassCard className="h-full p-8 flex flex-col">
+                  {/* Верхняя часть — визуализация симбиоза */}
+                  <div className="flex-1 flex items-center justify-center py-8">
+                    <div className="flex items-center gap-6 md:gap-12">
+                      {/* Человек */}
+                      <div className="flex flex-col items-center">
                         <motion.div
-                          key={`human-particle-${i}`}
-                          className="absolute rounded-full bg-[#3b82f6]"
+                          className="flex h-24 w-24 md:h-32 md:w-32 items-center justify-center rounded-full border-2 text-4xl md:text-5xl mb-4"
                           style={{
-                            left: '15%',
-                            top: '30%',
-                            width: `${size}px`,
-                            height: `${size}px`,
-                            opacity: 0.6 + Math.random() * 0.4,
-                            transformOrigin: `${radius}px ${radius}px`,
-                            transform: `translate(-50%, -50%) rotate(${initialAngle * (180 / Math.PI)}deg) translateX(${radius}px)`,
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderColor: 'rgba(59, 130, 246, 0.4)',
+                            boxShadow: '0 0 40px rgba(59, 130, 246, 0.2)',
                           }}
-                          animate={{
-                            rotate: 360 + initialAngle * (180 / Math.PI),
-                          }}
-                          transition={{
-                            duration: 20 + Math.random() * 10,
-                            repeat: Infinity,
-                            ease: 'linear',
-                          }}
-                        />
-                      );
-                    })}
-                    {/* Частицы вокруг 🤖 */}
-                    {Array.from({ length: 4 }).map((_, i) => {
-                      const radius = 60;
-                      const size = 2 + Math.random() * 2;
-                      const initialAngle = (i / 4) * Math.PI * 2;
-                      return (
-                        <motion.div
-                          key={`ai-particle-${i}`}
-                          className="absolute rounded-full bg-[#00ff88]"
-                          style={{
-                            right: '15%',
-                            top: '30%',
-                            width: `${size}px`,
-                            height: `${size}px`,
-                            opacity: 0.6 + Math.random() * 0.4,
-                            transformOrigin: `${radius}px ${radius}px`,
-                            transform: `translate(50%, -50%) rotate(${initialAngle * (180 / Math.PI)}deg) translateX(${radius}px)`,
-                          }}
-                          animate={{
-                            rotate: 360 + initialAngle * (180 / Math.PI),
-                          }}
-                          transition={{
-                            duration: 25 + Math.random() * 5,
-                            repeat: Infinity,
-                            ease: 'linear',
-                          }}
-                        />
-                      );
-                    })}
+                          whileHover={{ scale: 1.05, borderColor: 'rgba(59, 130, 246, 0.7)' }}
+                        >
+                          👤
+                        </motion.div>
+                        <div className="text-base font-semibold text-white">Человек</div>
+                        <div className="text-sm text-[#94a3b8]">Принимает решения</div>
+                      </div>
 
-                    {/* Анимированная линия связи с частицами */}
-                    <div className="absolute left-1/2 top-[30%] h-1 w-[60%] -translate-x-1/2 overflow-hidden rounded-full">
-                      {/* Основная линия */}
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          background:
-                            'linear-gradient(90deg, rgba(59, 130, 246, 0.5) 0%, rgba(0, 255, 136, 0.8) 50%, rgba(59, 130, 246, 0.5) 100%)',
-                        }}
-                      />
-                      {/* Анимированный блик */}
-                      <motion.div
-                        className="absolute inset-0"
-                        style={{
-                          background:
-                            'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%)',
-                        }}
-                        animate={{
-                          x: ['-100%', '100%'],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: 'linear',
-                        }}
-                      />
-                      {/* Частицы слева направо */}
-                      {Array.from({ length: 4 }).map((_, i) => {
-                        const size = 1 + Math.random() * 2; // 1-3px
-                        const speed = 2 + Math.random() * 3; // 2-5s
-                        const vertical = ['10%', '40%', '70%', '90%'][i];
-                        return (
+                      {/* Линия связи с СИМБИОЗ */}
+                      <div className="relative w-32 md:w-48 h-3 flex items-center">
+                        {/* Основная линия */}
+                        <div
+                          className="absolute inset-0 rounded-full overflow-hidden"
+                          style={{
+                            background: 'linear-gradient(90deg, rgba(59, 130, 246, 0.6) 0%, rgba(0, 255, 136, 0.8) 50%, rgba(59, 130, 246, 0.6) 100%)',
+                          }}
+                        >
+                          {/* Анимированный блик */}
                           <motion.div
-                            key={`ltr-${i}`}
-                            className="absolute rounded-full bg-[#00ff88]"
+                            className="absolute inset-0"
                             style={{
-                              top: vertical,
-                              width: `${size}px`,
-                              height: `${size}px`,
+                              background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%)',
                             }}
-                            animate={{
-                              left: ['0%', '100%'],
-                              opacity: [0, 1, 1, 0],
-                            }}
-                            transition={{
-                              duration: speed,
-                              delay: i * 0.3,
-                              repeat: Infinity,
-                              ease: 'linear',
-                            }}
+                            animate={{ x: ['-100%', '100%'] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
                           />
-                        );
-                      })}
-                      {/* Частицы справа налево */}
-                      {Array.from({ length: 4 }).map((_, i) => {
-                        const size = 1 + Math.random() * 2;
-                        const speed = 2.5 + Math.random() * 3;
-                        const vertical = ['5%', '45%', '85%', '25%'][i];
-                        return (
-                          <motion.div
-                            key={`rtl-${i}`}
-                            className="absolute rounded-full bg-[#3b82f6]"
-                            style={{
-                              top: vertical,
-                              width: `${size}px`,
-                              height: `${size}px`,
-                            }}
-                            animate={{
-                              left: ['100%', '0%'],
-                              opacity: [0, 1, 1, 0],
-                            }}
-                            transition={{
-                              duration: speed,
-                              delay: i * 0.4,
-                              repeat: Infinity,
-                              ease: 'linear',
-                            }}
-                          />
-                        );
-                      })}
+                          {/* Частицы летят вправо */}
+                          {[0, 1, 2].map((i) => (
+                            <motion.div
+                              key={`p-r-${i}`}
+                              className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#00ff88]"
+                              style={{ boxShadow: '0 0 6px #00ff88' }}
+                              animate={{ left: ['0%', '100%'], opacity: [0, 1, 1, 0] }}
+                              transition={{ duration: 2 + i * 0.5, delay: i * 0.6, repeat: Infinity, ease: 'linear' }}
+                            />
+                          ))}
+                          {/* Частицы летят влево */}
+                          {[0, 1, 2].map((i) => (
+                            <motion.div
+                              key={`p-l-${i}`}
+                              className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#3b82f6]"
+                              style={{ boxShadow: '0 0 6px #3b82f6' }}
+                              animate={{ left: ['100%', '0%'], opacity: [0, 1, 1, 0] }}
+                              transition={{ duration: 2.5 + i * 0.4, delay: i * 0.5, repeat: Infinity, ease: 'linear' }}
+                            />
+                          ))}
+                        </div>
+                        {/* Лейбл СИМБИОЗ */}
+                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                          <span className="font-grotesk text-sm md:text-base font-bold uppercase tracking-wider text-[#00ff88] bg-[#0a0a0f]/90 px-4 py-2 rounded-full border border-[#00ff88]/40 whitespace-nowrap"
+                            style={{ boxShadow: '0 0 20px rgba(0, 255, 136, 0.3)' }}
+                          >
+                            СИМБИОЗ
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* AI */}
+                      <div className="flex flex-col items-center">
+                        <motion.div
+                          className="flex h-24 w-24 md:h-32 md:w-32 items-center justify-center rounded-full border-2 text-4xl md:text-5xl mb-4"
+                          style={{
+                            backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                            borderColor: 'rgba(0, 255, 136, 0.4)',
+                            boxShadow: '0 0 40px rgba(0, 255, 136, 0.2)',
+                          }}
+                          whileHover={{ scale: 1.05, borderColor: 'rgba(0, 255, 136, 0.7)' }}
+                        >
+                          🤖
+                        </motion.div>
+                        <div className="text-base font-semibold text-white">AI</div>
+                        <div className="text-sm text-[#94a3b8]">Обрабатывает данные</div>
+                      </div>
                     </div>
+                  </div>
 
-                    {/* Лейбл "СИМБИОЗ" по центру */}
-                    <div className="absolute left-1/2 top-[30%] -translate-x-1/2 -translate-y-1/2">
-                      <span className="font-grotesk text-sm font-semibold uppercase tracking-widest text-[#00ff88] bg-[#0a0a0f] px-4 py-2 rounded-full border border-[#00ff88]/20">
-                        СИМБИОЗ
+                  {/* Разделитель */}
+                  <div className="w-full h-px bg-gradient-to-r from-transparent via-[#00ff88]/30 to-transparent my-6" />
+
+                  {/* Нижняя часть — цитата */}
+                  <div className="relative pt-4">
+                    <span
+                      className="absolute -top-2 -left-2 font-serif text-6xl text-[#00ff88]/20"
+                      style={{ fontFamily: 'Georgia, serif' }}
+                    >
+                      "
+                    </span>
+                    <p className="text-lg md:text-xl leading-relaxed text-[#e2e8f0] italic pl-6">
+                      AI — это инструмент, который работает лучше всего в руках человека. 
+                      Не автономные системы, а симбиоз человеческого опыта и машинной эффективности.
+                    </p>
+                    <div className="mt-4 pl-6">
+                      <span className="font-grotesk text-sm font-medium text-[#00ff88]">
+                        — Философия Системных Технологий
                       </span>
                     </div>
-
-                    {/* Подписи */}
-                    <div className="absolute -bottom-12 left-[15%] -translate-x-1/2 text-center">
-                      <div className="font-grotesk text-base font-semibold text-white drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">Человек</div>
-                      <div className="text-sm text-[#94a3b8] drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]">Принимает решения</div>
-                    </div>
-                    <div className="absolute -bottom-12 right-[15%] translate-x-1/2 text-center">
-                      <div className="font-grotesk text-base font-semibold text-white drop-shadow-[0_0_8px_rgba(0,255,136,0.5)]">AI</div>
-                      <div className="text-sm text-[#94a3b8] drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]">Обрабатывает данные</div>
-                    </div>
                   </div>
                 </GlassCard>
               </motion.div>
             </motion.div>
 
-            {/* Блок 2: Задачи человека (1 колонка × 1 ряд) */}
+            {/* Блок 2: Задачи человека */}
             <motion.div variants={cardVariants}>
               <motion.div
                 variants={glowVariants}
                 initial="initial"
                 whileInView="glow"
                 viewport={{ once: true }}
+                className="h-full"
               >
-                <GlassCard className="flex min-h-[140px] flex-col justify-center p-6">
+                <GlassCard className="h-full p-6">
                   <div className="mb-4 text-4xl">👤</div>
-                  <div className="font-grotesk mb-3 text-lg font-semibold text-white">
+                  <div className="font-grotesk mb-4 text-xl font-semibold text-white">
                     Задачи человека
                   </div>
-                  <ul className="space-y-2 text-sm text-[#94a3b8]">
-                    <li className="flex items-start">
-                      <span className="mr-2 text-[#3b82f6]">•</span>
-                      <span>Принятие решений</span>
+                  <ul className="space-y-3 text-base text-[#94a3b8]">
+                    <li className="flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-[#3b82f6]" />
+                      Принятие решений
                     </li>
-                    <li className="flex items-start">
-                      <span className="mr-2 text-[#3b82f6]">•</span>
-                      <span>Креатив и стратегия</span>
+                    <li className="flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-[#3b82f6]" />
+                      Креатив и стратегия
                     </li>
-                    <li className="flex items-start">
-                      <span className="mr-2 text-[#3b82f6]">•</span>
-                      <span>Финальное слово</span>
+                    <li className="flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-[#3b82f6]" />
+                      Финальное слово
                     </li>
                   </ul>
                 </GlassCard>
               </motion.div>
             </motion.div>
 
-            {/* Блок 3: Задачи AI (1 колонка × 1 ряд) */}
+            {/* Блок 3: Задачи AI */}
             <motion.div variants={cardVariants}>
               <motion.div
                 variants={glowVariants}
                 initial="initial"
                 whileInView="glow"
                 viewport={{ once: true }}
+                className="h-full"
               >
-                <GlassCard className="flex min-h-[140px] flex-col justify-center p-6">
+                <GlassCard className="h-full p-6">
                   <div className="mb-4 text-4xl">🤖</div>
-                  <div className="font-grotesk mb-3 text-lg font-semibold text-white">
+                  <div className="font-grotesk mb-4 text-xl font-semibold text-white">
                     Задачи AI
                   </div>
-                  <ul className="space-y-2 text-sm text-[#94a3b8]">
-                    <li className="flex items-start">
-                      <span className="mr-2 text-[#00ff88]">•</span>
-                      <span>Анализ данных</span>
+                  <ul className="space-y-3 text-base text-[#94a3b8]">
+                    <li className="flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-[#00ff88]" />
+                      Анализ данных
                     </li>
-                    <li className="flex items-start">
-                      <span className="mr-2 text-[#00ff88]">•</span>
-                      <span>Рутинные задачи</span>
+                    <li className="flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-[#00ff88]" />
+                      Рутинные задачи
                     </li>
-                    <li className="flex items-start">
-                      <span className="mr-2 text-[#00ff88]">•</span>
-                      <span>Мониторинг 24/7</span>
+                    <li className="flex items-center gap-3">
+                      <span className="w-2 h-2 rounded-full bg-[#00ff88]" />
+                      Мониторинг 24/7
                     </li>
                   </ul>
-                </GlassCard>
-              </motion.div>
-            </motion.div>
-
-            {/* Блок 4: Цитата (полная ширина) */}
-            <motion.div
-              variants={cardVariants}
-              className="md:col-span-2 lg:col-span-3"
-            >
-              <motion.div
-                variants={glowVariants}
-                initial="initial"
-                whileInView="glow"
-                viewport={{ once: true }}
-              >
-                <GlassCard className="relative min-h-[140px] p-8">
-                  {/* Кавычка декоративная слева */}
-                  <span
-                    className="absolute -top-4 left-8 font-serif text-6xl text-[#00ff88]/20"
-                    style={{ fontFamily: 'Georgia, serif' }}
-                  >
-                    "
-                  </span>
-                  <p className="mb-4 text-lg leading-relaxed text-[#e2e8f0] md:text-xl">
-                    AI — это инструмент, который работает лучше всего в руках человека. Не автономные системы, а симбиоз человеческого опыта и машинной эффективности.
-                  </p>
-                  <span className="font-grotesk text-sm font-medium text-[#00ff88]">
-                    — Философия Системных Технологий
-                  </span>
                 </GlassCard>
               </motion.div>
             </motion.div>
