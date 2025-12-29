@@ -320,7 +320,13 @@ export default function Mars() {
                       <span style={{ color: '#00ff88', fontSize: '11px', fontWeight: 600 }}>95%</span>
                     </div>
                     <div style={{ height: '4px', backgroundColor: 'rgba(0,255,136,0.1)', borderRadius: '2px' }}>
-                      <div style={{ width: '95%', height: '100%', backgroundColor: '#00ff88', borderRadius: '2px' }} />
+                      <motion.div
+                        initial={{ width: '0%' }}
+                        whileInView={{ width: '95%' }}
+                        transition={{ duration: 1.2, ease: 'easeOut' }}
+                        viewport={{ once: true }}
+                        style={{ height: '100%', backgroundColor: '#00ff88', borderRadius: '2px' }}
+                      />
                     </div>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
