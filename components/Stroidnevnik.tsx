@@ -161,10 +161,7 @@ export default function Stroidnevnik() {
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <strong style={{ color: '#ffffff', fontWeight: 500 }}>
-                Прораб надиктовывает — AI формирует готовый документ
-              </strong>{' '}
-              для надзорных органов. Вместо часа заполнения форм — минута голосом в Telegram.
+              AI-система голосового ввода исполнительной документации. Формирование актов и журналов в XML-формате Минстроя за минуты.
             </motion.p>
 
             {/* Features list */}
