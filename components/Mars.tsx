@@ -369,7 +369,16 @@ export default function Mars() {
                       </linearGradient>
                     </defs>
                     <path d="M0,60 Q30,55 50,45 T100,35 T150,25 T200,15 L200,70 L0,70 Z" fill="url(#chartGrad)" />
-                    <path d="M0,60 Q30,55 50,45 T100,35 T150,25 T200,15" fill="none" stroke="#00ff88" strokeWidth="2" />
+                    <motion.path
+                      d="M0,60 Q30,55 50,45 T100,35 T150,25 T200,15"
+                      fill="none"
+                      stroke="#00ff88"
+                      strokeWidth="2"
+                      initial={{ pathLength: 0 }}
+                      whileInView={{ pathLength: 1 }}
+                      transition={{ duration: 1.8, ease: 'easeOut' }}
+                      viewport={{ once: true }}
+                    />
                   </svg>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px' }}>
