@@ -12,6 +12,7 @@ import Skif from '@/components/Skif'
 import Services from '@/components/Services'
 import SymbiosisBento from '@/components/SymbiosisBento'
 import Footer from '@/components/Footer'
+import Contact from '@/components/Contact'
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true)
@@ -34,6 +35,7 @@ export default function Home() {
         </ProductsCarousel>
         <SymbiosisBento />
         <Services />
+        <Contact />
       </main>
       
       <Footer />
