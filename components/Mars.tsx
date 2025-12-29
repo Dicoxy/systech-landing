@@ -147,6 +147,58 @@ export default function Mars() {
                 </div>
               ))}
             </motion.div>
+
+            {/* Vendor tags */}
+            <motion.div
+              style={{
+                paddingTop: '32px',
+                borderTop: '1px solid rgba(255,255,255,0.06)',
+              }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <div
+                style={{
+                  fontSize: '13px',
+                  color: '#64748b',
+                  marginBottom: '16px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                }}
+              >
+                Поддерживаемые платформы
+              </div>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {['Pudu', 'Viggo', 'X-Human', 'Yarbo'].map((vendor, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '8px 14px',
+                      background: '#12121a',
+                      border: '1px solid rgba(0,255,136,0.06)',
+                      borderRadius: '8px',
+                      fontSize: '13px',
+                      color: '#00ff88',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        background: '#00ff88',
+                      }}
+                    />
+                    {vendor}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Right column - Dashboard cards */}
