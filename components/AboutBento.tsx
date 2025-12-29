@@ -195,13 +195,13 @@ export default function AboutBento() {
               Санкт-Петербурга.
             </motion.h2>
             <motion.p
-              className="text-base leading-relaxed text-[#94a3b8] md:text-lg"
+              className="text-base leading-relaxed text-[#cbd5e1] md:text-lg"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              Создаём программные продукты для автоматизации систем и бизнес-процессов.
+              Программные продукты для автоматизации систем и бизнес-процессов.
             </motion.p>
               </GlassCard>
             </motion.div>
