@@ -1,7 +1,58 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
 import { Activity, Battery, MapPin, Wifi } from 'lucide-react'
+
+// Хук для анимации накручивания цифр
+function useCountUp(end: number, duration: number = 1500) {
+  const [count, setCount] = useState(0)
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true })
+
+  useEffect(() => {
+    if (!isInView) return
+
+    let startTime: number | null = null
+    let animationFrame: number
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / duration, 1)
+
+      // Easing function для более плавного движения
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
+      setCount(Math.floor(easeOutQuart * end))
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate)
+      } else {
+        setCount(end)
+      }
+    }
+
+    animationFrame = requestAnimationFrame(animate)
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+    }
+  }, [end, duration, isInView])
+
+  return { count, ref }
+}
+
+// Компонент для анимированного счетчика
+function AnimatedCounter({ end, suffix = '', duration = 1500 }: { end: number; suffix?: string; duration?: number }) {
+  const { count, ref } = useCountUp(end, duration)
+
+  return (
+    <span ref={ref}>
+      {count}{suffix}
+    </span>
+  )
+}
 
 export default function Mars() {
   const features = [
@@ -265,15 +316,15 @@ export default function Mars() {
                 {/* Stats */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', marginBottom: '16px' }}>
                   <div style={{ padding: '14px', backgroundColor: 'rgba(0,255,136,0.05)', borderRadius: '8px', border: '1px solid rgba(0,255,136,0.1)' }}>
-                    <div style={{ color: '#00ff88', fontSize: '24px', fontWeight: 700 }}>127</div>
+                    <div style={{ color: '#00ff88', fontSize: '24px', fontWeight: 700 }}><AnimatedCounter end={127} /></div>
                     <div style={{ color: '#64748b', fontSize: '10px' }}>Роботов онлайн</div>
                   </div>
                   <div style={{ padding: '14px', backgroundColor: 'rgba(59,130,246,0.05)', borderRadius: '8px', border: '1px solid rgba(59,130,246,0.1)' }}>
-                    <div style={{ color: '#3b82f6', fontSize: '24px', fontWeight: 700 }}>98%</div>
+                    <div style={{ color: '#3b82f6', fontSize: '24px', fontWeight: 700 }}><AnimatedCounter end={98} suffix="%" /></div>
                     <div style={{ color: '#64748b', fontSize: '10px' }}>Эффективность</div>
                   </div>
                   <div style={{ padding: '14px', backgroundColor: 'rgba(245,158,11,0.05)', borderRadius: '8px', border: '1px solid rgba(245,158,11,0.1)' }}>
-                    <div style={{ color: '#f59e0b', fontSize: '24px', fontWeight: 700 }}>5</div>
+                    <div style={{ color: '#f59e0b', fontSize: '24px', fontWeight: 700 }}><AnimatedCounter end={5} /></div>
                     <div style={{ color: '#64748b', fontSize: '10px' }}>Городов</div>
                   </div>
                 </div>
