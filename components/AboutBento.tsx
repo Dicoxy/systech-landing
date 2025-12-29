@@ -139,7 +139,7 @@ export default function AboutBento() {
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Bento Grid */}
         <motion.div
-          className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-5 lg:grid-cols-3"
+          className="mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-5 lg:grid-cols-3 items-stretch"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -148,13 +148,14 @@ export default function AboutBento() {
           {/* Основная карточка — О компании */}
           <motion.div
             variants={cardVariants}
-            className="md:col-span-2 lg:row-span-2 flex flex-col min-h-[300px] lg:min-h-[320px]"
+            className="md:col-span-2 lg:row-span-2 flex flex-col min-h-[300px] lg:min-h-[320px] h-full"
           >
             <motion.div
               variants={glowVariants}
               initial="initial"
               whileInView="glow"
               viewport={{ once: true }}
+              className="h-full"
             >
               <GlassCard className="h-full flex-1">
             {/* Локация */}
