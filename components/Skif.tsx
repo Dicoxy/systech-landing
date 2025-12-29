@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { MessageCircle, Brain, BookOpen, Building, MapPin } from 'lucide-react'
 
 // Хук для анимации накручивания цифр с поддержкой задержки
@@ -52,17 +52,6 @@ function useCountUp(end: number, duration: number = 1500, delay: number = 0) {
   return { count, ref }
 }
 
-// Компонент для анимированного счетчика
-function AnimatedCounter({ end, suffix = '', duration = 1500, delay = 0 }: { end: number; suffix?: string; duration?: number; delay?: number }) {
-  const { count, ref } = useCountUp(end, duration, delay)
-
-  return (
-    <span ref={ref}>
-      {count}{suffix}
-    </span>
-  )
-}
-
 // Форматирование числа с пробелами для тысяч
 function formatNumberWithSpaces(num: number): string {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
@@ -96,6 +85,14 @@ function AnimatedDays() {
   )
 }
 
+// Фразы для typewriter эффекта - вынесены за пределы компонента
+const TYPEWRITER_PHRASES = [
+  'Создай договор поставки для ООО Альфа...',
+  'Сделай КП на 50 роботов Pudu...',
+  'Собери данные по роботу CC1 за неделю...',
+  'Найди контакты поставщика Viggo...'
+]
+
 export default function Skif() {
   const features = [
     { icon: MessageCircle, label: 'Чат-интерфейс с любого устройства' },
@@ -113,26 +110,19 @@ export default function Skif() {
   ]
 
   // Typewriter эффект для поля ввода
-  const phrases = [
-    'Создай договор поставки для ООО Альфа...',
-    'Сделай КП на 50 роботов Pudu...',
-    'Собери данные по роботу CC1 за неделю...',
-    'Найди контакты поставщика Viggo...'
-  ]
-
   const [displayText, setDisplayText] = useState('')
   const [isTyping, setIsTyping] = useState(true)
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
 
   useEffect(() => {
-    const currentPhrase = phrases[phraseIndex]
+    const currentPhrase = TYPEWRITER_PHRASES[phraseIndex]
 
     if (isTyping) {
       if (charIndex < currentPhrase.length) {
         const timeout = setTimeout(() => {
           setDisplayText(currentPhrase.slice(0, charIndex + 1))
-          setCharIndex(charIndex + 1)
+          setCharIndex(prev => prev + 1)
         }, 50 + Math.random() * 30) // 50-80ms на букву
         return () => clearTimeout(timeout)
       } else {
@@ -144,16 +134,16 @@ export default function Skif() {
       if (charIndex > 0) {
         const timeout = setTimeout(() => {
           setDisplayText(currentPhrase.slice(0, charIndex - 1))
-          setCharIndex(charIndex - 1)
+          setCharIndex(prev => prev - 1)
         }, 20) // 20ms на букву - быстрее стирание
         return () => clearTimeout(timeout)
       } else {
         // Следующая фраза
-        setPhraseIndex((phraseIndex + 1) % phrases.length)
+        setPhraseIndex(prev => (prev + 1) % TYPEWRITER_PHRASES.length)
         setIsTyping(true)
       }
     }
-  }, [charIndex, isTyping, phraseIndex, phrases])
+  }, [charIndex, isTyping, phraseIndex])
 
   // Состояние для мигающего курсора
   const [cursorVisible, setCursorVisible] = useState(true)
@@ -730,7 +720,6 @@ export default function Skif() {
                           color: '#8b5cf6',
                           fontSize: '14px',
                           fontWeight: 'bold',
-                          animation: 'cursorBlink 1s infinite',
                         }}
                       >
                         |
@@ -815,14 +804,6 @@ export default function Skif() {
             }
             50% {
               opacity: 0.5;
-            }
-          }
-          @keyframes cursorBlink {
-            0%, 100% {
-              opacity: 1;
-            }
-            50% {
-              opacity: 0;
             }
           }
         `}</style>

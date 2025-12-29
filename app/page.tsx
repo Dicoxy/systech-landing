@@ -10,6 +10,7 @@ import Mars from '@/components/Mars'
 import Stroidnevnik from '@/components/Stroidnevnik'
 import Skif from '@/components/Skif'
 import Services from '@/components/Services'
+import SymbiosisBento from '@/components/SymbiosisBento'
 import Footer from '@/components/Footer'
 
 export default function Home() {
@@ -31,6 +32,7 @@ export default function Home() {
           <Stroidnevnik />
           <Skif />
         </ProductsCarousel>
+        <SymbiosisBento />
         <Services />
       </main>
       
