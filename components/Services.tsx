@@ -106,27 +106,29 @@ function ServiceCard({ service, index, isInView }: { service: typeof services[0]
           {service.description}
         </p>
         
-        {/* Plus icon */}
-        <div style={{
-          position: 'absolute',
-          bottom: '0',
-          right: '0',
-          width: '32px',
-          height: '32px',
-          borderRadius: '8px',
-          backgroundColor: isHovered ? 'rgba(0, 255, 136, 0.1)' : 'rgba(255,255,255,0.03)',
-          border: `1px solid ${isHovered ? 'rgba(0, 255, 136, 0.2)' : 'rgba(255,255,255,0.06)'}`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transition: 'all 0.4s ease',
-        }}>
-          <span style={{ 
-            color: isHovered ? '#00ff88' : '#475569', 
-            fontSize: '18px',
-            transition: 'color 0.4s ease',
-          }}>+</span>
-        </div>
+      </div>
+      
+      {/* Plus icon - positioned relative to card */}
+      <div style={{
+        position: 'absolute',
+        bottom: '16px',
+        right: '16px',
+        width: '32px',
+        height: '32px',
+        borderRadius: '8px',
+        backgroundColor: isHovered ? 'rgba(0, 255, 136, 0.1)' : 'rgba(255,255,255,0.03)',
+        border: `1px solid ${isHovered ? 'rgba(0, 255, 136, 0.2)' : 'rgba(255,255,255,0.06)'}`,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'all 0.4s ease',
+        zIndex: 2,
+      }}>
+        <span style={{ 
+          color: isHovered ? '#00ff88' : '#475569', 
+          fontSize: '18px',
+          transition: 'color 0.4s ease',
+        }}>+</span>
       </div>
     </motion.div>
   )
@@ -245,10 +247,10 @@ export default function Services() {
                   position: 'absolute',
                   top: '0',
                   left: '100%',
-                  width: '80px',
-                  height: '400px',
+                  width: '100px',
+                  height: '420px',
                   overflow: 'visible',
-                  marginLeft: '30px',
+                  marginLeft: '10px',
                 }}
               >
                 {/* Градиент для вертикальной линии */}
@@ -260,9 +262,9 @@ export default function Services() {
                   </linearGradient>
                 </defs>
                 
-                {/* Основная вертикальная линия - используем path для pathLength анимации */}
+                {/* Вертикальная линия */}
                 <motion.path
-                  d="M 0,25 L 0,335"
+                  d="M 10,56 L 10,364"
                   stroke="url(#lineGradient)"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -272,18 +274,20 @@ export default function Services() {
                   transition={{ duration: 1.0, delay: 0.3 }}
                 />
                 
-                {/* Точка 1 (зелёная) + горизонтальный штрих к первой карточке */}
+                {/* Точка 1 (зелёная) y=56 */}
                 <motion.circle
-                  cx="0"
-                  cy="25"
-                  r="5"
-                  fill="#00ff88"
+                  cx="10"
+                  cy="56"
+                  r="6"
+                  fill="#0a0a0f"
+                  stroke="#00ff88"
+                  strokeWidth="2"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={isInView ? { scale: 1, opacity: 1 } : {}}
                   transition={{ duration: 0.3, delay: 0.5 }}
                 />
                 <motion.path
-                  d="M 0,25 L 50,25"
+                  d="M 16,56 L 60,56"
                   stroke="#00ff88"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -293,8 +297,8 @@ export default function Services() {
                   transition={{ duration: 0.3, delay: 0.6 }}
                 />
                 <motion.circle
-                  cx="50"
-                  cy="25"
+                  cx="60"
+                  cy="56"
                   r="4"
                   fill="#00ff88"
                   initial={{ scale: 0, opacity: 0 }}
@@ -302,18 +306,20 @@ export default function Services() {
                   transition={{ duration: 0.3, delay: 0.8 }}
                 />
                 
-                {/* Точка 2 (синяя) + горизонтальный штрих ко второй карточке */}
+                {/* Точка 2 (синяя) y=210 */}
                 <motion.circle
-                  cx="0"
-                  cy="180"
-                  r="5"
-                  fill="#3b82f6"
+                  cx="10"
+                  cy="210"
+                  r="6"
+                  fill="#0a0a0f"
+                  stroke="#3b82f6"
+                  strokeWidth="2"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={isInView ? { scale: 1, opacity: 1 } : {}}
                   transition={{ duration: 0.3, delay: 0.9 }}
                 />
                 <motion.path
-                  d="M 0,180 L 50,180"
+                  d="M 16,210 L 60,210"
                   stroke="#3b82f6"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -323,8 +329,8 @@ export default function Services() {
                   transition={{ duration: 0.3, delay: 1.0 }}
                 />
                 <motion.circle
-                  cx="50"
-                  cy="180"
+                  cx="60"
+                  cy="210"
                   r="4"
                   fill="#3b82f6"
                   initial={{ scale: 0, opacity: 0 }}
@@ -332,18 +338,20 @@ export default function Services() {
                   transition={{ duration: 0.3, delay: 1.2 }}
                 />
                 
-                {/* Точка 3 (оранжевая) + горизонтальный штрих к третьей карточке */}
+                {/* Точка 3 (оранжевая) y=364 */}
                 <motion.circle
-                  cx="0"
-                  cy="335"
-                  r="5"
-                  fill="#f59e0b"
+                  cx="10"
+                  cy="364"
+                  r="6"
+                  fill="#0a0a0f"
+                  stroke="#f59e0b"
+                  strokeWidth="2"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={isInView ? { scale: 1, opacity: 1 } : {}}
                   transition={{ duration: 0.3, delay: 1.3 }}
                 />
                 <motion.path
-                  d="M 0,335 L 50,335"
+                  d="M 16,364 L 60,364"
                   stroke="#f59e0b"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -353,8 +361,8 @@ export default function Services() {
                   transition={{ duration: 0.3, delay: 1.4 }}
                 />
                 <motion.circle
-                  cx="50"
-                  cy="335"
+                  cx="60"
+                  cy="364"
                   r="4"
                   fill="#f59e0b"
                   initial={{ scale: 0, opacity: 0 }}
