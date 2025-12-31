@@ -54,26 +54,28 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
   }
 
   return (
-    <section id="products"
-      style={{ position: 'relative' }} 
+    <section
+      id="products"
+      style={{ position: 'relative' }}
       onMouseEnter={() => setShowArrows(true)}
       onMouseLeave={() => setShowArrows(false)}
     >
       {/* Horizontal scroll container */}
-      <section id="products"
+      <div
         ref={scrollContainerRef}
         style={{
           display: 'flex',
+          alignItems: 'flex-start', // Выравнивание по верхнему краю
           overflowX: 'auto',
           scrollSnapType: 'x mandatory',
-          scrollbarWidth: 'none', // Firefox
-          msOverflowStyle: 'none', // IE and Edge
-          WebkitOverflowScrolling: 'touch', // iOS smooth scrolling
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
         }}
         className="products-carousel-scroll"
       >
         {children.map((child, index) => (
-          <section id="products"
+          <div
             key={index}
             style={{
               minWidth: '100vw',
@@ -83,9 +85,9 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
             }}
           >
             {child}
-          </section>
+          </div>
         ))}
-      </section>
+      </div>
 
       {/* Navigation arrows */}
       {currentIndex > 0 && (
@@ -161,7 +163,7 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
       )}
 
       {/* Dot indicators */}
-      <section id="products"
+      <div
         style={{
           position: 'absolute',
           bottom: '40px',
@@ -194,7 +196,7 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
             aria-label={`Go to product ${index + 1}`}
           />
         ))}
-      </section>
+      </div>
 
       {/* Hide scrollbar */}
       <style jsx global>{`
@@ -202,7 +204,6 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
           display: none;
         }
 
-        /* Mobile navigation hints */
         @media (max-width: 768px) {
           .products-carousel-scroll {
             scroll-padding: 0;
