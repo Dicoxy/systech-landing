@@ -268,7 +268,7 @@ export default function Services() {
                 
                 {/* Вертикальная линия */}
                 <motion.path
-                  d="M 10,56 L 10,364"
+                  d="M 10,56 L 10,414"
                   stroke="url(#lineGradient)"
                   strokeWidth="2"
                   strokeLinecap="round"
@@ -287,19 +287,19 @@ export default function Services() {
                   initial={{ scale: 0 }} animate={isInView ? { scale: 1 } : {}} transition={{ duration: 0.3, delay: 0.8 }} />
                 
                 {/* Точка 2 + линия (синяя) */}
-                <motion.circle cx="10" cy="210" r="6" fill="#0a0a0f" stroke="#3b82f6" strokeWidth="2"
+                <motion.circle cx="10" cy="235" r="6" fill="#0a0a0f" stroke="#3b82f6" strokeWidth="2"
                   initial={{ scale: 0 }} animate={isInView ? { scale: 1 } : {}} transition={{ duration: 0.3, delay: 0.9 }} />
-                <motion.path d="M 16,210 L 50,210" stroke="#3b82f6" strokeWidth="2" fill="none"
+                <motion.path d="M 16,235 L 50,235" stroke="#3b82f6" strokeWidth="2" fill="none"
                   initial={{ pathLength: 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: 0.3, delay: 1.0 }} />
-                <motion.circle cx="50" cy="210" r="4" fill="#3b82f6"
+                <motion.circle cx="50" cy="235" r="4" fill="#3b82f6"
                   initial={{ scale: 0 }} animate={isInView ? { scale: 1 } : {}} transition={{ duration: 0.3, delay: 1.2 }} />
                 
                 {/* Точка 3 + линия (оранжевая) */}
-                <motion.circle cx="10" cy="364" r="6" fill="#0a0a0f" stroke="#f59e0b" strokeWidth="2"
+                <motion.circle cx="10" cy="414" r="6" fill="#0a0a0f" stroke="#f59e0b" strokeWidth="2"
                   initial={{ scale: 0 }} animate={isInView ? { scale: 1 } : {}} transition={{ duration: 0.3, delay: 1.3 }} />
-                <motion.path d="M 16,364 L 50,364" stroke="#f59e0b" strokeWidth="2" fill="none"
+                <motion.path d="M 16,414 L 50,414" stroke="#f59e0b" strokeWidth="2" fill="none"
                   initial={{ pathLength: 0 }} animate={isInView ? { pathLength: 1 } : {}} transition={{ duration: 0.3, delay: 1.4 }} />
-                <motion.circle cx="50" cy="364" r="4" fill="#f59e0b"
+                <motion.circle cx="50" cy="414" r="4" fill="#f59e0b"
                   initial={{ scale: 0 }} animate={isInView ? { scale: 1 } : {}} transition={{ duration: 0.3, delay: 1.6 }} />
               </svg>
               {services.map((service, index) => (
