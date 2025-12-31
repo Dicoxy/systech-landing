@@ -252,7 +252,7 @@ export default function Services() {
               >
                 {/* Line 1 - straight to first card icon */}
                 <motion.path
-                  d="M 0,0 L 80,0 Q 100,0 100,-20 L 100,-35 Q 100,-55 120,-55 L 160,-55"
+                  d="M 0,0 L 80,0 Q 100,0 100,-20 L 100,-35 Q 100,-55 115,-55"
                   fill="none"
                   stroke="#00ff88"
                   strokeWidth="2"
@@ -263,7 +263,7 @@ export default function Services() {
                   transition={{ duration: 0.6, delay: 0.4 }}
                 />
                 <motion.circle
-                  cx="160" cy="-55"
+                  cx="115" cy="-55"
                   r="4"
                   fill="#00ff88"
                   initial={{ scale: 0, opacity: 0 }}
@@ -273,7 +273,7 @@ export default function Services() {
                 
                 {/* Line 2 - curves down to second card icon */}
                 <motion.path
-                  d="M 0,0 L 50,0 Q 70,0 70,20 L 70,175 Q 70,195 90,195 L 160,195"
+                  d="M 0,0 L 50,0 Q 70,0 70,20 L 70,175 Q 70,195 115,195"
                   fill="none"
                   stroke="#3b82f6"
                   strokeWidth="2"
@@ -284,7 +284,7 @@ export default function Services() {
                   transition={{ duration: 0.8, delay: 0.6 }}
                 />
                 <motion.circle
-                  cx="160"
+                  cx="115"
                   cy="195"
                   r="4"
                   fill="#3b82f6"
@@ -295,7 +295,7 @@ export default function Services() {
                 
                 {/* Line 3 - curves further down to third card icon */}
                 <motion.path
-                  d="M 0,0 L 20,0 Q 40,0 40,20 L 40,315 Q 40,335 60,335 L 160,335"
+                  d="M 0,0 L 20,0 Q 40,0 40,20 L 40,315 Q 40,335 115,335"
                   fill="none"
                   stroke="#f59e0b"
                   strokeWidth="2"
@@ -306,7 +306,7 @@ export default function Services() {
                   transition={{ duration: 1.0, delay: 0.8 }}
                 />
                 <motion.circle
-                  cx="160"
+                  cx="115"
                   cy="335"
                   r="4"
                   fill="#f59e0b"
