@@ -239,93 +239,135 @@ export default function Services() {
                 Комплексные IT-решения для современного бизнеса
               </motion.p>
 
-              {/* Lines connecting to cards */}
+              {/* Vertical bar with gradient connecting to cards */}
               <svg 
                 style={{ 
                   position: 'absolute',
-                  top: '160px',
+                  top: '0',
                   left: '100%',
-                  width: '100px',
-                  height: '450px',
+                  width: '180px',
+                  height: '420px',
                   overflow: 'visible',
+                  marginLeft: '20px',
                 }}
               >
-                {/* Line 1 - straight to first card icon */}
-                <motion.path
-                  d="M 0,0 L 80,0 Q 100,0 100,-20 L 100,-35 Q 100,-55 115,-55"
-                  fill="none"
+                {/* Вертикальная линия с градиентом */}
+                <defs>
+                  <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#00ff88" />
+                    <stop offset="50%" stopColor="#3b82f6" />
+                    <stop offset="100%" stopColor="#f59e0b" />
+                  </linearGradient>
+                </defs>
+                
+                {/* Основная вертикальная линия */}
+                <motion.line
+                  x1="0"
+                  y1="55"
+                  x2="0"
+                  y2="395"
+                  stroke="url(#lineGradient)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                  transition={{ duration: 1.2, delay: 0.3 }}
+                />
+                
+                {/* Точка 1 (зелёная) + горизонтальный штрих */}
+                <motion.line
+                  x1="0"
+                  y1="55"
+                  x2="40"
+                  y2="55"
                   stroke="#00ff88"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-                  transition={{ duration: 0.6, delay: 0.4 }}
+                  transition={{ duration: 0.3, delay: 0.6 }}
                 />
                 <motion.circle
-                  cx="115" cy="-55"
+                  cx="0"
+                  cy="55"
+                  r="5"
+                  fill="#00ff88"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 0.5 }}
+                />
+                <motion.circle
+                  cx="40"
+                  cy="55"
                   r="4"
                   fill="#00ff88"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                  transition={{ duration: 0.3, delay: 0.9 }}
+                  transition={{ duration: 0.3, delay: 0.8 }}
                 />
                 
-                {/* Line 2 - curves down to second card icon */}
-                <motion.path
-                  d="M 0,0 L 50,0 Q 70,0 70,20 L 70,175 Q 70,195 115,195"
-                  fill="none"
+                {/* Точка 2 (синяя) + горизонтальный штрих */}
+                <motion.line
+                  x1="0"
+                  y1="225"
+                  x2="40"
+                  y2="225"
                   stroke="#3b82f6"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-                  transition={{ duration: 0.8, delay: 0.6 }}
+                  transition={{ duration: 0.3, delay: 1.0 }}
                 />
                 <motion.circle
-                  cx="115"
-                  cy="195"
+                  cx="0"
+                  cy="225"
+                  r="5"
+                  fill="#3b82f6"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 0.9 }}
+                />
+                <motion.circle
+                  cx="40"
+                  cy="225"
                   r="4"
                   fill="#3b82f6"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                  transition={{ duration: 0.3, delay: 1.3 }}
+                  transition={{ duration: 0.3, delay: 1.2 }}
                 />
                 
-                {/* Line 3 - curves further down to third card icon */}
-                <motion.path
-                  d="M 0,0 L 20,0 Q 40,0 40,20 L 40,315 Q 40,335 115,335"
-                  fill="none"
+                {/* Точка 3 (оранжевая) + горизонтальный штрих */}
+                <motion.line
+                  x1="0"
+                  y1="395"
+                  x2="40"
+                  y2="395"
                   stroke="#f59e0b"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  strokeLinejoin="round"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-                  transition={{ duration: 1.0, delay: 0.8 }}
+                  transition={{ duration: 0.3, delay: 1.4 }}
                 />
                 <motion.circle
-                  cx="115"
-                  cy="335"
+                  cx="0"
+                  cy="395"
+                  r="5"
+                  fill="#f59e0b"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 1.3 }}
+                />
+                <motion.circle
+                  cx="40"
+                  cy="395"
                   r="4"
                   fill="#f59e0b"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                  transition={{ duration: 0.3, delay: 1.7 }}
-                />
-                
-                {/* Origin point */}
-                <motion.circle
-                  cx="0"
-                  cy="0"
-                  r="6"
-                  fill="#0a0a0f"
-                  stroke="#00ff88"
-                  strokeWidth="2"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                  transition={{ duration: 0.3, delay: 0.3 }}
+                  transition={{ duration: 0.3, delay: 1.6 }}
                 />
               </svg>
             </div>
