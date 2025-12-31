@@ -252,7 +252,7 @@ export default function Services() {
               >
                 {/* Line 1 - straight to first card icon */}
                 <motion.path
-                  d="M 0,0 L 0,-80 Q 0,-100 20,-100 L 100,-100"
+                  d="M 0,0 L 80,0 Q 100,0 100,-20 L 100,-55"
                   fill="none"
                   stroke="#00ff88"
                   strokeWidth="2"
@@ -263,7 +263,7 @@ export default function Services() {
                   transition={{ duration: 0.6, delay: 0.4 }}
                 />
                 <motion.circle
-                  cx="100" cy="-100"
+                  cx="100" cy="-55"
                   r="4"
                   fill="#00ff88"
                   initial={{ scale: 0, opacity: 0 }}
@@ -284,7 +284,7 @@ export default function Services() {
                   transition={{ duration: 0.8, delay: 0.6 }}
                 />
                 <motion.circle
-                  cx="160"
+                  cx="100"
                   cy="195"
                   r="4"
                   fill="#3b82f6"
@@ -306,7 +306,7 @@ export default function Services() {
                   transition={{ duration: 1.0, delay: 0.8 }}
                 />
                 <motion.circle
-                  cx="160"
+                  cx="100"
                   cy="335"
                   r="4"
                   fill="#f59e0b"
