@@ -54,13 +54,13 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
   }
 
   return (
-    <div
-      style={{ position: 'relative' }}
+    <section id="products"
+      style={{ position: 'relative' }} 
       onMouseEnter={() => setShowArrows(true)}
       onMouseLeave={() => setShowArrows(false)}
     >
       {/* Horizontal scroll container */}
-      <div
+      <section id="products"
         ref={scrollContainerRef}
         style={{
           display: 'flex',
@@ -73,7 +73,7 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
         className="products-carousel-scroll"
       >
         {children.map((child, index) => (
-          <div
+          <section id="products"
             key={index}
             style={{
               minWidth: '100vw',
@@ -83,9 +83,9 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
             }}
           >
             {child}
-          </div>
+          </section>
         ))}
-      </div>
+      </section>
 
       {/* Navigation arrows */}
       {currentIndex > 0 && (
@@ -161,7 +161,7 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
       )}
 
       {/* Dot indicators */}
-      <div
+      <section id="products"
         style={{
           position: 'absolute',
           bottom: '40px',
@@ -194,7 +194,7 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
             aria-label={`Go to product ${index + 1}`}
           />
         ))}
-      </div>
+      </section>
 
       {/* Hide scrollbar */}
       <style jsx global>{`
@@ -209,6 +209,6 @@ export default function ProductsCarousel({ children }: ProductsCarouselProps) {
           }
         }
       `}</style>
-    </div>
+    </section>
   )
 }
