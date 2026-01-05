@@ -39,8 +39,8 @@ function ServiceCard({ service, index, isInView, onIconRef }: ServiceCardProps) 
   
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : {}}
       transition={{ duration: 0.6, delay: 0.8 + index * 0.4 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
