@@ -180,7 +180,7 @@ function AnimatedServiceLines({ originRef, iconRefs, isInView, containerRef }: A
       
       const iconRect = iconEl.getBoundingClientRect()
       // Центр левой стороны иконки
-      const endX = iconRect.left - containerRect.left
+      const endX = iconRect.left - containerRect.left - 15  // останавливаемся перед иконкой
       const endY = iconRect.top + iconRect.height / 2 - containerRect.top
       
       newEndPoints.push({ x: endX, y: endY })
