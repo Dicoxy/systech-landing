@@ -264,12 +264,10 @@ function AnimatedServiceLines({ originRef, iconRefs, isInView, containerRef }: A
     }
   }, [calculatePaths])
 
-  // Пересчитываем когда появляются refs
+  // Пересчитываем при первом рендере (refs уже готовы)
   useEffect(() => {
-    if (iconRefs.every(ref => ref !== null)) {
-      calculatePaths()
-    }
-  }, [iconRefs, calculatePaths])
+    calculatePaths()
+  }, [calculatePaths])
 
   if (paths.length === 0) return null
 
@@ -332,16 +330,17 @@ export default function Services() {
   const sectionRef = useRef<HTMLElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const originRef = useRef<HTMLDivElement>(null)
-  const [iconRefs, setIconRefs] = useState<(HTMLDivElement | null)[]>([null, null, null])
+  const iconRefsArray = useRef<(HTMLDivElement | null)[]>([null, null, null])
+  const [refsReady, setRefsReady] = useState(false)
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
 
   const handleIconRef = useCallback((index: number, el: HTMLDivElement | null) => {
-    setIconRefs(prev => {
-      const newRefs = [...prev]
-      newRefs[index] = el
-      return newRefs
-    })
-  }, [])
+    iconRefsArray.current[index] = el
+    // Проверяем все ли refs заполнены
+    if (iconRefsArray.current.every(ref => ref !== null) && !refsReady) {
+      setRefsReady(true)
+    }
+  }, [refsReady])
 
   return (
     <>
@@ -389,12 +388,14 @@ export default function Services() {
           }}
         >
           {/* Animated lines SVG overlay */}
-          <AnimatedServiceLines 
-            originRef={originRef}
-            iconRefs={iconRefs}
-            isInView={isInView}
-            containerRef={containerRef}
-          />
+          {refsReady && (
+            <AnimatedServiceLines 
+              originRef={originRef}
+              iconRefs={iconRefsArray.current}
+              isInView={isInView}
+              containerRef={containerRef}
+            />
+          )}
           
           {/* Layout: Title on left, Cards on right */}
           <div style={{
