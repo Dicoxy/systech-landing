@@ -192,46 +192,36 @@ function AnimatedServiceLines({ originRef, iconRefs, isInView, containerRef }: A
       // Радиус скругления
       const radius = 20
       
-      // Определяем направление: вверх, прямо или вниз
+      // Фиксированная точка поворота по X (одинаковая для зелёной и оранжевой)
+      const turnX = originX + 80
+      
       let path: string
       
       if (index === 0) {
-        // Первая карточка - линия идёт вверх, потом вправо
-        // Горизонтальный участок от origin
-        const horizLength = deltaX * 0.6
-        // Вертикальный участок вверх
-        const vertEnd = endY + radius
-        
+        // Первая карточка (зелёная) - ВВЕРХ потом ВПРАВО
+        // Зеркало оранжевой линии
         path = `
           M ${originX},${originY}
-          L ${originX + horizLength - radius},${originY}
-          Q ${originX + horizLength},${originY} ${originX + horizLength},${originY - radius}
-          L ${originX + horizLength},${endY + radius}
-          Q ${originX + horizLength},${endY} ${originX + horizLength + radius},${endY}
+          L ${turnX - radius},${originY}
+          Q ${turnX},${originY} ${turnX},${originY - radius}
+          L ${turnX},${endY + radius}
+          Q ${turnX},${endY} ${turnX + radius},${endY}
           L ${endX},${endY}
         `
       } else if (index === 1) {
-        // Вторая карточка - линия идёт немного вниз, потом вправо
-        const horizLength = deltaX * 0.4
-        
+        // Вторая карточка (синяя) - ПРЯМАЯ горизонтальная линия
         path = `
           M ${originX},${originY}
-          L ${originX + horizLength - radius},${originY}
-          Q ${originX + horizLength},${originY} ${originX + horizLength},${originY + radius}
-          L ${originX + horizLength},${endY - radius}
-          Q ${originX + horizLength},${endY} ${originX + horizLength + radius},${endY}
           L ${endX},${endY}
         `
       } else {
-        // Третья карточка - линия идёт вниз, потом вправо
-        const horizLength = deltaX * 0.2
-        
+        // Третья карточка (оранжевая) - ВНИЗ потом ВПРАВО
         path = `
           M ${originX},${originY}
-          L ${originX + horizLength - radius},${originY}
-          Q ${originX + horizLength},${originY} ${originX + horizLength},${originY + radius}
-          L ${originX + horizLength},${endY - radius}
-          Q ${originX + horizLength},${endY} ${originX + horizLength + radius},${endY}
+          L ${turnX - radius},${originY}
+          Q ${turnX},${originY} ${turnX},${originY + radius}
+          L ${turnX},${endY - radius}
+          Q ${turnX},${endY} ${turnX + radius},${endY}
           L ${endX},${endY}
         `
       }
