@@ -209,9 +209,15 @@ function AnimatedServiceLines({ originRef, iconRefs, isInView, containerRef }: A
           L ${endX},${endY}
         `
       } else if (index === 1) {
-        // Вторая карточка (синяя) - ПРЯМАЯ горизонтальная линия на уровне иконки
+        // Вторая карточка (синяя) - из origin с небольшим изгибом
+        // Идёт горизонтально, потом небольшой поворот к иконке
+        const midX = originX + (turnX - originX) * 0.7
         path = `
-          M ${originX},${endY}
+          M ${originX},${originY}
+          L ${midX - radius},${originY}
+          Q ${midX},${originY} ${midX},${originY + (endY - originY) * 0.3}
+          L ${midX},${endY - radius}
+          Q ${midX},${endY} ${midX + radius},${endY}
           L ${endX},${endY}
         `
       } else {
@@ -373,7 +379,7 @@ export default function Services() {
           style={{ 
             position: 'relative', 
             zIndex: 10, 
-            maxWidth: '1100px', 
+            maxWidth: '1280px', 
             margin: '0 auto',
           }}
         >
@@ -390,7 +396,7 @@ export default function Services() {
           {/* Layout: Title on left, Cards on right */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '300px 1fr',
+            gridTemplateColumns: '350px 1fr',
             gap: '60px',
             alignItems: 'start',
           }}>
