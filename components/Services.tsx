@@ -22,10 +22,7 @@ const services = [
   },
 ]
 
-const lineColors = ['#00ff88', '#3b82f6', '#f59e0b']
-
 function ServiceCard({ service, index, isInView }: { service: typeof services[0], index: number, isInView: boolean }) {
-  const lineColor = lineColors[index]
   const [isHovered, setIsHovered] = useState(false)
   const Icon = service.icon
   
@@ -47,34 +44,6 @@ function ServiceCard({ service, index, isInView }: { service: typeof services[0]
         overflow: 'hidden',
       }}
     >
-      {/* Line marker on the left */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          left: '-40px',
-          top: '32px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0',
-        }}
-        initial={{ opacity: 0, x: -20 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.5, delay: 0.5 + index * 0.2 }}
-      >
-        <div style={{
-          width: '8px',
-          height: '8px',
-          borderRadius: '50%',
-          backgroundColor: lineColor,
-          boxShadow: `0 0 10px ${lineColor}`,
-        }} />
-        <div style={{
-          width: '32px',
-          height: '2px',
-          backgroundColor: lineColor,
-        }} />
-      </motion.div>
-
       {/* Hover gradient background */}
       <div style={{
         position: 'absolute',
@@ -137,29 +106,27 @@ function ServiceCard({ service, index, isInView }: { service: typeof services[0]
           {service.description}
         </p>
         
-      </div>
-      
-      {/* Plus icon - positioned relative to card */}
-      <div style={{
-        position: 'absolute',
-        bottom: '16px',
-        right: '16px',
-        width: '32px',
-        height: '32px',
-        borderRadius: '8px',
-        backgroundColor: isHovered ? 'rgba(0, 255, 136, 0.1)' : 'rgba(255,255,255,0.03)',
-        border: `1px solid ${isHovered ? 'rgba(0, 255, 136, 0.2)' : 'rgba(255,255,255,0.06)'}`,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'all 0.4s ease',
-        zIndex: 2,
-      }}>
-        <span style={{ 
-          color: isHovered ? '#00ff88' : '#475569', 
-          fontSize: '18px',
-          transition: 'color 0.4s ease',
-        }}>+</span>
+        {/* Plus icon */}
+        <div style={{
+          position: 'absolute',
+          bottom: '0',
+          right: '0',
+          width: '32px',
+          height: '32px',
+          borderRadius: '8px',
+          backgroundColor: isHovered ? 'rgba(0, 255, 136, 0.1)' : 'rgba(255,255,255,0.03)',
+          border: `1px solid ${isHovered ? 'rgba(0, 255, 136, 0.2)' : 'rgba(255,255,255,0.06)'}`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'all 0.4s ease',
+        }}>
+          <span style={{ 
+            color: isHovered ? '#00ff88' : '#475569', 
+            fontSize: '18px',
+            transition: 'color 0.4s ease',
+          }}>+</span>
+        </div>
       </div>
     </motion.div>
   )
@@ -272,27 +239,99 @@ export default function Services() {
                 Комплексные IT-решения для современного бизнеса
               </motion.p>
 
-              
+              {/* Lines connecting to cards */}
+              <svg 
+                style={{ 
+                  position: 'absolute',
+                  top: '160px',
+                  left: '100%',
+                  width: '100px',
+                  height: '450px',
+                  overflow: 'visible',
+                }}
+              >
+                {/* Line 1 - straight to first card icon */}
+                <motion.path
+                  d="M 0,0 L 80,0 Q 100,0 100,-20 L 100,-35 Q 100,-55 120,-55 L 160,-55"
+                  fill="none"
+                  stroke="#00ff88"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                />
+                <motion.circle
+                  cx="160" cy="-55"
+                  r="4"
+                  fill="#00ff88"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 0.9 }}
+                />
+                
+                {/* Line 2 - curves down to second card icon */}
+                <motion.path
+                  d="M 0,0 L 50,0 Q 70,0 70,20 L 70,175 Q 70,195 90,195 L 160,195"
+                  fill="none"
+                  stroke="#3b82f6"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                />
+                <motion.circle
+                  cx="160"
+                  cy="195"
+                  r="4"
+                  fill="#3b82f6"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 1.3 }}
+                />
+                
+                {/* Line 3 - curves further down to third card icon */}
+                <motion.path
+                  d="M 0,0 L 20,0 Q 40,0 40,20 L 40,315 Q 40,335 60,335 L 160,335"
+                  fill="none"
+                  stroke="#f59e0b"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
+                  transition={{ duration: 1.0, delay: 0.8 }}
+                />
+                <motion.circle
+                  cx="160"
+                  cy="335"
+                  r="4"
+                  fill="#f59e0b"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 1.7 }}
+                />
+                
+                {/* Origin point */}
+                <motion.circle
+                  cx="0"
+                  cy="0"
+                  r="6"
+                  fill="#0a0a0f"
+                  stroke="#00ff88"
+                  strokeWidth="2"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={isInView ? { scale: 1, opacity: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                />
+              </svg>
             </div>
 
             {/* Right side: Cards */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', position: 'relative' }}>
-              {/* Vertical connecting line */}
-              <motion.div
-                style={{
-                  position: 'absolute',
-                  left: '-36px',
-                  top: '40px',
-                  bottom: '40px',
-                  width: '2px',
-                  background: 'linear-gradient(180deg, #00ff88 0%, #3b82f6 50%, #f59e0b 100%)',
-                  borderRadius: '1px',
-                }}
-                initial={{ scaleY: 0, opacity: 0 }}
-                animate={isInView ? { scaleY: 1, opacity: 1 } : {}}
-                transition={{ duration: 0.8, delay: 0.3 }}
-              />
-              
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               {services.map((service, index) => (
                 <ServiceCard 
                   key={index} 
