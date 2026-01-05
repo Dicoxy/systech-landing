@@ -212,16 +212,11 @@ function AnimatedServiceLines({ originRef, iconRefs, isInView, containerRef }: A
           L ${endX},${endY}
         `
       } else if (index === 1) {
-        // Вторая карточка (синяя) - из origin с небольшим изгибом
-        // Идёт горизонтально, потом небольшой поворот к иконке
-        const midX = originX + (turnX - originX) * 0.7
+        // Вторая карточка (синяя) - плавная кривая Безье напрямую к иконке
+        const ctrlX = originX + (endX - originX) * 0.5
         path = `
           M ${originX},${originY}
-          L ${midX - radius},${originY}
-          Q ${midX},${originY} ${midX},${originY + (endY - originY) * 0.3}
-          L ${midX},${endY - radius}
-          Q ${midX},${endY} ${midX + radius},${endY}
-          L ${endX},${endY}
+          C ${ctrlX},${originY} ${ctrlX},${endY} ${endX},${endY}
         `
       } else {
         // Третья карточка (оранжевая) - ВНИЗ потом ВПРАВО
@@ -250,6 +245,9 @@ function AnimatedServiceLines({ originRef, iconRefs, isInView, containerRef }: A
     // Начальный расчёт с задержкой для рендера
     const timer = setTimeout(calculatePaths, 100)
     
+    // Пересчёт после анимации карточек (delay 0.8 + 3*0.4 = 2s)
+    const animTimer = setTimeout(calculatePaths, 2200)
+    
     // Пересчёт при resize
     const handleResize = () => {
       calculatePaths()
@@ -259,6 +257,7 @@ function AnimatedServiceLines({ originRef, iconRefs, isInView, containerRef }: A
     
     return () => {
       clearTimeout(timer)
+      clearTimeout(animTimer)
       window.removeEventListener('resize', handleResize)
     }
   }, [calculatePaths])
