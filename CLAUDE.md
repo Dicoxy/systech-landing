@@ -118,3 +118,30 @@ docker compose up -d
 
 ## Текущая задача
 > Получи задачу от человека. Делай ТОЛЬКО её. После — коммит и СТОП.
+
+## Анимированные линии к карточкам
+
+**Компонент:** `components/ui/AnimatedLines.tsx`
+
+**Использование:**
+```tsx
+<AnimatedLines
+  containerRef={containerRef}
+  originRef={originRef}
+  targetRefs={[ref1, ref2, ref3]}
+  colors={['#00ff88', '#3b82f6', '#f59e0b']}
+  isInView={isInView}
+  pattern="fan"
+/>
+```
+
+**⚠️ КРИТИЧНО — частые ошибки:**
+1. **НЕ анимировать x/y целевых элементов** — только `opacity`. Иначе `getBoundingClientRect()` вернёт неверные координаты
+2. **containerRef** должен быть на родителе с `position: relative`
+3. **targetRefs** — массив refs на элементы к которым идут линии (обычно иконки карточек)
+
+**Паттерны:**
+- `fan` — верхняя линия вверх, средняя прямо, нижняя вниз (как в Services)
+- `straight` — все линии плавные кривые напрямую
+
+**Пример:** см. `components/Services.tsx`
