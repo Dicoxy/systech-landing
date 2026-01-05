@@ -192,8 +192,8 @@ function AnimatedServiceLines({ originRef, iconRefs, isInView, containerRef }: A
       // Радиус скругления
       const radius = 20
       
-      // Фиксированная точка поворота по X (одинаковая для зелёной и оранжевой)
-      const turnX = originX + 80
+      // Точка поворота - близко к карточкам (отступ от иконки)
+      const turnX = endX - 50
       
       let path: string
       
