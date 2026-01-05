@@ -35,7 +35,7 @@ interface ServiceCardProps {
 
 function ServiceCard({ service, index, isInView, onIconRef }: ServiceCardProps) {
   const [isHovered, setIsHovered] = useState(false)
-  // Icon removed - lines point to card edge
+  const Icon = service.icon
   
   return (
     <motion.div
@@ -71,30 +71,42 @@ function ServiceCard({ service, index, isInView, onIconRef }: ServiceCardProps) 
       
       {/* Content */}
       <div style={{ position: 'relative', zIndex: 1 }}>
-        {/* Невидимый ref для позиционирования линий */}
-        <div 
-          ref={(el) => onIconRef(index, el)}
-          style={{
-            position: 'absolute',
-            left: '-24px',
-            top: '50%',
-            width: '1px',
-            height: '1px',
-          }}
-        />
-        
-        {/* Title */}
-        <h3 style={{
-          fontSize: '18px',
-          fontWeight: 600,
-          color: isHovered ? '#ffffff' : '#e2e8f0',
-          fontFamily: "'Space Grotesk', sans-serif",
-          margin: '0 0 12px 0',
-          lineHeight: 1.4,
-          transition: 'color 0.4s ease',
-        }}>
-          {service.title}
-        </h3>
+        {/* Icon + Title row */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '16px' }}>
+          <div 
+            ref={(el) => onIconRef(index, el)}
+            style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '12px',
+              backgroundColor: isHovered ? 'rgba(0, 255, 136, 0.1)' : 'rgba(255,255,255,0.05)',
+              border: `1px solid ${isHovered ? 'rgba(0, 255, 136, 0.3)' : 'rgba(255,255,255,0.08)'}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.4s ease',
+              flexShrink: 0,
+            }}
+          >
+            <Icon 
+              size={24} 
+              color={isHovered ? '#00ff88' : '#64748b'}
+              strokeWidth={1.5}
+              style={{ transition: 'color 0.4s ease' }}
+            />
+          </div>
+          <h3 style={{
+            fontSize: '18px',
+            fontWeight: 600,
+            color: isHovered ? '#ffffff' : '#e2e8f0',
+            fontFamily: "'Space Grotesk', sans-serif",
+            margin: 0,
+            lineHeight: 1.4,
+            transition: 'color 0.4s ease',
+          }}>
+            {service.title}
+          </h3>
+        </div>
         
         {/* Description */}
         <p style={{
@@ -103,6 +115,7 @@ function ServiceCard({ service, index, isInView, onIconRef }: ServiceCardProps) 
           fontFamily: "'Inter', sans-serif",
           margin: 0,
           lineHeight: 1.7,
+          paddingLeft: '64px',
         }}>
           {service.description}
         </p>
