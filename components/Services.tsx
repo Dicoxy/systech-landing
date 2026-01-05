@@ -209,9 +209,9 @@ function AnimatedServiceLines({ originRef, iconRefs, isInView, containerRef }: A
           L ${endX},${endY}
         `
       } else if (index === 1) {
-        // Вторая карточка (синяя) - ПРЯМАЯ горизонтальная линия
+        // Вторая карточка (синяя) - ПРЯМАЯ горизонтальная линия на уровне иконки
         path = `
-          M ${originX},${originY}
+          M ${originX},${endY}
           L ${endX},${endY}
         `
       } else {
