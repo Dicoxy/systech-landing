@@ -476,7 +476,7 @@ export default function Services() {
                 style={{
                   width: '12px',
                   height: '12px',
-                  marginLeft: '100%',
+                  marginLeft: '70%',
                   marginTop: '20px',
                 }}
               />
