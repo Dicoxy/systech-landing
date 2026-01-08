@@ -145,3 +145,20 @@ docker compose up -d
 - `straight` — все линии плавные кривые напрямую
 
 **Пример:** см. `components/Services.tsx`
+
+## ⚠️ КРИТИЧНО: Перезапуск после изменений
+
+После любых изменений в компонентах ОБЯЗАТЕЛЬНО:
+```bash
+rm -rf .next
+npm run build
+sudo fuser -k 3002/tcp
+PORT=3002 nohup npm run start > /tmp/next.log 2>&1 &
+```
+
+Без полной пересборки изменения НЕ ПРИМЕНЯТСЯ!
+
+## Бэкап и восстановление
+
+Стабильная версия: `git checkout v1.0-stable`
+Бэкап: `/home/dev/backups/systech-landing-v1.0-stable-20260108-0615.tar.gz`
